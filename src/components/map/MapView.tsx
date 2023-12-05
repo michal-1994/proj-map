@@ -5,10 +5,12 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import 'ol/ol.css';
 
+import './MapView.css';
+
 const MapView = () => {
     useEffect(() => {
         const map = new Map({
-            target: 'map',
+            target: 'map-view',
             layers: [
                 new TileLayer({
                     source: new OSM()
@@ -25,7 +27,7 @@ const MapView = () => {
         };
     }, []);
 
-    return <main id="map" style={{ width: '100vw', height: '100vh' }}></main>;
+    return <main className="map-view" id="map-view"></main>;
 };
 
 export default MapView;

@@ -1,0 +1,19 @@
+.map-view {
+    width: 100vw;
+    height: 100vh;
+}
+
+.map-view .ol-zoom {
+    top: unset;
+    left: unset;
+    right: 0.5rem;
+    bottom: 4rem;
+}
+
+.map-view .ol-zoom button {
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.25rem;
+    line-height: 1rem;
+    font-weight: bold;
+}
