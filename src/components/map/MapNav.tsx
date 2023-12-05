@@ -1,4 +1,5 @@
 import { Card, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import icon from '../../assets/react.svg';
 
@@ -10,21 +11,15 @@ const MapNav = () => {
             style={{
                 padding: '.25rem .5rem'
             }}>
-            <Navbar.Brand href="/">
-                <Card
-                    style={{
-                        padding: '.5rem'
-                    }}>
+            <Link to="/" className="navbar-brand">
+                <Card style={{ padding: '.5rem' }}>
                     <img
                         src={icon}
                         alt="icon"
-                        style={{
-                            width: '1.5rem',
-                            height: '1.5rem'
-                        }}
+                        style={{ width: '1.5rem', height: '1.5rem' }}
                     />
                 </Card>
-            </Navbar.Brand>
+            </Link>
         </Navbar>
     );
 };
