@@ -1,6 +1,6 @@
-import MapNav from '../components/map/MapNav';
+import MapNav from '../components/map/layout/MapNav';
 // import MapAside from '../components/map/MapAside';
-import MapView from '../components/map/MapView';
+import MapView from '../components/map/layout/MapView';
 
 const MapPage = () => {
     return (
