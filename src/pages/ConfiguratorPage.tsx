@@ -1,9 +1,9 @@
-const MapPage = () => {
+const ConfiguratorPage = () => {
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
-            Map Page
+            Configurator Page
         </div>
     );
 };
 
-export default MapPage;
+export default ConfiguratorPage;
