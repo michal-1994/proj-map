@@ -25,7 +25,7 @@ const MapView = () => {
         };
     }, []);
 
-    return <div id="map" style={{ width: '100vw', height: '100vh' }}></div>;
+    return <main id="map" style={{ width: '100vw', height: '100vh' }}></main>;
 };
 
 export default MapView;

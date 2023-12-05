@@ -17,8 +17,6 @@ const TileCard: React.FC<TileCardProps> = ({ title, text, icon, path }) => {
             style={{ textDecoration: 'none' }}
             className="tile-card">
             <Card
-                bg="dark"
-                text="light"
                 style={{
                     width: '18rem',
                     padding: '1rem',
