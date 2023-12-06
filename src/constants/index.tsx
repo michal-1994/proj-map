@@ -17,15 +17,19 @@ export const TILES = [
 
 export const TOOLS = [
     {
+        title: 'Tool 1',
         icon: icon
     },
     {
+        title: 'Tool 2',
         icon: icon
     },
     {
+        title: 'Tool 3',
         icon: icon
     },
     {
+        title: 'Tool 4',
         icon: icon
     }
 ];
