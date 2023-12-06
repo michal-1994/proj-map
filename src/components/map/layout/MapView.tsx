@@ -5,6 +5,7 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
+import { OverviewMap, defaults as defaultControls } from 'ol/control';
 import 'ol/ol.css';
 
 import './MapView.css';
@@ -13,6 +14,15 @@ const MapView = () => {
     const [map, setMap] = useState<Map | null>(null);
 
     useEffect(() => {
+        const mapOverviewControl = new OverviewMap({
+            layers: [
+                new TileLayer({
+                    source: new OSM()
+                })
+            ],
+            collapsed: false
+        });
+
         const mapInstance = new Map({
             target: 'map-view',
             layers: [
@@ -23,7 +33,8 @@ const MapView = () => {
             view: new View({
                 center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
                 zoom: 12
-            })
+            }),
+            controls: defaultControls().extend([mapOverviewControl])
         });
 
         setMap(mapInstance);
