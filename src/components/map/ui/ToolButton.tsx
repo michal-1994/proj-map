@@ -8,7 +8,7 @@ interface ToolProps {
 const ToolButton: React.FC<ToolProps> = ({ title, icon }) => {
     return (
         <button className="nav-link" title={title}>
-            <Card style={{ padding: '.3rem' }}>{icon}</Card>
+            <Card style={{ padding: '.45rem' }}>{icon}</Card>
         </button>
     );
 };

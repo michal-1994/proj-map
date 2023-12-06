@@ -18,7 +18,7 @@ const MapNav = () => {
                 <Card style={{ padding: '.3rem' }}>
                     <img
                         src={icon}
-                        alt="icon"
+                        alt="Go to home page"
                         style={{ width: '1.5rem', height: '1.5rem' }}
                     />
                 </Card>
