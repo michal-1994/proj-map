@@ -21,6 +21,12 @@ export const TILES = [
         text: 'Configurator application',
         icon: icon,
         path: '/configurator'
+    },
+    {
+        title: 'Visit author',
+        text: 'Visit the author website',
+        icon: icon,
+        url: 'https://michalgrzegorczyk.pl/'
     }
 ];
 

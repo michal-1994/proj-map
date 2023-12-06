@@ -5,7 +5,13 @@ import TileCard from './TileCard';
 import './TileGrid.css';
 
 interface TileGridProps {
-    tiles: { title: string; text: string; icon: string; path: string }[];
+    tiles: {
+        title: string;
+        text: string;
+        icon: string;
+        path?: string;
+        url?: string;
+    }[];
 }
 
 const TileGrid: React.FC<TileGridProps> = ({ tiles }) => {
