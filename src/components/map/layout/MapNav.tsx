@@ -2,24 +2,11 @@ import { Card, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import ToolButton from '../ui/ToolButton';
+
+import * as Constants from '../../../constants';
 import icon from '../../../assets/react.svg';
 
 const MapNav = () => {
-    const tools = [
-        {
-            icon: icon
-        },
-        {
-            icon: icon
-        },
-        {
-            icon: icon
-        },
-        {
-            icon: icon
-        }
-    ];
-
     return (
         <Navbar
             fixed="top"
@@ -39,7 +26,7 @@ const MapNav = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    {tools.map((tool, index) => (
+                    {Constants.TOOLS.map((tool, index) => (
                         <ToolButton key={index} {...tool} />
                     ))}
                 </Nav>
