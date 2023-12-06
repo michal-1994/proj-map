@@ -1,4 +1,13 @@
 import icon from '../assets/react.svg';
+import {
+    FaPrint,
+    FaMap,
+    FaDrawPolygon,
+    FaPlus,
+    FaRuler,
+    FaInfo
+} from 'react-icons/fa';
+import { MdContrast, MdMenu } from 'react-icons/md';
 
 export const TILES = [
     {
@@ -17,19 +26,35 @@ export const TILES = [
 
 export const TOOLS = [
     {
-        title: 'Tool 1',
-        icon: icon
+        title: 'Print map',
+        icon: <FaPrint />
     },
     {
-        title: 'Tool 2',
-        icon: icon
+        title: 'Minimap',
+        icon: <FaMap />
     },
     {
-        title: 'Tool 3',
-        icon: icon
+        title: 'Draw',
+        icon: <FaDrawPolygon />
     },
     {
-        title: 'Tool 4',
-        icon: icon
+        title: 'Add layers',
+        icon: <FaPlus />
+    },
+    {
+        title: 'Measurement',
+        icon: <FaRuler />
+    },
+    {
+        title: 'Information about the object',
+        icon: <FaInfo />
+    },
+    {
+        title: 'Contrast',
+        icon: <MdContrast />
+    },
+    {
+        title: 'See more tools',
+        icon: <MdMenu />
     }
 ];
