@@ -1,0 +1,41 @@
+.sidebar {
+    transition: width 0.3s;
+    top: 55px;
+    left: 0;
+    bottom: 55px;
+    height: calc(100vh - 110px) !important;
+    position: absolute !important;
+    width: 0;
+    z-index: 1000;
+}
+
+.sidebar .sidebar-content {
+    transition: width 0.3s;
+    top: 0;
+    left: -240px;
+    bottom: 0;
+    position: absolute !important;
+    padding: 1.25rem;
+    opacity: 0;
+}
+
+.sidebar.open {
+    width: 240px;
+}
+
+.sidebar.open .sidebar-content {
+    left: 0;
+    opacity: 1;
+}
+
+.sidebar > button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 9px;
+    right: -27px;
+    height: 36px;
+    width: 36px;
+    z-index: 1001;
+}
