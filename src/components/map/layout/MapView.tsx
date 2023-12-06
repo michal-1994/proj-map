@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -9,8 +10,10 @@ import 'ol/ol.css';
 import './MapView.css';
 
 const MapView = () => {
+    const [map, setMap] = useState<Map | null>(null);
+
     useEffect(() => {
-        const map = new Map({
+        const mapInstance = new Map({
             target: 'map-view',
             layers: [
                 new TileLayer({
@@ -18,15 +21,33 @@ const MapView = () => {
                 })
             ],
             view: new View({
-                center: fromLonLat([19.1451, 51.9194]),
-                zoom: 6
+                center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
+                zoom: 12
             })
         });
 
+        setMap(mapInstance);
+
         return () => {
-            map.dispose();
+            mapInstance.setTarget(null!);
         };
     }, []);
+
+    useEffect(() => {
+        if (map) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { longitude, latitude } = position.coords;
+                    const currentPosition = fromLonLat([longitude, latitude]);
+                    map.getView().setCenter(currentPosition);
+                },
+                error => {
+                    console.error('Error getting geolocation:', error);
+                },
+                { enableHighAccuracy: true }
+            );
+        }
+    }, [map]);
 
     return <main className="map-view" id="map-view"></main>;
 };
