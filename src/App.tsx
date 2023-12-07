@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import MapPage from './pages/MapPage';
 import ConfiguratorPage from './pages/ConfiguratorPage';
 
+import { AppProvider } from './context/context';
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -21,7 +23,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-    return <RouterProvider router={router} />;
+    return (
+        <AppProvider>
+            <RouterProvider router={router} />
+        </AppProvider>
+    );
 };
 
 export default App;
