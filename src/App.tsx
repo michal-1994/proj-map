@@ -5,6 +5,7 @@ import MapPage from './pages/MapPage';
 import ConfiguratorPage from './pages/ConfiguratorPage';
 
 import { AppProvider } from './context/context';
+import { ModalProvider } from './context/modal-context';
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,9 @@ const router = createBrowserRouter([
 const App = () => {
     return (
         <AppProvider>
-            <RouterProvider router={router} />
+            <ModalProvider>
+                <RouterProvider router={router} />
+            </ModalProvider>
         </AppProvider>
     );
 };

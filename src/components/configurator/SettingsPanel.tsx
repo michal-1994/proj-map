@@ -10,17 +10,21 @@ import {
 } from 'react-bootstrap';
 
 import { useAppContext } from '../../context/context';
+import { useModalContext } from '../../context/modal-context';
 
 import './SettingsPanel.css';
 
 const SettingsPanel = () => {
-    const {
-        darkMode,
-        toggleDarkMode,
-        minimap,
-        toggleMinimap,
-        clearLocalStorage
-    } = useAppContext();
+    const { darkMode, toggleDarkMode, minimap, toggleMinimap } =
+        useAppContext();
+    const { openModal } = useModalContext();
+
+    const handleDefaultClick = () => {
+        openModal(
+            'Information',
+            'Are you sure you want to restore the default settings?'
+        );
+    };
 
     return (
         <main className="settings-panel">
@@ -122,7 +126,7 @@ const SettingsPanel = () => {
                                 <Button
                                     variant="danger"
                                     title="Restore default settings"
-                                    onClick={() => clearLocalStorage()}>
+                                    onClick={handleDefaultClick}>
                                     Default Settings
                                 </Button>
                             </ButtonGroup>
