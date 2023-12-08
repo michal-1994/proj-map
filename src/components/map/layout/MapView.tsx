@@ -14,7 +14,7 @@ import './MapView.css';
 
 const MapView = () => {
     const [map, setMap] = useState<Map | null>(null);
-    const { tools } = useAppContext();
+    const { minimap } = useAppContext();
 
     useEffect(() => {
         const mapOverviewControl = new OverviewMap({
@@ -39,7 +39,7 @@ const MapView = () => {
             })
         });
 
-        if (tools.minimap.enabled) {
+        if (minimap) {
             mapInstance.addControl(mapOverviewControl);
         }
 

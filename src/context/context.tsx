@@ -6,21 +6,15 @@ import React, {
     ReactNode
 } from 'react';
 
-interface ConfiguratorContextProps {
-    darkMode: {
-        enabled: boolean;
-    };
-}
-
-interface ToolsContextProps {
-    minimap: {
-        enabled: boolean;
-    };
+interface ToolProps {
+    id: string;
+    enabled: boolean;
 }
 
 interface AppContextProps {
-    configurator: ConfiguratorContextProps;
-    tools: ToolsContextProps;
+    darkMode: boolean;
+    minimap: boolean;
+    tools: ToolProps[];
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -28,34 +22,29 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
-    const [darkMode, setDarkMode] = useState<{
-        enabled: boolean;
-    }>({
-        enabled: false
-    });
-    const [minimap, setMinimap] = useState<{
-        enabled: boolean;
-    }>({
-        enabled: true
-    });
+    const [darkMode, setDarkMode] = useState<boolean>(true);
+    const [minimap, setMinimap] = useState<boolean>(true);
+    const [tools, setTools] = useState<ToolProps[]>([]);
 
     useEffect(() => {
         const savedConfig = localStorage.getItem('appConfig');
         if (savedConfig) {
             const parsedConfig = JSON.parse(savedConfig);
-            setDarkMode(parsedConfig.configurator.darkMode);
-            setMinimap(parsedConfig.tools.minimap);
+            setDarkMode(parsedConfig.darkMode);
+            setMinimap(parsedConfig.minimap);
+            setTools(parsedConfig.tools);
         }
     }, []);
 
     useEffect(() => {
-        const appConfig = { configurator: { darkMode }, tools: { minimap } };
+        const appConfig = { darkMode, minimap, tools };
         localStorage.setItem('appConfig', JSON.stringify(appConfig));
-    }, [darkMode, minimap]);
+    }, [darkMode, minimap, tools]);
 
     const appContextValue: AppContextProps = {
-        configurator: { darkMode },
-        tools: { minimap }
+        darkMode,
+        minimap,
+        tools
     };
 
     return (
