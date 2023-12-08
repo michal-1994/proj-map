@@ -17,6 +17,7 @@ interface AppContextProps {
     minimap: boolean;
     toggleMinimap: () => void;
     tools: ToolProps[];
+    clearLocalStorage: () => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -51,12 +52,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         setMinimap(prevMinimap => !prevMinimap);
     };
 
+    const clearLocalStorage = () => {
+        localStorage.clear();
+
+        setDarkMode(true);
+        setMinimap(false);
+        setTools([]);
+    };
+
     const appContextValue: AppContextProps = {
         darkMode,
         toggleDarkMode,
         minimap,
         toggleMinimap,
-        tools
+        tools,
+        clearLocalStorage
     };
 
     return (

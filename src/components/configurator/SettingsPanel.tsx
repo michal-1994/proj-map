@@ -1,16 +1,56 @@
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import {
+    Form,
+    Container,
+    Row,
+    Col,
+    ButtonToolbar,
+    ButtonGroup,
+    Button
+} from 'react-bootstrap';
 
 import { useAppContext } from '../../context/context';
 
 import './SettingsPanel.css';
 
 const SettingsPanel = () => {
-    const { darkMode, toggleDarkMode, minimap, toggleMinimap } =
-        useAppContext();
+    const {
+        darkMode,
+        toggleDarkMode,
+        minimap,
+        toggleMinimap,
+        clearLocalStorage
+    } = useAppContext();
 
     return (
         <main className="settings-panel">
             <Container>
+                <Row className="settings-panel-buttons">
+                    <Col>
+                        <ButtonToolbar aria-label="Toolbar with button groups">
+                            <ButtonGroup
+                                className="me-2"
+                                aria-label="Go to home page">
+                                <Link
+                                    to="/"
+                                    className="btn btn-primary"
+                                    title="Go to home page">
+                                    Home
+                                </Link>
+                            </ButtonGroup>
+                            <ButtonGroup
+                                className="me-2"
+                                aria-label="Second group">
+                                <Link
+                                    to="/map"
+                                    className="btn btn-primary"
+                                    title="Go to map page">
+                                    Map
+                                </Link>
+                            </ButtonGroup>
+                        </ButtonToolbar>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <h2>Application</h2>
@@ -73,6 +113,22 @@ const SettingsPanel = () => {
                     </Col>
                 </Row>
                 <br />
+                <Row className="settings-panel-buttons">
+                    <Col>
+                        <ButtonToolbar aria-label="Toolbar with button groups">
+                            <ButtonGroup
+                                className="me-2"
+                                aria-label="Restore default settings">
+                                <Button
+                                    variant="danger"
+                                    title="Restore default settings"
+                                    onClick={() => clearLocalStorage()}>
+                                    Default Settings
+                                </Button>
+                            </ButtonGroup>
+                        </ButtonToolbar>
+                    </Col>
+                </Row>
             </Container>
         </main>
     );
