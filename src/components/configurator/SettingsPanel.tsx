@@ -86,7 +86,7 @@ const SettingsPanel = () => {
                             <Form.Group controlId="minimapSwitch">
                                 <Form.Check
                                     type="switch"
-                                    label="Minimap"
+                                    label="Mini map visible"
                                     checked={minimap}
                                     onChange={() => toggleMinimap()}
                                 />
@@ -97,7 +97,7 @@ const SettingsPanel = () => {
                 <br />
                 <Row>
                     <Col>
-                        <h2>Tools</h2>
+                        <h2>Tools (add tools to map)</h2>
                     </Col>
                 </Row>
                 <Row>

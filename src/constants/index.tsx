@@ -11,13 +11,13 @@ export const TILES = [
     },
     {
         title: 'Configurator',
-        text: 'Configurator application',
+        text: 'Application configurator',
         icon: icon,
         path: '/configurator'
     },
     {
         title: 'Visit author',
-        text: 'Visit the author website',
+        text: "Visit the author's website",
         icon: icon,
         url: 'https://michalgrzegorczyk.pl/'
     }
