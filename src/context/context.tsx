@@ -42,6 +42,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     useEffect(() => {
         const appConfig = { darkMode, minimap, tools };
         localStorage.setItem('appConfig', JSON.stringify(appConfig));
+
+        const theme = darkMode ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-bs-theme', theme);
     }, [darkMode, minimap, tools]);
 
     const toggleDarkMode = () => {
