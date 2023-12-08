@@ -16,11 +16,11 @@ interface TileGridProps {
 
 const TileGrid: React.FC<TileGridProps> = ({ tiles }) => {
     return (
-        <div className="tile-grid">
+        <main className="tile-grid">
             {tiles.map((tile, index) => (
                 <TileCard key={index} {...tile} />
             ))}
-        </div>
+        </main>
     );
 };
 

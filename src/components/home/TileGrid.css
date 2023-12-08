@@ -3,5 +3,10 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
-    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .tile-grid {
+        gap: 1.5rem;
+    }
 }
