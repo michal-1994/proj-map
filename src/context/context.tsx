@@ -13,7 +13,9 @@ interface ToolProps {
 
 interface AppContextProps {
     darkMode: boolean;
+    toggleDarkMode: () => void;
     minimap: boolean;
+    toggleMinimap: () => void;
     tools: ToolProps[];
 }
 
@@ -23,7 +25,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
     const [darkMode, setDarkMode] = useState<boolean>(true);
-    const [minimap, setMinimap] = useState<boolean>(true);
+    const [minimap, setMinimap] = useState<boolean>(false);
     const [tools, setTools] = useState<ToolProps[]>([]);
 
     useEffect(() => {
@@ -41,9 +43,19 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         localStorage.setItem('appConfig', JSON.stringify(appConfig));
     }, [darkMode, minimap, tools]);
 
+    const toggleDarkMode = () => {
+        setDarkMode(prevDarkMode => !prevDarkMode);
+    };
+
+    const toggleMinimap = () => {
+        setMinimap(prevMinimap => !prevMinimap);
+    };
+
     const appContextValue: AppContextProps = {
         darkMode,
+        toggleDarkMode,
         minimap,
+        toggleMinimap,
         tools
     };
 

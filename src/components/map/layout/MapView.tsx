@@ -13,8 +13,8 @@ import { useAppContext } from '../../../context/context';
 import './MapView.css';
 
 const MapView = () => {
-    const [map, setMap] = useState<Map | null>(null);
     const { minimap } = useAppContext();
+    const [map, setMap] = useState<Map | null>(null);
 
     useEffect(() => {
         const mapOverviewControl = new OverviewMap({
@@ -48,7 +48,7 @@ const MapView = () => {
         return () => {
             mapInstance.setTarget(null!);
         };
-    }, []);
+    }, [minimap]);
 
     useEffect(() => {
         if (map) {
