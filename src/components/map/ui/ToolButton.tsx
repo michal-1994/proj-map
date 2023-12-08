@@ -1,31 +1,25 @@
 import { Card } from 'react-bootstrap';
-import { toggleMiniMap } from '../../../utils/mapUtils';
+
+import * as Constants from '../../../constants';
 
 interface ToolProps {
     id: string;
-    title: string;
-    icon: JSX.Element;
+    enable: boolean;
 }
 
-const ToolButton: React.FC<ToolProps> = ({ id, title, icon }) => {
+const ToolButton: React.FC<ToolProps> = ({ id }) => {
+    const tool = Constants.TOOLS.find(tool => tool.id === id);
+
     const handleClick = (id: string) => {
-        switch (id) {
-            case 'minimap': {
-                toggleMiniMap();
-                break;
-            }
-            default: {
-                break;
-            }
-        }
+        console.log(id);
     };
 
     return (
         <button
             className="nav-link"
-            title={title}
+            title={tool?.title}
             onClick={() => handleClick(id)}>
-            <Card style={{ padding: '.45rem' }}>{icon}</Card>
+            <Card style={{ padding: '.45rem' }}>{tool?.icon}</Card>
         </button>
     );
 };

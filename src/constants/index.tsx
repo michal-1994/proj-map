@@ -23,6 +23,33 @@ export const TILES = [
     }
 ];
 
+export const AVAILABLE_TOOLS = [
+    {
+        id: 'print',
+        enable: true
+    },
+    {
+        id: 'minimap',
+        enable: true
+    },
+    {
+        id: 'draw',
+        enable: true
+    },
+    {
+        id: 'addlayers',
+        enable: true
+    },
+    {
+        id: 'measurment',
+        enable: false
+    },
+    {
+        id: 'contrast',
+        enable: true
+    }
+];
+
 export const TOOLS = [
     {
         id: 'print',

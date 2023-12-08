@@ -6,9 +6,11 @@ import React, {
     ReactNode
 } from 'react';
 
+import * as Constants from '../constants/index';
+
 interface ToolProps {
     id: string;
-    enabled: boolean;
+    enable: boolean;
 }
 
 interface AppContextProps {
@@ -27,7 +29,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const [darkMode, setDarkMode] = useState<boolean>(true);
     const [minimap, setMinimap] = useState<boolean>(false);
-    const [tools, setTools] = useState<ToolProps[]>([]);
+    const [tools, setTools] = useState<ToolProps[]>(Constants.AVAILABLE_TOOLS);
 
     useEffect(() => {
         const savedConfig = localStorage.getItem('appConfig');
@@ -60,7 +62,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
         setDarkMode(true);
         setMinimap(false);
-        setTools([]);
+        setTools(Constants.AVAILABLE_TOOLS);
     };
 
     const appContextValue: AppContextProps = {

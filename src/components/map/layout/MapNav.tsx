@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 
 import ToolButton from '../ui/ToolButton';
 
-import * as Constants from '../../../constants';
+import { useAppContext } from '../../../context/context';
+
 import icon from '../../../assets/react.svg';
 
 const MapNav = () => {
+    const { tools } = useAppContext();
+
     return (
         <Navbar
             fixed="top"
@@ -26,9 +29,11 @@ const MapNav = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    {Constants.TOOLS.map((tool, index) => (
-                        <ToolButton key={index} {...tool} />
-                    ))}
+                    {tools.map(tool => {
+                        if (tool.enable) {
+                            return <ToolButton key={tool.id} {...tool} />;
+                        }
+                    })}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
