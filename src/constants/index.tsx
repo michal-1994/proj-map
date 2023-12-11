@@ -26,7 +26,7 @@ export const TILES = [
 export const AVAILABLE_TOOLS = [
     {
         id: 'print',
-        enable: true
+        enable: false
     },
     {
         id: 'minimap',
@@ -34,11 +34,11 @@ export const AVAILABLE_TOOLS = [
     },
     {
         id: 'draw',
-        enable: true
+        enable: false
     },
     {
         id: 'addlayers',
-        enable: true
+        enable: false
     },
     {
         id: 'measurment',
@@ -46,7 +46,7 @@ export const AVAILABLE_TOOLS = [
     },
     {
         id: 'contrast',
-        enable: true
+        enable: false
     }
 ];
 
