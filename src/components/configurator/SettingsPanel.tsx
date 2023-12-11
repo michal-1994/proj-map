@@ -15,7 +15,7 @@ import { useModalContext } from '../../context/modal-context';
 import './SettingsPanel.css';
 
 const SettingsPanel = () => {
-    const { darkMode, toggleDarkMode, minimap, toggleMinimap } =
+    const { darkMode, toggleDarkMode, minimap, toggleMinimap, tools } =
         useAppContext();
     const { openModal } = useModalContext();
 
@@ -24,6 +24,10 @@ const SettingsPanel = () => {
             'Information',
             'Are you sure you want to restore the default settings?'
         );
+    };
+
+    const getTool = (id: string) => {
+        return tools.find(tool => tool.id === id);
     };
 
     return (
@@ -107,8 +111,7 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Minimap"
-                                    checked={false}
-                                    disabled={true}
+                                    checked={getTool('minimap')?.enable}
                                     onChange={() =>
                                         console.log('minimapToolSwitcher')
                                     }

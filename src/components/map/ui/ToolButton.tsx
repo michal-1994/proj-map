@@ -10,7 +10,6 @@ interface ToolProps {
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();
-    const tool = Constants.TOOLS.find(tool => tool.id === id);
 
     const handleClick = (id: string) => {
         console.log(id);
@@ -21,12 +20,16 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         }
     };
 
+    const getTool = (id: string) => {
+        return Constants.TOOLS.find(tool => tool.id === id);
+    };
+
     return (
         <button
             className="nav-link"
-            title={tool?.title}
+            title={getTool(id)?.title}
             onClick={() => handleClick(id)}>
-            <Card style={{ padding: '.45rem' }}>{tool?.icon}</Card>
+            <Card style={{ padding: '.45rem' }}>{getTool(id)?.icon}</Card>
         </button>
     );
 };
