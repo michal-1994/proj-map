@@ -25,19 +25,19 @@ export const TILES = [
 
 export const AVAILABLE_TOOLS = [
     {
-        id: 'print',
-        enable: false
-    },
-    {
         id: 'minimap',
         enable: true
     },
     {
-        id: 'draw',
+        id: 'print',
         enable: false
     },
     {
         id: 'addlayers',
+        enable: false
+    },
+    {
+        id: 'draw',
         enable: false
     },
     {
