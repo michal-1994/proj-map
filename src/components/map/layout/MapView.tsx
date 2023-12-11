@@ -64,7 +64,7 @@ const MapView = () => {
         } else {
             map?.removeControl(overviewMapControl!);
         }
-    }, [isMinimap]);
+    }, [map, isMinimap]);
 
     useEffect(() => {
         if (map) {
