@@ -98,7 +98,13 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Mini map visible"
-                                    checked={minimapVisibility}
+                                    disabled={
+                                        !getTool(Constants.MINIMAP_TOOL)?.enable
+                                    }
+                                    checked={
+                                        getTool(Constants.MINIMAP_TOOL)
+                                            ?.enable && minimapVisibility
+                                    }
                                     onChange={() => toggleMinimapVisibility()}
                                 />
                             </Form.Group>
