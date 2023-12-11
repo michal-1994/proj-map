@@ -1,6 +1,7 @@
 import { Card } from 'react-bootstrap';
 
 import * as Constants from '../../../constants';
+import { useMapContext } from '../../../context/map-context';
 
 interface ToolProps {
     id: string;
@@ -8,10 +9,16 @@ interface ToolProps {
 }
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
+    const { toggleMinimap } = useMapContext();
     const tool = Constants.TOOLS.find(tool => tool.id === id);
 
     const handleClick = (id: string) => {
         console.log(id);
+        switch (id) {
+            case 'minimap':
+                toggleMinimap();
+                break;
+        }
     };
 
     return (

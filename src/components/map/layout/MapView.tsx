@@ -9,12 +9,17 @@ import Map from 'ol/Map';
 import 'ol/ol.css';
 
 import { useAppContext } from '../../../context/context';
+import { useMapContext } from '../../../context/map-context';
 
 import './MapView.css';
 
 const MapView = () => {
     const { minimap } = useAppContext();
+    const { isMinimap } = useMapContext();
+
     const [map, setMap] = useState<Map | null>(null);
+    const [overviewMapControl, setOverviewMapControl] =
+        useState<OverviewMap | null>(null);
 
     useEffect(() => {
         const mapOverviewControl = new OverviewMap({
@@ -39,16 +44,27 @@ const MapView = () => {
             })
         });
 
-        if (minimap) {
-            mapInstance.addControl(mapOverviewControl);
-        }
-
+        setOverviewMapControl(mapOverviewControl);
         setMap(mapInstance);
+
+        if (minimap) {
+            map?.addControl(overviewMapControl!);
+        } else {
+            map?.removeControl(overviewMapControl!);
+        }
 
         return () => {
             mapInstance.setTarget(null!);
         };
     }, [minimap]);
+
+    useEffect(() => {
+        if (isMinimap) {
+            map?.addControl(overviewMapControl!);
+        } else {
+            map?.removeControl(overviewMapControl!);
+        }
+    }, [isMinimap]);
 
     useEffect(() => {
         if (map) {
