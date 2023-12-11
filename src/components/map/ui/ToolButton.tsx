@@ -3,10 +3,7 @@ import { Card } from 'react-bootstrap';
 import * as Constants from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
 
-interface ToolProps {
-    id: string;
-    enable: boolean;
-}
+import { ToolProps } from '../../../models';
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();

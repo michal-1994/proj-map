@@ -2,17 +2,9 @@ import React from 'react';
 
 import TileCard from './TileCard';
 
-import './TileGrid.css';
+import { TileGridProps } from '../../models';
 
-interface TileGridProps {
-    tiles: {
-        title: string;
-        text: string;
-        icon: string;
-        path?: string;
-        url?: string;
-    }[];
-}
+import './TileGrid.css';
 
 const TileGrid: React.FC<TileGridProps> = ({ tiles }) => {
     return (

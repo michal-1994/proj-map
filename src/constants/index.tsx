@@ -2,7 +2,9 @@ import icon from '../assets/react.svg';
 import { FaPrint, FaMap, FaDrawPolygon, FaPlus, FaRuler } from 'react-icons/fa';
 import { MdContrast } from 'react-icons/md';
 
-export const TILES = [
+import { ButtonToolProps, TileProps, ToolProps } from '../models';
+
+export const TILES: TileProps[] = [
     {
         title: 'Map',
         text: 'Map application',
@@ -23,14 +25,14 @@ export const TILES = [
     }
 ];
 
-export const MINIMAP_TOOL = 'minimap';
-export const PRINT_TOOL = 'print';
-export const ADD_LAYERS_TOOL = 'addlayers';
-export const DRAW_TOOL = 'draw';
-export const MEASURMENT_TOOL = 'measurment';
-export const CONTRAST_TOOL = 'contrast';
+export const MINIMAP_TOOL: string = 'minimap';
+export const PRINT_TOOL: string = 'print';
+export const ADD_LAYERS_TOOL: string = 'addlayers';
+export const DRAW_TOOL: string = 'draw';
+export const MEASURMENT_TOOL: string = 'measurment';
+export const CONTRAST_TOOL: string = 'contrast';
 
-export const TOOLS = [
+export const TOOLS: ToolProps[] = [
     {
         id: MINIMAP_TOOL,
         enable: true
@@ -57,7 +59,7 @@ export const TOOLS = [
     }
 ];
 
-export const BUTTON_TOOLS = [
+export const BUTTON_TOOLS: ButtonToolProps[] = [
     {
         id: MINIMAP_TOOL,
         title: 'Minimap',

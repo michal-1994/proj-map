@@ -1,23 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 
+import { TileProps } from '../../models';
+
 import './TileCard.css';
 
-interface TileCardProps {
-    title: string;
-    text: string;
-    icon: string;
-    path?: string;
-    url?: string;
-}
-
-const TileCard: React.FC<TileCardProps> = ({
-    title,
-    text,
-    icon,
-    path,
-    url
-}) => {
+const TileCard: React.FC<TileProps> = ({ title, text, icon, path, url }) => {
     let content;
     const card = (
         <Card

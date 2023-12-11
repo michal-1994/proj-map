@@ -8,10 +8,7 @@ import React, {
 
 import * as Constants from '../constants/index';
 
-interface ToolProps {
-    id: string;
-    enable: boolean;
-}
+import { ToolProps } from '../models';
 
 interface AppContextProps {
     darkMode: boolean;
