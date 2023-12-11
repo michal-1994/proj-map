@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+
 import { useAppContext } from './context';
 
 interface MapContextProps {
@@ -11,8 +12,8 @@ const MapContext = createContext<MapContextProps | undefined>(undefined);
 export const MapProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
-    const { minimap } = useAppContext();
-    const [isMinimap, setIsMinimap] = useState(minimap);
+    const { minimapVisibility } = useAppContext();
+    const [isMinimap, setIsMinimap] = useState(minimapVisibility);
 
     const toggleMinimap = () => {
         setIsMinimap(prevIsMinimap => !prevIsMinimap);

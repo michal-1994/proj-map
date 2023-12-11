@@ -14,7 +14,7 @@ import { useMapContext } from '../../../context/map-context';
 import './MapView.css';
 
 const MapView = () => {
-    const { minimap } = useAppContext();
+    const { minimapVisibility } = useAppContext();
     const { isMinimap } = useMapContext();
 
     const [map, setMap] = useState<Map | null>(null);
@@ -47,7 +47,7 @@ const MapView = () => {
         setOverviewMapControl(mapOverviewControl);
         setMap(mapInstance);
 
-        if (minimap) {
+        if (minimapVisibility) {
             map?.addControl(overviewMapControl!);
         } else {
             map?.removeControl(overviewMapControl!);
@@ -56,7 +56,7 @@ const MapView = () => {
         return () => {
             mapInstance.setTarget(null!);
         };
-    }, [minimap]);
+    }, [minimapVisibility]);
 
     useEffect(() => {
         if (isMinimap) {

@@ -13,8 +13,8 @@ import { ToolProps } from '../models';
 interface AppContextProps {
     darkMode: boolean;
     toggleDarkMode: () => void;
-    minimap: boolean;
-    toggleMinimap: () => void;
+    minimapVisibility: boolean;
+    toggleMinimapVisibility: () => void;
     tools: ToolProps[];
     updateTool: (id: string) => void;
     clearLocalStorage: () => void;
@@ -26,7 +26,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
     const [darkMode, setDarkMode] = useState<boolean>(true);
-    const [minimap, setMinimap] = useState<boolean>(false);
+    const [minimapVisibility, setMinimapVisibility] = useState<boolean>(false);
     const [tools, setTools] = useState<ToolProps[]>(Constants.TOOLS);
 
     useEffect(() => {
@@ -34,25 +34,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         if (savedConfig) {
             const parsedConfig = JSON.parse(savedConfig);
             setDarkMode(parsedConfig.darkMode);
-            setMinimap(parsedConfig.minimap);
+            setMinimapVisibility(parsedConfig.minimapVisibility);
             setTools(parsedConfig.tools);
         }
     }, []);
 
     useEffect(() => {
-        const appConfig = { darkMode, minimap, tools };
+        const appConfig = { darkMode, minimapVisibility, tools };
         localStorage.setItem('appConfig', JSON.stringify(appConfig));
 
         const theme = darkMode ? 'dark' : 'light';
         document.documentElement.setAttribute('data-bs-theme', theme);
-    }, [darkMode, minimap, tools]);
+    }, [darkMode, minimapVisibility, tools]);
 
     const toggleDarkMode = () => {
         setDarkMode(prevDarkMode => !prevDarkMode);
     };
 
-    const toggleMinimap = () => {
-        setMinimap(prevMinimap => !prevMinimap);
+    const toggleMinimapVisibility = () => {
+        setMinimapVisibility(prevMinimap => !prevMinimap);
     };
 
     const updateTool = (id: string) => {
@@ -67,15 +67,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         localStorage.clear();
 
         setDarkMode(true);
-        setMinimap(false);
+        setMinimapVisibility(false);
         setTools(Constants.TOOLS);
     };
 
     const appContextValue: AppContextProps = {
         darkMode,
         toggleDarkMode,
-        minimap,
-        toggleMinimap,
+        minimapVisibility,
+        toggleMinimapVisibility,
         tools,
         updateTool,
         clearLocalStorage

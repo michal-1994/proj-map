@@ -19,8 +19,8 @@ const SettingsPanel = () => {
     const {
         darkMode,
         toggleDarkMode,
-        minimap,
-        toggleMinimap,
+        minimapVisibility,
+        toggleMinimapVisibility,
         tools,
         updateTool
     } = useAppContext();
@@ -98,8 +98,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Mini map visible"
-                                    checked={minimap}
-                                    onChange={() => toggleMinimap()}
+                                    checked={minimapVisibility}
+                                    onChange={() => toggleMinimapVisibility()}
                                 />
                             </Form.Group>
                         </Form>
