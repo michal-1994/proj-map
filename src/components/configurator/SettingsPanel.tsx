@@ -9,6 +9,7 @@ import {
     Button
 } from 'react-bootstrap';
 
+import * as Constants from '../../constants';
 import { useAppContext } from '../../context/context';
 import { useModalContext } from '../../context/modal-context';
 
@@ -111,7 +112,9 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Minimap"
-                                    checked={getTool('minimap')?.enable}
+                                    checked={
+                                        getTool(Constants.MINIMAP_TOOL)?.enable
+                                    }
                                     onChange={() =>
                                         console.log('minimapToolSwitcher')
                                     }
@@ -128,7 +131,9 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Print map"
-                                    checked={false}
+                                    checked={
+                                        getTool(Constants.PRINT_TOOL)?.enable
+                                    }
                                     disabled={true}
                                     onChange={() =>
                                         console.log('printToolSwitcher')
@@ -146,7 +151,10 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Add layers"
-                                    checked={false}
+                                    checked={
+                                        getTool(Constants.ADD_LAYERS_TOOL)
+                                            ?.enable
+                                    }
                                     disabled={true}
                                     onChange={() =>
                                         console.log('addLayersToolSwitcher')
@@ -164,7 +172,9 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Draw"
-                                    checked={false}
+                                    checked={
+                                        getTool(Constants.DRAW_TOOL)?.enable
+                                    }
                                     disabled={true}
                                     onChange={() =>
                                         console.log('drawToolSwitcher')
@@ -182,7 +192,10 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Measurment"
-                                    checked={false}
+                                    checked={
+                                        getTool(Constants.MEASURMENT_TOOL)
+                                            ?.enable
+                                    }
                                     disabled={true}
                                     onChange={() =>
                                         console.log('measurmentToolSwitcher')
@@ -200,7 +213,9 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Contrast"
-                                    checked={false}
+                                    checked={
+                                        getTool(Constants.CONTRAST_TOOL)?.enable
+                                    }
                                     disabled={true}
                                     onChange={() =>
                                         console.log('contrastToolSwitcher')

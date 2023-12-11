@@ -23,61 +23,68 @@ export const TILES = [
     }
 ];
 
-export const AVAILABLE_TOOLS = [
+export const MINIMAP_TOOL = 'minimap';
+export const PRINT_TOOL = 'print';
+export const ADD_LAYERS_TOOL = 'addlayers';
+export const DRAW_TOOL = 'draw';
+export const MEASURMENT_TOOL = 'measurment';
+export const CONTRAST_TOOL = 'contrast';
+
+export const TOOLS = [
     {
-        id: 'minimap',
+        id: MINIMAP_TOOL,
         enable: true
     },
     {
-        id: 'print',
+        id: PRINT_TOOL,
         enable: false
     },
     {
-        id: 'addlayers',
+        id: ADD_LAYERS_TOOL,
         enable: false
     },
     {
-        id: 'draw',
+        id: DRAW_TOOL,
         enable: false
     },
     {
-        id: 'measurment',
+        id: MEASURMENT_TOOL,
         enable: false
     },
     {
-        id: 'contrast',
+        id: CONTRAST_TOOL,
         enable: false
     }
 ];
 
-export const TOOLS = [
+export const BUTTON_TOOLS = [
     {
-        id: 'print',
-        title: 'Print map',
-        icon: <FaPrint />
-    },
-    {
-        id: 'minimap',
+        id: MINIMAP_TOOL,
         title: 'Minimap',
         icon: <FaMap />
     },
     {
-        id: 'draw',
-        title: 'Draw',
-        icon: <FaDrawPolygon />
+        id: PRINT_TOOL,
+        title: 'Print map',
+        icon: <FaPrint />
     },
     {
-        id: 'addlayers',
+        id: ADD_LAYERS_TOOL,
         title: 'Add layers',
         icon: <FaPlus />
     },
     {
-        id: 'measurment',
+        id: DRAW_TOOL,
+        title: 'Draw',
+        icon: <FaDrawPolygon />
+    },
+    {
+        id: MEASURMENT_TOOL,
         title: 'Measurement',
         icon: <FaRuler />
     },
     {
-        id: 'contrast',
+        id: CONTRAST_TOOL,
         title: 'Contrast',
         icon: <MdContrast />
     }

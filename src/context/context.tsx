@@ -29,7 +29,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const [darkMode, setDarkMode] = useState<boolean>(true);
     const [minimap, setMinimap] = useState<boolean>(false);
-    const [tools, setTools] = useState<ToolProps[]>(Constants.AVAILABLE_TOOLS);
+    const [tools, setTools] = useState<ToolProps[]>(Constants.TOOLS);
 
     useEffect(() => {
         const savedConfig = localStorage.getItem('appConfig');
@@ -62,7 +62,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
         setDarkMode(true);
         setMinimap(false);
-        setTools(Constants.AVAILABLE_TOOLS);
+        setTools(Constants.TOOLS);
     };
 
     const appContextValue: AppContextProps = {
