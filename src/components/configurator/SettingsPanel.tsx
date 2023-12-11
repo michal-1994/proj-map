@@ -16,8 +16,14 @@ import { useModalContext } from '../../context/modal-context';
 import './SettingsPanel.css';
 
 const SettingsPanel = () => {
-    const { darkMode, toggleDarkMode, minimap, toggleMinimap, tools } =
-        useAppContext();
+    const {
+        darkMode,
+        toggleDarkMode,
+        minimap,
+        toggleMinimap,
+        tools,
+        updateTool
+    } = useAppContext();
     const { openModal } = useModalContext();
 
     const handleDefaultClick = () => {
@@ -116,7 +122,7 @@ const SettingsPanel = () => {
                                         getTool(Constants.MINIMAP_TOOL)?.enable
                                     }
                                     onChange={() =>
-                                        console.log('minimapToolSwitcher')
+                                        updateTool(Constants.MINIMAP_TOOL)
                                     }
                                 />
                             </Form.Group>
@@ -134,9 +140,8 @@ const SettingsPanel = () => {
                                     checked={
                                         getTool(Constants.PRINT_TOOL)?.enable
                                     }
-                                    disabled={true}
                                     onChange={() =>
-                                        console.log('printToolSwitcher')
+                                        updateTool(Constants.PRINT_TOOL)
                                     }
                                 />
                             </Form.Group>
@@ -155,9 +160,8 @@ const SettingsPanel = () => {
                                         getTool(Constants.ADD_LAYERS_TOOL)
                                             ?.enable
                                     }
-                                    disabled={true}
                                     onChange={() =>
-                                        console.log('addLayersToolSwitcher')
+                                        updateTool(Constants.ADD_LAYERS_TOOL)
                                     }
                                 />
                             </Form.Group>
@@ -175,9 +179,8 @@ const SettingsPanel = () => {
                                     checked={
                                         getTool(Constants.DRAW_TOOL)?.enable
                                     }
-                                    disabled={true}
                                     onChange={() =>
-                                        console.log('drawToolSwitcher')
+                                        updateTool(Constants.DRAW_TOOL)
                                     }
                                 />
                             </Form.Group>
@@ -196,9 +199,8 @@ const SettingsPanel = () => {
                                         getTool(Constants.MEASURMENT_TOOL)
                                             ?.enable
                                     }
-                                    disabled={true}
                                     onChange={() =>
-                                        console.log('measurmentToolSwitcher')
+                                        updateTool(Constants.MEASURMENT_TOOL)
                                     }
                                 />
                             </Form.Group>
@@ -216,9 +218,8 @@ const SettingsPanel = () => {
                                     checked={
                                         getTool(Constants.CONTRAST_TOOL)?.enable
                                     }
-                                    disabled={true}
                                     onChange={() =>
-                                        console.log('contrastToolSwitcher')
+                                        updateTool(Constants.CONTRAST_TOOL)
                                     }
                                 />
                             </Form.Group>

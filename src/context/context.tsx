@@ -16,6 +16,7 @@ interface AppContextProps {
     minimap: boolean;
     toggleMinimap: () => void;
     tools: ToolProps[];
+    updateTool: (id: string) => void;
     clearLocalStorage: () => void;
 }
 
@@ -54,6 +55,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         setMinimap(prevMinimap => !prevMinimap);
     };
 
+    const updateTool = (id: string) => {
+        const updatedTools = tools.map(tool =>
+            tool.id === id ? { ...tool, enable: !tool.enable } : tool
+        );
+
+        setTools(updatedTools);
+    };
+
     const clearLocalStorage = () => {
         localStorage.clear();
 
@@ -68,6 +77,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         minimap,
         toggleMinimap,
         tools,
+        updateTool,
         clearLocalStorage
     };
 
