@@ -103,13 +103,104 @@ const SettingsPanel = () => {
                 <Row>
                     <Col>
                         <Form>
-                            <Form.Group controlId="toolPrintMapSwitch">
+                            <Form.Group controlId="minimapToolSwitcher">
+                                <Form.Check
+                                    type="switch"
+                                    label="Minimap"
+                                    checked={false}
+                                    disabled={true}
+                                    onChange={() =>
+                                        console.log('minimapToolSwitcher')
+                                    }
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="printToolSwitcher">
                                 <Form.Check
                                     type="switch"
                                     label="Print map"
-                                    checked={true}
+                                    checked={false}
+                                    disabled={true}
                                     onChange={() =>
-                                        console.log('toolPrintMapSwitch')
+                                        console.log('printToolSwitcher')
+                                    }
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="addLayersToolSwitcher">
+                                <Form.Check
+                                    type="switch"
+                                    label="Add layers"
+                                    checked={false}
+                                    disabled={true}
+                                    onChange={() =>
+                                        console.log('addLayersToolSwitcher')
+                                    }
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="drawToolSwitcher">
+                                <Form.Check
+                                    type="switch"
+                                    label="Draw"
+                                    checked={false}
+                                    disabled={true}
+                                    onChange={() =>
+                                        console.log('drawToolSwitcher')
+                                    }
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="measurmentToolSwitcher">
+                                <Form.Check
+                                    type="switch"
+                                    label="Measurment"
+                                    checked={false}
+                                    disabled={true}
+                                    onChange={() =>
+                                        console.log('measurmentToolSwitcher')
+                                    }
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="contrastToolSwitcher">
+                                <Form.Check
+                                    type="switch"
+                                    label="Contrast"
+                                    checked={false}
+                                    disabled={true}
+                                    onChange={() =>
+                                        console.log('contrastToolSwitcher')
                                     }
                                 />
                             </Form.Group>
