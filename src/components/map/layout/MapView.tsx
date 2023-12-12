@@ -12,6 +12,9 @@ import * as Constants from '../../../constants';
 import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 
+import { getTool } from '../utils/utils';
+import { updateMapLayers } from '../utils/layer-utils';
+
 import './MapView.css';
 
 const MapView = () => {
@@ -21,10 +24,6 @@ const MapView = () => {
     const [map, setMap] = useState<Map | null>(null);
     const [overviewMapControl, setOverviewMapControl] =
         useState<OverviewMap | null>(null);
-
-    const getTool = (id: string) => {
-        return tools.find(tool => tool.id === id);
-    };
 
     useEffect(() => {
         const mapOverviewControl = new OverviewMap({
@@ -58,7 +57,10 @@ const MapView = () => {
     }, []);
 
     useEffect(() => {
-        if (getTool(Constants.MINIMAP_TOOL)?.enable && minimapVisibility) {
+        if (
+            getTool(tools, Constants.MINIMAP_TOOL)?.enable &&
+            minimapVisibility
+        ) {
             map?.addControl(overviewMapControl!);
         } else {
             map?.removeControl(overviewMapControl!);
@@ -72,7 +74,7 @@ const MapView = () => {
             .includes(overviewMapControl!);
 
         if (
-            getTool(Constants.MINIMAP_TOOL)?.enable &&
+            getTool(tools, Constants.MINIMAP_TOOL)?.enable &&
             isMinimap &&
             overviewMapActive
         ) {
@@ -99,16 +101,8 @@ const MapView = () => {
     }, [map]);
 
     useEffect(() => {
-        let newLayer;
-
-        // map?.getLayers().clear();
-
-        // TODO: update map layers
-
-        console.table(layers);
-
-        if (newLayer) {
-            map?.addLayer(newLayer);
+        if (map) {
+            updateMapLayers(map, layers);
         }
     }, [layers]);
 

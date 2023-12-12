@@ -23,6 +23,10 @@
     font-size: 1.25rem;
 }
 
+.sidebar .sidebar-content label {
+    text-transform: capitalize;
+}
+
 .sidebar.open {
     width: 240px;
 }

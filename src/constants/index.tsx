@@ -4,16 +4,15 @@ import { MdContrast } from 'react-icons/md';
 
 import { ButtonToolProps, LayerProps, TileProps, ToolProps } from '../models';
 
-export const OSM_LAYER: string = 'osm';
-export const WMS_LAYER: string = 'wms';
+export const OSM_TYPE: string = 'osm';
+export const WMS_TYPE: string = 'wms';
+export const GEOJSON_TYPE: string = 'geojson';
 
 export const LAYERS: LayerProps[] = [
     {
-        id: OSM_LAYER,
-        enable: true
-    },
-    {
-        id: WMS_LAYER,
+        id: 'voivodeships',
+        type: GEOJSON_TYPE,
+        url: 'geojson/voivodeships.geojson',
         enable: false
     }
 ];
