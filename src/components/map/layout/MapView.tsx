@@ -51,6 +51,10 @@ const MapView = () => {
         setMap(mapInstance);
         setOverviewMapControl(mapOverviewControl);
 
+        if (map) {
+            updateMapLayers(map, layers);
+        }
+
         return () => {
             mapInstance.setTarget(null!);
         };

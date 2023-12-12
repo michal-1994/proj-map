@@ -4,8 +4,6 @@ import { MdContrast } from 'react-icons/md';
 
 import { ButtonToolProps, LayerProps, TileProps, ToolProps } from '../models';
 
-export const OSM_TYPE: string = 'osm';
-export const WMS_TYPE: string = 'wms';
 export const GEOJSON_TYPE: string = 'geojson';
 
 export const LAYERS: LayerProps[] = [
@@ -13,6 +11,12 @@ export const LAYERS: LayerProps[] = [
         id: 'voivodeships',
         type: GEOJSON_TYPE,
         url: 'geojson/voivodeships.geojson',
+        enable: true
+    },
+    {
+        id: 'counties',
+        type: GEOJSON_TYPE,
+        url: 'geojson/counties.geojson',
         enable: false
     }
 ];
