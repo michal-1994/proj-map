@@ -19,6 +19,10 @@
     opacity: 0;
 }
 
+.sidebar .sidebar-content h2 {
+    font-size: 1.25rem;
+}
+
 .sidebar.open {
     width: 240px;
 }

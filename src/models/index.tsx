@@ -1,3 +1,8 @@
+export interface LayerProps {
+    id: string;
+    enable: boolean;
+}
+
 export interface ToolProps {
     id: string;
     enable: boolean;

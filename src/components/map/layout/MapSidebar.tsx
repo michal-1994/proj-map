@@ -1,5 +1,7 @@
-import { Card } from 'react-bootstrap';
+import { Card, Form } from 'react-bootstrap';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+import { useMapContext } from '../../../context/map-context';
 
 import './MapSidebar.css';
 
@@ -9,12 +11,30 @@ interface MapSidebarProps {
 }
 
 const MapSidebar: React.FC<MapSidebarProps> = ({ isOpen, toggleSidebar }) => {
+    const { layers, updateLayer } = useMapContext();
+
     return (
         <Card className={`sidebar ${isOpen ? 'open' : ''}`}>
             <button className="card" onClick={toggleSidebar}>
                 {isOpen ? <FaAngleLeft /> : <FaAngleRight />}
             </button>
-            <div className="sidebar-content">Layers</div>
+            <div className="sidebar-content">
+                <h2>Layers</h2>
+                <Form>
+                    {layers.map((layer, index) => (
+                        <Form.Check
+                            key={index}
+                            name="layers"
+                            type="radio"
+                            id={`option${index + 1}`}
+                            label={layer.id.toUpperCase()}
+                            value={layer.id}
+                            checked={layer.enable}
+                            onChange={() => updateLayer(layer.id)}
+                        />
+                    ))}
+                </Form>
+            </div>
         </Card>
     );
 };

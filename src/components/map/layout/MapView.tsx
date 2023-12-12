@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { OverviewMap } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
+import { OSM } from 'ol/source';
 import View from 'ol/View';
 import Map from 'ol/Map';
 import 'ol/ol.css';
@@ -16,7 +16,7 @@ import './MapView.css';
 
 const MapView = () => {
     const { minimapVisibility, tools } = useAppContext();
-    const { isMinimap } = useMapContext();
+    const { isMinimap, layers } = useMapContext();
 
     const [map, setMap] = useState<Map | null>(null);
     const [overviewMapControl, setOverviewMapControl] =
@@ -97,6 +97,18 @@ const MapView = () => {
             );
         }
     }, [map]);
+
+    useEffect(() => {
+        let newLayer;
+
+        map?.getLayers().clear();
+
+        // TODO: update map layers
+
+        if (newLayer) {
+            map?.addLayer(newLayer);
+        }
+    }, [layers]);
 
     return <main className="map-view" id="map-view"></main>;
 };

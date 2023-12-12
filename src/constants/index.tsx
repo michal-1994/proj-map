@@ -2,7 +2,21 @@ import icon from '../assets/react.svg';
 import { FaPrint, FaMap, FaDrawPolygon, FaPlus, FaRuler } from 'react-icons/fa';
 import { MdContrast } from 'react-icons/md';
 
-import { ButtonToolProps, TileProps, ToolProps } from '../models';
+import { ButtonToolProps, LayerProps, TileProps, ToolProps } from '../models';
+
+export const OSM_LAYER: string = 'osm';
+export const WMS_LAYER: string = 'wms';
+
+export const LAYERS: LayerProps[] = [
+    {
+        id: OSM_LAYER,
+        enable: true
+    },
+    {
+        id: WMS_LAYER,
+        enable: false
+    }
+];
 
 export const TILES: TileProps[] = [
     {
