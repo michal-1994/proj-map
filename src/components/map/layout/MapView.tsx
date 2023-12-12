@@ -8,18 +8,23 @@ import View from 'ol/View';
 import Map from 'ol/Map';
 import 'ol/ol.css';
 
+import * as Constants from '../../../constants';
 import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 
 import './MapView.css';
 
 const MapView = () => {
-    const { minimapVisibility } = useAppContext();
+    const { minimapVisibility, tools } = useAppContext();
     const { isMinimap } = useMapContext();
 
     const [map, setMap] = useState<Map | null>(null);
     const [overviewMapControl, setOverviewMapControl] =
         useState<OverviewMap | null>(null);
+
+    const getTool = (id: string) => {
+        return tools.find(tool => tool.id === id);
+    };
 
     useEffect(() => {
         const mapOverviewControl = new OverviewMap({
@@ -44,27 +49,32 @@ const MapView = () => {
             })
         });
 
-        setOverviewMapControl(mapOverviewControl);
         setMap(mapInstance);
-
-        if (minimapVisibility) {
-            map?.addControl(overviewMapControl!);
-        } else {
-            map?.removeControl(overviewMapControl!);
-        }
+        setOverviewMapControl(mapOverviewControl);
 
         return () => {
             mapInstance.setTarget(null!);
         };
-    }, [minimapVisibility]);
+    }, []);
 
     useEffect(() => {
-        if (isMinimap) {
+        const mapOverviewControl = new OverviewMap({
+            layers: [
+                new TileLayer({
+                    source: new OSM()
+                })
+            ],
+            collapsed: false
+        });
+
+        setOverviewMapControl(mapOverviewControl);
+
+        if (getTool(Constants.MINIMAP_TOOL)?.enable && minimapVisibility) {
             map?.addControl(overviewMapControl!);
         } else {
             map?.removeControl(overviewMapControl!);
         }
-    }, [map, isMinimap]);
+    }, [map, minimapVisibility, tools]);
 
     useEffect(() => {
         if (map) {
