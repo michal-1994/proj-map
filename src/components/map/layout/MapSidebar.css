@@ -12,7 +12,7 @@
 .sidebar .sidebar-content {
     transition: width 0.3s;
     top: 0;
-    left: -240px;
+    left: -280px;
     bottom: 0;
     position: absolute !important;
     padding: 1.25rem;
@@ -28,7 +28,7 @@
 }
 
 .sidebar.open {
-    width: 240px;
+    width: 280px;
 }
 
 .sidebar.open .sidebar-content {
