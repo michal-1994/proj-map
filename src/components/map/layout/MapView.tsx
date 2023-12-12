@@ -58,23 +58,29 @@ const MapView = () => {
     }, []);
 
     useEffect(() => {
-        const mapOverviewControl = new OverviewMap({
-            layers: [
-                new TileLayer({
-                    source: new OSM()
-                })
-            ],
-            collapsed: false
-        });
-
-        setOverviewMapControl(mapOverviewControl);
-
         if (getTool(Constants.MINIMAP_TOOL)?.enable && minimapVisibility) {
             map?.addControl(overviewMapControl!);
         } else {
             map?.removeControl(overviewMapControl!);
         }
     }, [map, minimapVisibility, tools]);
+
+    useEffect(() => {
+        const overviewMapActive = !map
+            ?.getControls()
+            .getArray()
+            .includes(overviewMapControl!);
+
+        if (
+            getTool(Constants.MINIMAP_TOOL)?.enable &&
+            isMinimap &&
+            overviewMapActive
+        ) {
+            map?.addControl(overviewMapControl!);
+        } else {
+            map?.removeControl(overviewMapControl!);
+        }
+    }, [isMinimap]);
 
     useEffect(() => {
         if (map) {
