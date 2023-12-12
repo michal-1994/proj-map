@@ -24,11 +24,9 @@ const MapSidebar: React.FC<MapSidebarProps> = ({ isOpen, toggleSidebar }) => {
                     {layers.map((layer, index) => (
                         <Form.Check
                             key={index}
-                            name="layers"
-                            type="radio"
-                            id={`option${index + 1}`}
+                            id={layer.id}
+                            type="checkbox"
                             label={layer.id.toUpperCase()}
-                            value={layer.id}
                             checked={layer.enable}
                             onChange={() => updateLayer(layer.id)}
                         />

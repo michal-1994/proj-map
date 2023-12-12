@@ -101,9 +101,11 @@ const MapView = () => {
     useEffect(() => {
         let newLayer;
 
-        map?.getLayers().clear();
+        // map?.getLayers().clear();
 
         // TODO: update map layers
+
+        console.table(layers);
 
         if (newLayer) {
             map?.addLayer(newLayer);
