@@ -50,16 +50,12 @@ const MapView = () => {
             ],
             view: new View({
                 center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
-                zoom: 12
+                zoom: 9
             })
         });
 
         setMap(mapInstance);
         setOverviewMapControl(mapOverviewControl);
-
-        if (map) {
-            updateMapLayers(map, layers);
-        }
 
         return () => {
             mapInstance.setTarget(null!);
@@ -95,6 +91,10 @@ const MapView = () => {
     }, [isMinimap]);
 
     useEffect(() => {
+        if (map) {
+            updateMapLayers(map, layers);
+        }
+
         if (map) {
             navigator.geolocation.getCurrentPosition(
                 position => {
