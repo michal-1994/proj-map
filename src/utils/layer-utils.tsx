@@ -1,6 +1,9 @@
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
 import Map from 'ol/Map';
 
 import { LayerProps } from '../models';
@@ -10,7 +13,18 @@ export const createGeoJSONLayer = (url: string) => {
         source: new VectorSource({
             format: new GeoJSON(),
             url: url
-        })
+        }),
+        style: function () {
+            return new Style({
+                fill: new Fill({
+                    color: 'rgba(173, 216, 230, 0.6)'
+                }),
+                stroke: new Stroke({
+                    color: 'rgb(0, 102, 204)',
+                    width: 2
+                })
+            });
+        }
     });
 };
 
