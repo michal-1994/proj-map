@@ -7,7 +7,7 @@ import ConfiguratorPage from './pages/ConfiguratorPage';
 import { AppProvider } from './context/context';
 import { ModalProvider } from './context/modal-context';
 
-const router = createBrowserRouter([
+const routes = [
     {
         path: '/',
         element: <HomePage />,
@@ -21,7 +21,11 @@ const router = createBrowserRouter([
         path: '/configurator',
         element: <ConfiguratorPage />
     }
-]);
+];
+
+const router = createBrowserRouter(routes, {
+    basename: import.meta.env.DEV ? '/' : '/proj-map/'
+});
 
 const App = () => {
     return (
