@@ -8,7 +8,10 @@
         "build": "tsc && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
-        "prettier": "npx prettier --write ."
+        "prettier": "npx prettier --write .",
+        "predeploy": "npm run build --base-href=/proj-map/",
+        "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d dist/proj-map/",
+        "postdeploy": "echo 'Deploy finished successful'"
     },
     "dependencies": {
         "ol": "^8.2.0",
@@ -25,9 +28,11 @@
         "@typescript-eslint/parser": "^6.10.0",
         "@vitejs/plugin-react": "^4.2.0",
         "bootstrap": "^5.3.2",
+        "cross-env": "^7.0.3",
         "eslint": "^8.53.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.4",
+        "gh-pages": "^6.1.0",
         "prettier": "3.1.0",
         "react-bootstrap": "^2.9.1",
         "typescript": "^5.2.2",
