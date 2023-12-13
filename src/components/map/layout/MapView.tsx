@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { OverviewMap } from 'ol/control';
+import {
+    OverviewMap,
+    ScaleLine,
+    defaults as defaultControls
+} from 'ol/control';
 import { fromLonLat } from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
@@ -26,6 +30,7 @@ const MapView = () => {
         useState<OverviewMap | null>(null);
 
     useEffect(() => {
+        const mapScaleControl = new ScaleLine();
         const mapOverviewControl = new OverviewMap({
             layers: [
                 new TileLayer({
@@ -36,6 +41,7 @@ const MapView = () => {
         });
 
         const mapInstance = new Map({
+            controls: defaultControls().extend([mapScaleControl]),
             target: 'map-view',
             layers: [
                 new TileLayer({
