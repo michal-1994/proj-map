@@ -4,6 +4,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
+import Text from 'ol/style/Text';
 import Map from 'ol/Map';
 
 import { LayerProps } from '../models';
@@ -14,7 +15,9 @@ export const createGeoJSONLayer = (url: string) => {
             format: new GeoJSON(),
             url: url
         }),
-        style: function () {
+        style: function (feature) {
+            const label = feature.get('nazwa');
+
             return new Style({
                 fill: new Fill({
                     color: 'rgba(173, 216, 230, 0.6)'
@@ -22,6 +25,19 @@ export const createGeoJSONLayer = (url: string) => {
                 stroke: new Stroke({
                     color: 'rgb(0, 102, 204)',
                     width: 2
+                }),
+                text: new Text({
+                    font: '15px Arial, sans-serif',
+                    text: label,
+                    fill: new Fill({
+                        color: 'rgb(0, 0, 0)'
+                    }),
+                    stroke: new Stroke({
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        width: 2
+                    }),
+                    offsetX: 0,
+                    offsetY: -10
                 })
             });
         }
