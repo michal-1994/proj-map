@@ -1,7 +1,8 @@
-import { Card, Form } from 'react-bootstrap';
+import { Card, Tabs, Tab } from 'react-bootstrap';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-import { useMapContext } from '../../../context/map-context';
+import SidebarLayers from './SidebarLayers';
+import SidebarBaseLayers from './SidebarBaseLayers';
 
 import './MapSidebar.css';
 
@@ -11,27 +12,24 @@ interface MapSidebarProps {
 }
 
 const MapSidebar: React.FC<MapSidebarProps> = ({ isOpen, toggleSidebar }) => {
-    const { layers, updateLayer } = useMapContext();
-
     return (
         <Card className={`sidebar ${isOpen ? 'open' : ''}`}>
             <button className="card" onClick={toggleSidebar}>
                 {isOpen ? <FaAngleLeft /> : <FaAngleRight />}
             </button>
             <div className="sidebar-content">
-                <h2>Layers</h2>
-                <Form>
-                    {layers.map((layer, index) => (
-                        <Form.Check
-                            key={index}
-                            id={layer.id}
-                            type="checkbox"
-                            label={layer.id}
-                            checked={layer.enable}
-                            onChange={() => updateLayer(layer.id)}
-                        />
-                    ))}
-                </Form>
+                <Tabs
+                    defaultActiveKey="layers"
+                    id="map-sidebar"
+                    className="mb-3"
+                    fill>
+                    <Tab eventKey="layers" title="Layers">
+                        <SidebarLayers />
+                    </Tab>
+                    <Tab eventKey="baseLayers" title="Base Layers">
+                        <SidebarBaseLayers />
+                    </Tab>
+                </Tabs>
             </div>
         </Card>
     );

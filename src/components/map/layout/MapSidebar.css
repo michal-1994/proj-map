@@ -15,12 +15,12 @@
     left: -280px;
     bottom: 0;
     position: absolute !important;
-    padding: 1.25rem;
     opacity: 0;
+    width: 100%;
 }
 
-.sidebar .sidebar-content h2 {
-    font-size: 1.25rem;
+.sidebar .sidebar-content .tab-content {
+    padding: 0 1rem;
 }
 
 .sidebar .sidebar-content label {
