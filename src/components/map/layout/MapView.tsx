@@ -16,8 +16,8 @@ import * as Constants from '../../../constants';
 import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 
-import { getTool } from '../utils/utils';
-import { updateMapLayers } from '../utils/layer-utils';
+import { getTool } from '../../../utils/utils';
+import { updateMapLayers } from '../../../utils/layer-utils';
 
 import './MapView.css';
 

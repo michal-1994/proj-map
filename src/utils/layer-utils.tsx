@@ -3,7 +3,7 @@ import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import Map from 'ol/Map';
 
-import { LayerProps } from '../../../models';
+import { LayerProps } from '../models';
 
 export const createGeoJSONLayer = (url: string) => {
     return new VectorLayer({
