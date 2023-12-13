@@ -92,10 +92,6 @@ const MapView = () => {
 
     useEffect(() => {
         if (map) {
-            updateMapLayers(map, layers);
-        }
-
-        if (map) {
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const { longitude, latitude } = position.coords;
@@ -107,6 +103,7 @@ const MapView = () => {
                 },
                 { enableHighAccuracy: true }
             );
+            updateMapLayers(map, layers);
         }
     }, [map]);
 
