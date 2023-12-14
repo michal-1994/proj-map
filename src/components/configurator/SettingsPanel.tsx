@@ -77,7 +77,7 @@ const SettingsPanel = () => {
                             <Form.Group controlId="darkModeSwitch">
                                 <Form.Check
                                     type="switch"
-                                    label="Dark Mode"
+                                    label="Dark mode"
                                     checked={darkMode}
                                     onChange={() => toggleDarkMode()}
                                 />

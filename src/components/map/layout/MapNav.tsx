@@ -17,7 +17,7 @@ const MapNav = () => {
             style={{
                 padding: '.25rem .5rem'
             }}>
-            <Link to="/" className="navbar-brand">
+            <Link to="/" className="navbar-brand" title="Go to home page">
                 <Card style={{ padding: '.3rem' }}>
                     <img
                         src={icon}

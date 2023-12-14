@@ -25,6 +25,7 @@
 
 .sidebar .sidebar-content label {
     text-transform: capitalize;
+    user-select: none;
 }
 
 .sidebar.open {
