@@ -2,11 +2,13 @@ import { Form } from 'react-bootstrap';
 
 import { useMapContext } from '../../../context/map-context';
 
+import './SidebarLayers.css';
+
 const SidebarLayers = () => {
     const { layers, updateLayer, selectAll, updateAllLayers } = useMapContext();
 
     return (
-        <Form>
+        <Form className="sidebar-layers">
             <Form.Check
                 id="selectAll"
                 type="checkbox"

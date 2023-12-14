@@ -23,11 +23,6 @@
     padding: 0 1rem;
 }
 
-.sidebar .sidebar-content label {
-    text-transform: capitalize;
-    user-select: none;
-}
-
 .sidebar.open {
     width: 280px;
 }

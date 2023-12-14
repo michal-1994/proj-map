@@ -1,0 +1,8 @@
+.sidebar-layers label {
+    text-transform: capitalize;
+    user-select: none;
+}
+
+.sidebar-layers .form-check:not(:first-child) {
+    margin-left: 8px;
+}
