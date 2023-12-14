@@ -41,7 +41,9 @@ const MapView = () => {
         });
 
         const mapInstance = new Map({
-            controls: defaultControls().extend([mapScaleControl]),
+            controls: defaultControls({ rotate: false }).extend([
+                mapScaleControl
+            ]),
             target: 'map-view',
             layers: [
                 new TileLayer({
