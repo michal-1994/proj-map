@@ -10,6 +10,8 @@ interface MapContextProps {
     toggleMinimap: () => void;
     layers: LayerProps[];
     updateLayer: (id: string) => void;
+    selectAll: boolean;
+    updateAllLayers: (value: boolean) => void;
 }
 
 const MapContext = createContext<MapContextProps | undefined>(undefined);
@@ -20,15 +22,31 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
     const { minimapVisibility } = useAppContext();
     const [isMinimap, setIsMinimap] = useState(minimapVisibility); // TODO: fix initial value
     const [layers, setLayers] = useState(Constants.LAYERS);
+    const [selectAll, setSelectAll] = useState(
+        Constants.LAYERS.every(layer => layer.enable)
+    );
 
     const toggleMinimap = () => {
         setIsMinimap(prevIsMinimap => !prevIsMinimap);
     };
 
     const updateLayer = (id: string) => {
-        const updatedLayers = layers.map(layer =>
-            layer.id === id ? { ...layer, enable: !layer.enable } : layer
-        );
+        const updatedLayers = layers.map(layer => {
+            return layer.id === id
+                ? { ...layer, enable: !layer.enable }
+                : layer;
+        });
+
+        setSelectAll(updatedLayers.every(layer => layer.enable));
+        setLayers(updatedLayers);
+    };
+
+    const updateAllLayers = (value: boolean) => {
+        setSelectAll(value);
+
+        const updatedLayers = layers.map(layer => {
+            return { ...layer, enable: value };
+        });
 
         setLayers(updatedLayers);
     };
@@ -37,7 +55,9 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         isMinimap,
         toggleMinimap,
         layers,
-        updateLayer
+        updateLayer,
+        selectAll,
+        updateAllLayers
     };
 
     return (
