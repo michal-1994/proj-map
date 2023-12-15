@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
 
+import { OSM } from 'ol/source';
+import TileLayer from 'ol/layer/Tile';
 import {
     OverviewMap,
     ScaleLine,
     defaults as defaultControls
 } from 'ol/control';
-import TileLayer from 'ol/layer/Tile';
 import { fromLonLat } from 'ol/proj';
-import { OSM } from 'ol/source';
-import View from 'ol/View';
 import Map from 'ol/Map';
+import View from 'ol/View';
 import 'ol/ol.css';
 
 import * as Constants from '../../../constants';
 import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 
-import { getTool } from '../../../utils/utils';
 import {
+    getTool,
     updateMapBaseLayers,
     updateMapLayers
-} from '../../../utils/layer-utils';
+} from '../../../utils/map-utils';
 
 import './MapView.css';
 

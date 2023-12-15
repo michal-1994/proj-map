@@ -1,15 +1,15 @@
 import VectorSource from 'ol/source/Vector';
+import { OSM, TileWMS } from 'ol/source';
 import VectorLayer from 'ol/layer/Vector';
-import GeoJSON from 'ol/format/GeoJSON';
 import TileLayer from 'ol/layer/Tile';
+import GeoJSON from 'ol/format/GeoJSON';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 import Map from 'ol/Map';
-import { OSM, TileWMS } from 'ol/source';
 
-import { BaseLayerProps, LayerProps } from '../models';
+import { BaseLayerProps, LayerProps, ToolProps } from '../models';
 
 export const createGeoJSONLayer = (url: string) => {
     return new VectorLayer({
@@ -123,4 +123,8 @@ export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
             map?.removeLayer(isAdded);
         }
     });
+};
+
+export const getTool = (tools: ToolProps[], id: string) => {
+    return tools.find(tool => tool.id === id);
 };
