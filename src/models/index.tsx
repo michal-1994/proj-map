@@ -3,6 +3,7 @@ export interface BaseLayerProps {
     type: string;
     url?: string;
     enable: boolean;
+    image: string;
 }
 
 export interface LayerProps {

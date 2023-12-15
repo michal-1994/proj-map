@@ -32,13 +32,15 @@ export const BASE_LAYERS: BaseLayerProps[] = [
     {
         id: 'osm', // TODO: change name
         type: 'osm',
-        enable: true
+        enable: true,
+        image: 'osm.png'
     },
     {
         id: 'wms', // TODO: change name
         type: 'wms',
         url: 'https://ahocevar.com/geoserver/wms',
-        enable: false
+        enable: false,
+        image: 'wms.png'
     }
 ];
 

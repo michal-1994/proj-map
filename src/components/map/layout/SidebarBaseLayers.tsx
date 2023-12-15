@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap';
+import { Card, Form } from 'react-bootstrap';
 
 import { useMapContext } from '../../../context/map-context';
 
@@ -10,15 +10,21 @@ const SidebarBaseLayers = () => {
     return (
         <Form className="sidebar-base-layers">
             {baseLayers.map((layer, index) => (
-                <Form.Check
+                <Card
                     key={index}
-                    id={layer.id}
-                    name="baselayers"
-                    type="radio"
-                    label={layer.id}
-                    checked={layer.enable}
-                    onChange={() => updateBaseLayers(layer.id)}
-                />
+                    onClick={() => updateBaseLayers(layer.id)}
+                    className="sidebar-base-layers-row"
+                    border={layer.enable ? 'primary' : 'secondary'}>
+                    <img src={`src/assets/${layer.image}`} />
+                    <Form.Check
+                        id={layer.id}
+                        name="baselayers"
+                        type="radio"
+                        label={layer.id}
+                        checked={layer.enable}
+                        onChange={() => {}}
+                    />
+                </Card>
             ))}
         </Form>
     );
