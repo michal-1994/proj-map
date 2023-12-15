@@ -15,7 +15,7 @@ const SidebarBaseLayers = () => {
                     onClick={() => updateBaseLayers(layer.id)}
                     className="sidebar-base-layers-row"
                     border={layer.enable ? 'primary' : 'secondary'}>
-                    <img src={`src/assets/${layer.image}`} />
+                    <img src={`images/${layer.image}`} />
                     <Form.Check
                         id={layer.id}
                         name="baselayers"
