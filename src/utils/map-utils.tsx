@@ -64,12 +64,12 @@ export const createWMSLayer = (url: string) => {
 
 export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
     layers.forEach((layer: LayerProps) => {
-        const isAdded = map
+        const existingLayer = map
             ?.getLayers()
             .getArray()
             .find(l => l.get('id') === layer.id);
 
-        if (layer.enable && !isAdded) {
+        if (layer.enable && !existingLayer) {
             let createdLayer: any;
             switch (layer.type) {
                 case 'geojson':
@@ -85,20 +85,20 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
             }
         }
 
-        if (!layer.enable && isAdded) {
-            map?.removeLayer(isAdded);
+        if (!layer.enable && existingLayer) {
+            map?.removeLayer(existingLayer);
         }
     });
 };
 
 export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
     baseLayers.forEach((baseLayer: BaseLayerProps) => {
-        const isAdded = map
+        const existingLayer = map
             ?.getLayers()
             .getArray()
             .find(l => l.get('id') === baseLayer.id);
 
-        if (baseLayer.enable && !isAdded) {
+        if (baseLayer.enable && !existingLayer) {
             let createdLayer: any;
 
             switch (baseLayer.type) {
@@ -119,8 +119,8 @@ export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
             }
         }
 
-        if (!baseLayer.enable && isAdded) {
-            map?.removeLayer(isAdded);
+        if (!baseLayer.enable && existingLayer) {
+            map?.removeLayer(existingLayer);
         }
     });
 };
