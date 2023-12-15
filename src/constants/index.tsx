@@ -2,7 +2,13 @@ import icon from '../assets/react.svg';
 import { FaPrint, FaMap, FaDrawPolygon, FaPlus, FaRuler } from 'react-icons/fa';
 import { MdContrast } from 'react-icons/md';
 
-import { ButtonToolProps, LayerProps, TileProps, ToolProps } from '../models';
+import {
+    BaseLayerProps,
+    ButtonToolProps,
+    LayerProps,
+    TileProps,
+    ToolProps
+} from '../models';
 
 export const GEOJSON_TYPE: string = 'geojson';
 
@@ -17,6 +23,21 @@ export const LAYERS: LayerProps[] = [
         id: 'counties',
         type: GEOJSON_TYPE,
         url: 'geojson/counties.geojson',
+        enable: false
+    }
+];
+
+// TODO: add more base layers
+export const BASE_LAYERS: BaseLayerProps[] = [
+    {
+        id: 'osm', // TODO: change name
+        type: 'osm',
+        enable: true
+    },
+    {
+        id: 'wms', // TODO: change name
+        type: 'wms',
+        url: 'https://ahocevar.com/geoserver/wms',
         enable: false
     }
 ];

@@ -1,13 +1,15 @@
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
+import TileLayer from 'ol/layer/Tile';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 import Map from 'ol/Map';
+import { OSM, TileWMS } from 'ol/source';
 
-import { LayerProps } from '../models';
+import { BaseLayerProps, LayerProps } from '../models';
 
 export const createGeoJSONLayer = (url: string) => {
     return new VectorLayer({
@@ -44,6 +46,22 @@ export const createGeoJSONLayer = (url: string) => {
     });
 };
 
+export const createOSMLayer = () => {
+    return new TileLayer({
+        source: new OSM()
+    });
+};
+
+export const createWMSLayer = (url: string) => {
+    return new TileLayer({
+        source: new TileWMS({
+            url: url,
+            params: { LAYERS: 'ne:ne', TILED: true },
+            serverType: 'geoserver'
+        })
+    });
+};
+
 export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
     layers.forEach((layer: LayerProps) => {
         const isAdded = map
@@ -68,6 +86,40 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
         }
 
         if (!layer.enable && isAdded) {
+            map?.removeLayer(isAdded);
+        }
+    });
+};
+
+export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
+    baseLayers.forEach((baseLayer: BaseLayerProps) => {
+        const isAdded = map
+            ?.getLayers()
+            .getArray()
+            .find(l => l.get('id') === baseLayer.id);
+
+        if (baseLayer.enable && !isAdded) {
+            let createdLayer: any;
+
+            switch (baseLayer.type) {
+                case 'osm':
+                    createdLayer = createOSMLayer();
+                    break;
+                case 'wms':
+                    if (baseLayer.url) {
+                        createdLayer = createWMSLayer(baseLayer.url);
+                    }
+                    break;
+            }
+
+            if (createdLayer) {
+                createdLayer.setZIndex(-Infinity);
+                createdLayer.set('id', baseLayer.id);
+                map?.addLayer(createdLayer);
+            }
+        }
+
+        if (!baseLayer.enable && isAdded) {
             map?.removeLayer(isAdded);
         }
     });

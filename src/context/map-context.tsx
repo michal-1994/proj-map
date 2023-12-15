@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import * as Constants from '../constants';
 import { useAppContext } from './context';
 
-import { LayerProps } from '../models';
+import { BaseLayerProps, LayerProps } from '../models';
 
 interface MapContextProps {
     isMinimap: boolean;
@@ -12,6 +12,8 @@ interface MapContextProps {
     updateLayer: (id: string) => void;
     selectAll: boolean;
     updateAllLayers: (value: boolean) => void;
+    baseLayers: BaseLayerProps[];
+    updateBaseLayers: (id: string) => void;
 }
 
 const MapContext = createContext<MapContextProps | undefined>(undefined);
@@ -20,8 +22,9 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
     const { minimapVisibility } = useAppContext();
-    const [isMinimap, setIsMinimap] = useState(minimapVisibility); // TODO: fix initial value
+    const [isMinimap, setIsMinimap] = useState(minimapVisibility); // TODO: fix initial value after refresh map page
     const [layers, setLayers] = useState(Constants.LAYERS);
+    const [baseLayers, setBaseLayers] = useState(Constants.BASE_LAYERS);
     const [selectAll, setSelectAll] = useState(
         Constants.LAYERS.every(layer => layer.enable)
     );
@@ -51,13 +54,25 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         setLayers(updatedLayers);
     };
 
+    const updateBaseLayers = (id: string) => {
+        const updatedBaseLayers = baseLayers.map(layer =>
+            layer.id === id
+                ? { ...layer, enable: true }
+                : { ...layer, enable: false }
+        );
+
+        setBaseLayers(updatedBaseLayers);
+    };
+
     const mapContextValue: MapContextProps = {
         isMinimap,
         toggleMinimap,
         layers,
         updateLayer,
         selectAll,
-        updateAllLayers
+        updateAllLayers,
+        baseLayers,
+        updateBaseLayers
     };
 
     return (

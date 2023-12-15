@@ -1,3 +1,10 @@
+export interface BaseLayerProps {
+    id: string;
+    type: string;
+    url?: string;
+    enable: boolean;
+}
+
 export interface LayerProps {
     id: string;
     type: string;

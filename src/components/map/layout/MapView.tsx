@@ -5,8 +5,8 @@ import {
     ScaleLine,
     defaults as defaultControls
 } from 'ol/control';
-import { fromLonLat } from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
+import { fromLonLat } from 'ol/proj';
 import { OSM } from 'ol/source';
 import View from 'ol/View';
 import Map from 'ol/Map';
@@ -17,13 +17,16 @@ import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 
 import { getTool } from '../../../utils/utils';
-import { updateMapLayers } from '../../../utils/layer-utils';
+import {
+    updateMapBaseLayers,
+    updateMapLayers
+} from '../../../utils/layer-utils';
 
 import './MapView.css';
 
 const MapView = () => {
     const { minimapVisibility, tools } = useAppContext();
-    const { isMinimap, layers } = useMapContext();
+    const { isMinimap, layers, baseLayers } = useMapContext();
 
     const [map, setMap] = useState<Map | null>(null);
     const [overviewMapControl, setOverviewMapControl] =
@@ -45,11 +48,7 @@ const MapView = () => {
                 mapScaleControl
             ]),
             target: 'map-view',
-            layers: [
-                new TileLayer({
-                    source: new OSM()
-                })
-            ],
+            layers: [],
             view: new View({
                 center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
                 zoom: 9
@@ -106,6 +105,7 @@ const MapView = () => {
                 { enableHighAccuracy: true }
             );
             updateMapLayers(map, layers);
+            updateMapBaseLayers(map, baseLayers);
         }
     }, [map]);
 
@@ -114,6 +114,12 @@ const MapView = () => {
             updateMapLayers(map, layers);
         }
     }, [layers]);
+
+    useEffect(() => {
+        if (map) {
+            updateMapBaseLayers(map, baseLayers);
+        }
+    }, [baseLayers]);
 
     return <main className="map-view" id="map-view"></main>;
 };
