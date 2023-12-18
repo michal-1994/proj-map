@@ -20,7 +20,7 @@ const SidebarBaseLayers = () => {
                         id={layer.id}
                         name="baselayers"
                         type="radio"
-                        label={layer.id}
+                        label={layer.name}
                         checked={layer.enable}
                         onChange={() => {}}
                     />

@@ -1,5 +1,5 @@
 import VectorSource from 'ol/source/Vector';
-import { OSM, TileWMS } from 'ol/source';
+import { OSM, TileWMS, StadiaMaps } from 'ol/source';
 import VectorLayer from 'ol/layer/Vector';
 import TileLayer from 'ol/layer/Tile';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -43,6 +43,14 @@ export const createGeoJSONLayer = (url: string) => {
                 })
             });
         }
+    });
+};
+
+export const createStamenLayer = (layerId: string) => {
+    return new TileLayer({
+        source: new StadiaMaps({
+            layer: layerId
+        })
     });
 };
 
@@ -109,6 +117,9 @@ export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
                     if (baseLayer.url) {
                         createdLayer = createWMSLayer(baseLayer.url);
                     }
+                    break;
+                case 'stamen':
+                    createdLayer = createStamenLayer(baseLayer.id);
                     break;
             }
 

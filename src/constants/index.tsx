@@ -27,20 +27,28 @@ export const LAYERS: LayerProps[] = [
     }
 ];
 
-// TODO: add more base layers
 export const BASE_LAYERS: BaseLayerProps[] = [
     {
-        id: 'osm', // TODO: change name
+        id: 'osm',
+        name: 'Open Street Map',
         type: 'osm',
         enable: true,
         image: 'osm.png'
     },
     {
-        id: 'wms', // TODO: change name
+        id: 'wms',
+        name: 'Wms',
         type: 'wms',
         url: 'https://ahocevar.com/geoserver/wms',
         enable: false,
         image: 'wms.png'
+    },
+    {
+        id: 'stamen_watercolor',
+        name: 'Water Color',
+        type: 'stamen',
+        enable: false,
+        image: 'water-color.png'
     }
 ];
 

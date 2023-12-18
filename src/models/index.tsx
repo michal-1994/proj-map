@@ -1,5 +1,6 @@
 export interface BaseLayerProps {
     id: string;
+    name: string;
     type: string;
     url?: string;
     enable: boolean;
