@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import * as Constants from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
 
+import { toggleHighContrast } from '../../../utils/tool-utils';
+
 import { ToolProps } from '../../../models';
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
@@ -22,6 +24,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
             case Constants.MEASURMENT_TOOL:
                 break;
             case Constants.CONTRAST_TOOL:
+                toggleHighContrast();
                 break;
         }
     };

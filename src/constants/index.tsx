@@ -109,7 +109,7 @@ export const TOOLS: ToolProps[] = [
     },
     {
         id: CONTRAST_TOOL,
-        enable: false
+        enable: true
     }
 ];
 
