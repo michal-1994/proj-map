@@ -1,5 +1,5 @@
 import VectorSource from 'ol/source/Vector';
-import { OSM, TileWMS, StadiaMaps } from 'ol/source';
+import { OSM, StadiaMaps } from 'ol/source';
 import VectorLayer from 'ol/layer/Vector';
 import TileLayer from 'ol/layer/Tile';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -60,16 +60,6 @@ export const createOSMLayer = () => {
     });
 };
 
-export const createWMSLayer = (url: string) => {
-    return new TileLayer({
-        source: new TileWMS({
-            url: url,
-            params: { LAYERS: 'ne:ne', TILED: true },
-            serverType: 'geoserver'
-        })
-    });
-};
-
 export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
     layers.forEach((layer: LayerProps) => {
         const existingLayer = map
@@ -112,11 +102,6 @@ export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
             switch (baseLayer.type) {
                 case 'osm':
                     createdLayer = createOSMLayer();
-                    break;
-                case 'wms':
-                    if (baseLayer.url) {
-                        createdLayer = createWMSLayer(baseLayer.url);
-                    }
                     break;
                 case 'stamen':
                     createdLayer = createStamenLayer(baseLayer.id);

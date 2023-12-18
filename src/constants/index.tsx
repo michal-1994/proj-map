@@ -36,19 +36,25 @@ export const BASE_LAYERS: BaseLayerProps[] = [
         image: 'osm.png'
     },
     {
-        id: 'wms',
-        name: 'Wms',
-        type: 'wms',
-        url: 'https://ahocevar.com/geoserver/wms',
-        enable: false,
-        image: 'wms.png'
-    },
-    {
         id: 'stamen_watercolor',
         name: 'Water Color',
         type: 'stamen',
         enable: false,
         image: 'water-color.png'
+    },
+    {
+        id: 'stamen_toner',
+        name: 'Toner',
+        type: 'stamen',
+        enable: false,
+        image: 'toner.png'
+    },
+    {
+        id: 'stamen_terrain',
+        name: 'Terrain',
+        type: 'stamen',
+        enable: false,
+        image: 'terrain.png'
     }
 ];
 
