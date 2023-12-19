@@ -6,6 +6,7 @@
     position: absolute !important;
     width: 400px;
     z-index: 1000;
+    overflow: hidden;
 }
 
 .map-print .map-print-content {

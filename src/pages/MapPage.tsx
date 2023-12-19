@@ -23,7 +23,7 @@ const MapPage = () => {
         <MapProvider>
             <MapNav />
             <MapSidebar isOpen={isOpenSidebar} toggleSidebar={toggleSidebar} />
-            {/* <MapPrint isOpen={isOpenMapPrint} toggleMapPrint={toggleMapPrint} /> */}
+            <MapPrint isOpen={isOpenMapPrint} toggleMapPrint={toggleMapPrint} />
             <MapView />
         </MapProvider>
     );
