@@ -62,6 +62,7 @@
     --ol-brand-color: red;
 }
 
+/* Buttons */
 .high-contrast .btn-primary,
 .high-contrast .btn-danger,
 .high-contrast .btn-secondary {
@@ -80,4 +81,29 @@
     --bs-btn-disabled-color: #ff0;
     --bs-btn-disabled-bg: #000;
     --bs-btn-disabled-border-color: #ff0;
+}
+
+/* Checkboxes */
+.high-contrast .form-check .form-check-input {
+    background-color: #000;
+    border-color: #ff0;
+}
+
+.high-contrast .form-check .form-check-input:checked {
+    background-color: #ff0;
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.high-contrast .form-check.form-switch .form-check-input {
+    background-color: #000;
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 0.25%29'/%3e%3c/svg%3e");
+}
+
+.high-contrast .form-check.form-switch .form-check-input:checked {
+    background-color: #ff0;
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23000'/%3e%3c/svg%3e");
+}
+
+.high-contrast .form-check .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.5);
 }
