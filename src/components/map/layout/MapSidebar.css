@@ -1,6 +1,5 @@
-.sidebar {
+.map-sidebar {
     transition: width 0.3s;
-    top: 55px;
     left: 0;
     bottom: 55px;
     height: calc(100vh - 110px) !important;
@@ -9,30 +8,26 @@
     z-index: 1000;
 }
 
-.sidebar .sidebar-content {
-    transition: width 0.3s;
-    top: 0;
+.map-sidebar .map-sidebar-content {
     left: -275px;
-    bottom: 0;
-    position: absolute !important;
     opacity: 0;
     width: 100%;
 }
 
-.sidebar .sidebar-content .tab-content {
+.map-sidebar .map-sidebar-content .tab-content {
     padding: 0 1rem;
 }
 
-.sidebar.open {
+.map-sidebar.open {
     width: 275px;
 }
 
-.sidebar.open .sidebar-content {
+.map-sidebar.open .map-sidebar-content {
     left: 0;
     opacity: 1;
 }
 
-.sidebar > button {
+.map-sidebar > button {
     position: absolute;
     display: flex;
     justify-content: center;

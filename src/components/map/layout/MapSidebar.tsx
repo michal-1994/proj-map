@@ -13,11 +13,11 @@ interface MapSidebarProps {
 
 const MapSidebar: React.FC<MapSidebarProps> = ({ isOpen, toggleSidebar }) => {
     return (
-        <Card className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <Card className={`map-sidebar ${isOpen ? 'open' : ''}`}>
             <button className="card" onClick={toggleSidebar}>
                 {isOpen ? <FaAngleLeft /> : <FaAngleRight />}
             </button>
-            <div className="sidebar-content">
+            <div className="map-sidebar-content">
                 <Tabs
                     defaultActiveKey="layers"
                     id="map-sidebar"
