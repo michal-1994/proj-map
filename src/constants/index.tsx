@@ -93,7 +93,7 @@ export const TOOLS: ToolProps[] = [
     },
     {
         id: PRINT_TOOL,
-        enable: false
+        enable: true
     },
     {
         id: ADD_LAYERS_TOOL,
