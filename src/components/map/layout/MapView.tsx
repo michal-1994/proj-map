@@ -2,14 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { OSM } from 'ol/source';
 import TileLayer from 'ol/layer/Tile';
-import {
-    OverviewMap,
-    ScaleLine,
-    defaults as defaultControls
-} from 'ol/control';
+import { OverviewMap, ScaleLine } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
-import Map from 'ol/Map';
-import View from 'ol/View';
 import 'ol/ol.css';
 
 import * as Constants from '../../../constants';
@@ -26,9 +20,8 @@ import './MapView.css';
 
 const MapView = () => {
     const { minimapVisibility, tools } = useAppContext();
-    const { isMinimap, layers, baseLayers } = useMapContext();
+    const { map, initMap, isMinimap, layers, baseLayers } = useMapContext();
 
-    const [map, setMap] = useState<Map | null>(null);
     const [overviewMapControl, setOverviewMapControl] =
         useState<OverviewMap | null>(null);
 
@@ -43,24 +36,11 @@ const MapView = () => {
             collapsed: false
         });
 
-        const mapInstance = new Map({
-            controls: defaultControls({ rotate: false }).extend([
-                mapScaleControl
-            ]),
-            target: 'map-view',
-            layers: [],
-            view: new View({
-                center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
-                zoom: 9
-            })
-        });
-
-        setMap(mapInstance);
+        initMap();
         setOverviewMapControl(mapOverviewControl);
 
-        return () => {
-            mapInstance.setTarget(null!);
-        };
+        map?.addControl(mapScaleControl);
+        map?.addControl(mapOverviewControl);
     }, []);
 
     useEffect(() => {

@@ -1,11 +1,17 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+import { fromLonLat } from 'ol/proj';
+import Map from 'ol/Map';
+import View from 'ol/View';
+
 import * as Constants from '../constants';
 import { useAppContext } from './context';
 
 import { BaseLayerProps, LayerProps } from '../models';
 
 interface MapContextProps {
+    map: Map | null;
+    initMap: () => void;
     isMinimap: boolean;
     toggleMinimap: () => void;
     layers: LayerProps[];
@@ -22,12 +28,26 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
     const { minimapVisibility } = useAppContext();
+    const [map, setMap] = useState<Map | null>(null);
     const [isMinimap, setIsMinimap] = useState(minimapVisibility); // TODO: fix initial value after refresh map page
     const [layers, setLayers] = useState(Constants.LAYERS);
     const [baseLayers, setBaseLayers] = useState(Constants.BASE_LAYERS);
     const [selectAll, setSelectAll] = useState(
         Constants.LAYERS.every(layer => layer.enable)
     );
+
+    const initMap = () => {
+        const newMap = new Map({
+            target: 'map-view',
+            layers: [],
+            view: new View({
+                center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
+                zoom: 9
+            })
+        });
+
+        setMap(newMap);
+    };
 
     const toggleMinimap = () => {
         setIsMinimap(prevIsMinimap => !prevIsMinimap);
@@ -65,6 +85,8 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
     };
 
     const mapContextValue: MapContextProps = {
+        map,
+        initMap,
         isMinimap,
         toggleMinimap,
         layers,
