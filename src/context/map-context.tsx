@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+import { ScaleLine, defaults as defaultControls } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -38,6 +39,9 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
 
     const initMap = () => {
         const newMap = new Map({
+            controls: defaultControls({ rotate: false }).extend([
+                new ScaleLine()
+            ]),
             target: 'map-view',
             layers: [],
             view: new View({

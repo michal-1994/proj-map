@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { OSM } from 'ol/source';
 import TileLayer from 'ol/layer/Tile';
-import { OverviewMap, ScaleLine } from 'ol/control';
+import { OverviewMap } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
 import 'ol/ol.css';
 
@@ -26,21 +26,18 @@ const MapView = () => {
         useState<OverviewMap | null>(null);
 
     useEffect(() => {
-        const mapScaleControl = new ScaleLine();
-        const mapOverviewControl = new OverviewMap({
-            layers: [
-                new TileLayer({
-                    source: new OSM()
-                })
-            ],
-            collapsed: false
-        });
-
         initMap();
-        setOverviewMapControl(mapOverviewControl);
 
-        map?.addControl(mapScaleControl);
-        map?.addControl(mapOverviewControl);
+        setOverviewMapControl(
+            new OverviewMap({
+                layers: [
+                    new TileLayer({
+                        source: new OSM()
+                    })
+                ],
+                collapsed: false
+            })
+        );
     }, []);
 
     useEffect(() => {
