@@ -36,3 +36,18 @@ export interface TileProps {
 export interface TileGridProps {
     tiles: TileProps[];
 }
+
+export interface PrintData {
+    pageSize: string;
+    resolution: string;
+    scale: string;
+}
+
+export interface Dims {
+    a0: number[];
+    a1: number[];
+    a2: number[];
+    a3: number[];
+    a4: number[];
+    a5: number[];
+}

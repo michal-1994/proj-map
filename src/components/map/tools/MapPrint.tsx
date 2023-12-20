@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
 
-import { togglePrintTool } from '../../../utils/tool-utils';
+import { exportToPDF, togglePrintTool } from '../../../utils/tool-utils';
+
+import { PrintData } from '../../../models';
 
 import './MapPrint.css';
 
 const MapPrint = () => {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<PrintData>({
         pageSize: '',
         resolution: '',
         scale: ''
@@ -25,7 +27,7 @@ const MapPrint = () => {
         event.preventDefault();
 
         if (formData.pageSize && formData.resolution && formData.scale) {
-            console.log('Form Data:', formData);
+            exportToPDF(formData);
         }
     };
 
