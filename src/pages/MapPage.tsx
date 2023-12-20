@@ -9,7 +9,7 @@ import { MapProvider } from '../context/map-context';
 
 const MapPage = () => {
     const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-    const [isOpenMapPrint, setIsOpenMapPrint] = useState(true);
+    const [isOpenMapPrint, setIsOpenMapPrint] = useState(false);
 
     const toggleSidebar = () => {
         setIsOpenSidebar(!isOpenSidebar);

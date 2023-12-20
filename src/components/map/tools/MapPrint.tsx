@@ -10,7 +10,7 @@ interface MapSidebarProps {
 
 const MapPrint: React.FC<MapSidebarProps> = ({ isOpen, toggleMapPrint }) => {
     return (
-        <Card className={`map-print ${isOpen ? 'open' : ''}`}>
+        <Card id="map-print" className={`map-print ${isOpen ? 'open' : ''}`}>
             <button className="card" onClick={toggleMapPrint}>
                 <IoClose />
             </button>

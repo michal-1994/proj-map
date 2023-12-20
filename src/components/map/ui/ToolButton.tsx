@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import * as Constants from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
 
-import { toggleHighContrast } from '../../../utils/tool-utils';
+import { toggleHighContrast, togglePrintTool } from '../../../utils/tool-utils';
 
 import { ToolProps } from '../../../models';
 
@@ -16,6 +16,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                 toggleMinimap();
                 break;
             case Constants.PRINT_TOOL:
+                togglePrintTool();
                 break;
             case Constants.ADD_LAYERS_TOOL:
                 break;
