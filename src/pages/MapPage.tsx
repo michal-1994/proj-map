@@ -9,21 +9,16 @@ import { MapProvider } from '../context/map-context';
 
 const MapPage = () => {
     const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-    const [isOpenMapPrint, setIsOpenMapPrint] = useState(false);
 
     const toggleSidebar = () => {
         setIsOpenSidebar(!isOpenSidebar);
-    };
-
-    const toggleMapPrint = () => {
-        setIsOpenMapPrint(!isOpenMapPrint);
     };
 
     return (
         <MapProvider>
             <MapNav />
             <MapSidebar isOpen={isOpenSidebar} toggleSidebar={toggleSidebar} />
-            <MapPrint isOpen={isOpenMapPrint} toggleMapPrint={toggleMapPrint} />
+            <MapPrint />
             <MapView />
         </MapProvider>
     );

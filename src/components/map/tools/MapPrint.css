@@ -1,23 +1,23 @@
 .map-print {
     transition: height 0.3s;
-    left: calc(50vw - 200px);
+    left: calc(50vw - 180px);
     bottom: 0;
     height: 0 !important;
     position: absolute !important;
-    width: 400px;
+    width: 360px;
     z-index: 1000;
     overflow: hidden;
 }
 
 .map-print .map-print-content {
-    bottom: -56px;
+    bottom: -134px;
     opacity: 0;
     width: 100%;
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
 .map-print.open {
-    height: 56px !important;
+    height: 134px !important;
 }
 
 .map-print.open .map-print-content {
@@ -32,7 +32,7 @@
     align-items: center;
     top: 0px;
     right: 0px;
-    height: 36px;
-    width: 36px;
+    height: 24px;
+    width: 24px;
     z-index: 1001;
 }
