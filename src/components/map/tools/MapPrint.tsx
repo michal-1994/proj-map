@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
 
+import { useMapContext } from '../../../context/map-context';
+
 import { exportToPDF, togglePrintTool } from '../../../utils/tool-utils';
 
 import { PrintData } from '../../../models';
@@ -9,6 +11,8 @@ import { PrintData } from '../../../models';
 import './MapPrint.css';
 
 const MapPrint = () => {
+    const { map } = useMapContext();
+
     const [formData, setFormData] = useState<PrintData>({
         pageSize: '',
         resolution: '',
@@ -26,8 +30,9 @@ const MapPrint = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        if (formData.pageSize && formData.resolution && formData.scale) {
-            exportToPDF(formData);
+        if (formData.pageSize && formData.resolution && formData.scale && map) {
+            exportToPDF(formData, map);
+            togglePrintTool();
         }
     };
 
