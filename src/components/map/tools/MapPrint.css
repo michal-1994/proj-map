@@ -16,6 +16,12 @@
     padding: 1.5rem;
 }
 
+.map-print .map-print-content .invalid-feedback,
+.map-print .map-print-content .valid-feedback {
+    position: absolute;
+    margin: 0;
+}
+
 .map-print.open {
     height: 134px !important;
 }
