@@ -51,7 +51,7 @@ const MapPrint = () => {
             <div className="map-print-content">
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Row>
-                        <Form.Group as={Col} controlId="validationCustom01">
+                        <Form.Group as={Col} controlId="pageSizeId">
                             <Form.Select
                                 size="sm"
                                 name="pageSize"
@@ -75,7 +75,7 @@ const MapPrint = () => {
                                 The field is required.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group as={Col} controlId="validationCustom02">
+                        <Form.Group as={Col} controlId="resolutionId">
                             <Form.Select
                                 size="sm"
                                 name="resolution"
@@ -100,7 +100,7 @@ const MapPrint = () => {
                     </Row>
                     <br />
                     <Row>
-                        <Form.Group as={Col} controlId="validationCustom03">
+                        <Form.Group as={Col} controlId="scaleId">
                             <Form.Select
                                 size="sm"
                                 name="scale"
