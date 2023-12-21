@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { OSM } from 'ol/source';
 import TileLayer from 'ol/layer/Tile';
@@ -22,22 +22,17 @@ const MapView = () => {
     const { minimapVisibility, tools } = useAppContext();
     const { map, initMap, isMinimap, layers, baseLayers } = useMapContext();
 
-    const [overviewMapControl, setOverviewMapControl] =
-        useState<OverviewMap | null>(null);
+    const overviewMapControl = new OverviewMap({
+        layers: [
+            new TileLayer({
+                source: new OSM()
+            })
+        ],
+        collapsed: false
+    });
 
     useEffect(() => {
         initMap();
-
-        setOverviewMapControl(
-            new OverviewMap({
-                layers: [
-                    new TileLayer({
-                        source: new OSM()
-                    })
-                ],
-                collapsed: false
-            })
-        );
     }, []);
 
     useEffect(() => {
