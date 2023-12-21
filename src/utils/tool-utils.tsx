@@ -37,6 +37,11 @@ export const exportToPDF = (formData: PrintData, map: Map) => {
             map.getView().getCenter()!
         );
 
+    console.log('width: ', width);
+    console.log('height: ', height);
+    console.log('viewResolution: ', viewResolution);
+    console.log('scaleResolution: ', scaleResolution);
+
     html2canvas(map.getViewport()).then(function (canvas) {
         const pdf = new jsPDF('landscape', undefined, dim);
         pdf.addImage(
@@ -48,19 +53,5 @@ export const exportToPDF = (formData: PrintData, map: Map) => {
             dim[1]
         );
         pdf.save('map.pdf');
-
-        // Reset original map size
-        // scaleLine.setDpi(undefined);
-        // map.getTargetElement().style.width = width + 'px';
-        // map.getTargetElement().style.height = height + 'px';
-        // map.updateSize();
-        // map.getView().setResolution(scaleResolution);
     });
-
-    // Set print size
-    // scaleLine.setDpi(resolution);
-    // map.getTargetElement().style.width = width + 'px';
-    // map.getTargetElement().style.height = height + 'px';
-    // map.updateSize();
-    // map.getView().setResolution(scaleResolution);
 };
