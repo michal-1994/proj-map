@@ -30,10 +30,12 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const { minimapVisibility } = useAppContext();
     const [map, setMap] = useState<Map | null>(null);
-    const [isMinimap, setIsMinimap] = useState(minimapVisibility); // TODO: fix initial value after refresh map page
-    const [layers, setLayers] = useState(Constants.LAYERS);
-    const [baseLayers, setBaseLayers] = useState(Constants.BASE_LAYERS);
-    const [selectAll, setSelectAll] = useState(
+    const [isMinimap, setIsMinimap] = useState<boolean>(minimapVisibility);
+    const [layers, setLayers] = useState<LayerProps[]>(Constants.LAYERS);
+    const [baseLayers, setBaseLayers] = useState<BaseLayerProps[]>(
+        Constants.BASE_LAYERS
+    );
+    const [selectAll, setSelectAll] = useState<boolean>(
         Constants.LAYERS.every(layer => layer.enable)
     );
 

@@ -21,8 +21,11 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
     const { clearLocalStorage } = useAppContext();
-    const [showModal, setShowModal] = useState(false);
-    const [modalContent, setModalContent] = useState({
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [modalContent, setModalContent] = useState<{
+        title: string;
+        content: string;
+    }>({
         title: '',
         content: ''
     });

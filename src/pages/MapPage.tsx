@@ -8,7 +8,7 @@ import MapPrint from '../components/map/tools/MapPrint';
 import { MapProvider } from '../context/map-context';
 
 const MapPage = () => {
-    const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+    const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
 
     const toggleSidebar = () => {
         setIsOpenSidebar(!isOpenSidebar);
