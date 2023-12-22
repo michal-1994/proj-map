@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+import { Map, View } from 'ol';
 import { ScaleLine, defaults as defaultControls } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
-import Map from 'ol/Map';
-import View from 'ol/View';
 
 import * as Constants from '../constants';
 import { useAppContext } from './context';

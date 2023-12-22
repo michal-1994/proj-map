@@ -6,16 +6,16 @@ import { useMapContext } from '../../../context/map-context';
 
 import { exportToPDF, togglePrintTool } from '../../../utils/tool-utils';
 
-import { PrintData } from '../../../models';
-
 import { Feature } from 'ol';
 import { Polygon } from 'ol/geom';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { Fill, Stroke, Style } from 'ol/style';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
 
 import { DMIS } from '../../../constants';
+
+import { PrintData } from '../../../models';
 
 import './MapPrint.css';
 

@@ -1,13 +1,10 @@
-import VectorSource from 'ol/source/Vector';
+import { Map } from 'ol';
 import { OSM, StadiaMaps } from 'ol/source';
+import { Fill, Stroke, Style, Text } from 'ol/style';
+import { GeoJSON } from 'ol/format';
+import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import TileLayer from 'ol/layer/Tile';
-import GeoJSON from 'ol/format/GeoJSON';
-import Stroke from 'ol/style/Stroke';
-import Style from 'ol/style/Style';
-import Fill from 'ol/style/Fill';
-import Text from 'ol/style/Text';
-import Map from 'ol/Map';
 
 import { BaseLayerProps, LayerProps, ToolProps } from '../models';
 

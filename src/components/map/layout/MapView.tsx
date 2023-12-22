@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { OSM } from 'ol/source';
-import TileLayer from 'ol/layer/Tile';
 import { OverviewMap } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
+import TileLayer from 'ol/layer/Tile';
 import 'ol/ol.css';
 
 import * as Constants from '../../../constants';
