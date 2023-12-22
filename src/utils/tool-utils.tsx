@@ -1,8 +1,8 @@
-import { Map } from 'ol';
-import { ScaleLine } from 'ol/control';
-import { getPointResolution, get as getProjection } from 'ol/proj.js';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+
+import { Map } from 'ol';
+import { getPointResolution } from 'ol/proj.js';
 
 import { DMIS } from '../constants';
 
@@ -17,16 +17,15 @@ export const togglePrintTool = () => {
 };
 
 export const exportToPDF = (formData: PrintData, map: Map) => {
-    const pageSize: string = formData.pageSize;
+    const pageSize: string = formData.pageSize.split('-')[0];
+    const orientation: any = formData.pageSize.split('-')[1];
     const resolution: number = +formData.resolution;
     const scale: number = +formData.scale;
 
-    const dim: number[] = (DMIS as any)[pageSize];
+    let dim: number[] = (DMIS as any)[pageSize];
+
     const width = Math.round((dim[0] * resolution) / 25.4);
     const height = Math.round((dim[1] * resolution) / 25.4);
-
-    // const scaleLine = new ScaleLine({bar: true, text: true, minWidth: 125});
-    // map.addControl(scaleLine);
 
     const viewResolution = map.getView().getResolution();
     const scaleResolution =
@@ -37,13 +36,12 @@ export const exportToPDF = (formData: PrintData, map: Map) => {
             map.getView().getCenter()!
         );
 
-    console.log('width: ', width);
-    console.log('height: ', height);
-    console.log('viewResolution: ', viewResolution);
-    console.log('scaleResolution: ', scaleResolution);
+    if (orientation === 'portrait') {
+        dim.reverse();
+    }
 
     html2canvas(map.getViewport()).then(function (canvas) {
-        const pdf = new jsPDF('landscape', undefined, dim);
+        const pdf = new jsPDF(orientation, undefined, dim);
         pdf.addImage(
             canvas.toDataURL('image/jpeg'),
             'JPEG',
