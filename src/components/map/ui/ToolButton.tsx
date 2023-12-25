@@ -3,12 +3,14 @@ import { Card } from 'react-bootstrap';
 import * as Constants from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
 
-import { toggleHighContrast, togglePrintTool } from '../../../utils/tool-utils';
+import { toggleHighContrast } from '../../../utils/tool-utils';
 
 import { ToolProps } from '../../../models';
+import { useToolContext } from '../../../context/tool-context';
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();
+    const { showPrintWindow, openPrintWindow } = useToolContext();
 
     const handleClick = (id: string) => {
         switch (id) {
@@ -16,7 +18,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                 toggleMinimap();
                 break;
             case Constants.PRINT_TOOL:
-                togglePrintTool();
+                openPrintWindow(!showPrintWindow);
                 break;
             case Constants.ADD_LAYERS_TOOL:
                 break;

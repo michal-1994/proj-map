@@ -6,6 +6,7 @@ import MapView from '../components/map/layout/MapView';
 import MapPrint from '../components/map/tools/MapPrint';
 
 import { MapProvider } from '../context/map-context';
+import { ToolProvider } from '../context/tool-context';
 
 const MapPage = () => {
     const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
@@ -16,10 +17,15 @@ const MapPage = () => {
 
     return (
         <MapProvider>
-            <MapNav />
-            <MapSidebar isOpen={isOpenSidebar} toggleSidebar={toggleSidebar} />
-            <MapPrint />
-            <MapView />
+            <ToolProvider>
+                <MapNav />
+                <MapSidebar
+                    isOpen={isOpenSidebar}
+                    toggleSidebar={toggleSidebar}
+                />
+                <MapPrint />
+                <MapView />
+            </ToolProvider>
         </MapProvider>
     );
 };

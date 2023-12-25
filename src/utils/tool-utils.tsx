@@ -10,10 +10,6 @@ export const toggleHighContrast = () => {
     document.getElementsByTagName('html')[0].classList.toggle('high-contrast');
 };
 
-export const togglePrintTool = () => {
-    document.getElementById('map-print')?.classList.toggle('open');
-};
-
 export const exportToPDF = (formData: PrintData, map: Map) => {
     const pageSize: string = formData.pageSize.split('-')[0];
     const orientation: any = formData.pageSize.split('-')[1];

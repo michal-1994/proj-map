@@ -5,7 +5,8 @@ import { Coordinate } from 'ol/coordinate';
 
 import { DMIS } from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
-import { exportToPDF, togglePrintTool } from '../../../utils/tool-utils';
+import { useToolContext } from '../../../context/tool-context';
+import { exportToPDF } from '../../../utils/tool-utils';
 import {
     createGeometry,
     createOverviewLayer,
@@ -17,6 +18,7 @@ import './MapPrint.css';
 
 const MapPrint = () => {
     const { map } = useMapContext();
+    const { showPrintWindow, openPrintWindow } = useToolContext();
 
     const [validated, setValidated] = useState<boolean>(false);
     const [formData, setFormData] = useState<PrintData>({
@@ -38,7 +40,7 @@ const MapPrint = () => {
 
         if (map && event.currentTarget.checkValidity()) {
             exportToPDF(formData, map);
-            togglePrintTool();
+            openPrintWindow(!showPrintWindow);
         }
 
         setValidated(true);
@@ -90,7 +92,7 @@ const MapPrint = () => {
             <button
                 className="card"
                 onClick={() => {
-                    togglePrintTool();
+                    openPrintWindow(!showPrintWindow);
                 }}>
                 <IoClose />
             </button>
