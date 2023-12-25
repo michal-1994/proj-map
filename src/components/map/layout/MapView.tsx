@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
-
-import { OSM } from 'ol/source';
 import { OverviewMap } from 'ol/control';
-import { fromLonLat } from 'ol/proj';
-import TileLayer from 'ol/layer/Tile';
 import 'ol/ol.css';
 
 import * as Constants from '../../../constants';
 import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
-
 import {
+    createOverviewMap,
     getTool,
+    transformCoordinate,
     updateMapBaseLayers,
     updateMapLayers
 } from '../../../utils/map-utils';
@@ -27,17 +24,7 @@ const MapView = () => {
 
     useEffect(() => {
         initMap();
-
-        setOverviewMapControl(
-            new OverviewMap({
-                layers: [
-                    new TileLayer({
-                        source: new OSM()
-                    })
-                ],
-                collapsed: false
-            })
-        );
+        setOverviewMapControl(createOverviewMap());
     }, []);
 
     useEffect(() => {
@@ -73,7 +60,10 @@ const MapView = () => {
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const { longitude, latitude } = position.coords;
-                    const currentPosition = fromLonLat([longitude, latitude]);
+                    const currentPosition = transformCoordinate(
+                        longitude,
+                        latitude
+                    );
                     map.getView().setCenter(currentPosition);
                 },
                 error => {

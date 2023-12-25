@@ -1,11 +1,9 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-
 import { Map } from 'ol';
 import { getPointResolution } from 'ol/proj.js';
 
 import { DMIS } from '../constants';
-
 import { PrintData } from '../models';
 
 export const toggleHighContrast = () => {

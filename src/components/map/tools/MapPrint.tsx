@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
-
-import { useMapContext } from '../../../context/map-context';
-
-import { exportToPDF, togglePrintTool } from '../../../utils/tool-utils';
-
-import { Feature } from 'ol';
-import { Polygon } from 'ol/geom';
-import { fromLonLat, toLonLat } from 'ol/proj';
-import { Fill, Stroke, Style } from 'ol/style';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
+import { Coordinate } from 'ol/coordinate';
 
 import { DMIS } from '../../../constants';
-
+import { useMapContext } from '../../../context/map-context';
+import { exportToPDF, togglePrintTool } from '../../../utils/tool-utils';
+import {
+    createGeometry,
+    createOverviewLayer,
+    transformProjection
+} from '../../../utils/map-utils';
 import { PrintData } from '../../../models';
 
 import './MapPrint.css';
@@ -49,8 +45,8 @@ const MapPrint = () => {
     };
 
     useEffect(() => {
-        const centerT = map?.getView().getCenter();
-        const center = centerT ? toLonLat(centerT) : null;
+        const centerT = map?.getView().getCenter() as Coordinate;
+        const center = transformProjection(centerT);
         const pageSize: string = formData.pageSize.split('-')[0];
         const dim: number[] = (DMIS as any)[pageSize];
         let overviewLayer: any | null = null;
@@ -67,14 +63,12 @@ const MapPrint = () => {
             const topRight = [center[0] + halfWidth, center[1] + halfHeight];
             const topLeft = [center[0] - halfWidth, center[1] + halfHeight];
 
-            const geometry = new Polygon([
-                [
-                    fromLonLat(bottomLeft),
-                    fromLonLat(bottomRight),
-                    fromLonLat(topRight),
-                    fromLonLat(topLeft)
-                ]
-            ]);
+            const geometry = createGeometry(
+                topLeft,
+                topRight,
+                bottomRight,
+                bottomLeft
+            );
 
             map?.getLayers().forEach(layer => {
                 const layerId = layer ? layer.get('id') : null;
@@ -83,21 +77,7 @@ const MapPrint = () => {
                 }
             });
 
-            overviewLayer = new VectorLayer({
-                source: new VectorSource({
-                    features: [new Feature(geometry)]
-                }),
-                style: new Style({
-                    fill: new Fill({
-                        color: 'rgba(230, 215, 173, 0.3)'
-                    }),
-                    stroke: new Stroke({
-                        color: 'rgb(204, 116, 0)',
-                        width: 2
-                    })
-                })
-            });
-
+            overviewLayer = createOverviewLayer(geometry);
             overviewLayer.setZIndex(999);
             overviewLayer.set('id', 'overviewLayer');
 

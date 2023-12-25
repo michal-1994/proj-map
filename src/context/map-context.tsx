@@ -1,12 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-
-import { Map, View } from 'ol';
-import { ScaleLine, defaults as defaultControls } from 'ol/control';
-import { fromLonLat } from 'ol/proj';
+import { Map } from 'ol';
 
 import * as Constants from '../constants';
 import { useAppContext } from './context';
-
+import { createMap } from '../utils/map-utils';
 import { BaseLayerProps, LayerProps } from '../models';
 
 interface MapContextProps {
@@ -39,19 +36,7 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
     );
 
     const initMap = () => {
-        const newMap = new Map({
-            controls: defaultControls({ rotate: false }).extend([
-                new ScaleLine()
-            ]),
-            target: 'map-view',
-            layers: [],
-            view: new View({
-                center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
-                zoom: 9
-            })
-        });
-
-        setMap(newMap);
+        setMap(createMap());
     };
 
     const toggleMinimap = () => {
