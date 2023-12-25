@@ -47,8 +47,13 @@ const MapPrint = () => {
         const centerT = map?.getView().getCenter() as Coordinate;
         const center = transformProjection(centerT);
         const pageSize: string = formData.pageSize.split('-')[0];
+        const orientation: any = formData.pageSize.split('-')[1];
         const dim: number[] = (DMIS as any)[pageSize];
         let overviewLayer: any | null = null;
+
+        if (orientation === 'portrait') {
+            dim.reverse();
+        }
 
         if (dim && center) {
             const widthScaleFactor = dim[0] / 200;
