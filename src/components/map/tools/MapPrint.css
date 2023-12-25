@@ -10,14 +10,18 @@
 }
 
 .map-print .map-print-content {
-    bottom: -198px;
+    bottom: -185.19px;
     opacity: 0;
     width: 100%;
     padding: 1.5rem;
 }
 
+.map-print .map-print-content .form-label {
+    margin-bottom: 0.1rem;
+}
+
 .map-print.open {
-    height: 198px !important;
+    height: 185.19px !important;
 }
 
 .map-print.open .map-print-content {

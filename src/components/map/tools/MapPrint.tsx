@@ -161,7 +161,7 @@ const MapPrint = () => {
                     </Row>
                     <br />
                     <Row>
-                        <Form.Group as={Col} controlId="scaleId">
+                        <Form.Group as={Col} xs={8} controlId="scaleId">
                             <Form.Label>Scale</Form.Label>
                             <Form.Select
                                 size="sm"
@@ -177,7 +177,10 @@ const MapPrint = () => {
                                 <option value="10">1:10000</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group as={Col}>
+                        <Form.Group
+                            as={Col}
+                            xs={4}
+                            style={{ marginTop: 'auto' }}>
                             <Button size="sm" type="submit" variant="primary">
                                 Export PDF
                             </Button>
