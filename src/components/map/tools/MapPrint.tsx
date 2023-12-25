@@ -20,11 +20,10 @@ const MapPrint = () => {
     const { map } = useMapContext();
     const { showPrintWindow, openPrintWindow } = useToolContext();
 
-    const [validated, setValidated] = useState<boolean>(false);
     const [formData, setFormData] = useState<PrintData>({
-        pageSize: '',
-        resolution: '',
-        scale: ''
+        pageSize: 'a4-landscape',
+        resolution: '200',
+        scale: '100'
     });
 
     const handleChange = (event: any) => {
@@ -42,8 +41,6 @@ const MapPrint = () => {
             exportToPDF(formData, map);
             openPrintWindow(!showPrintWindow);
         }
-
-        setValidated(true);
     };
 
     useEffect(() => {
@@ -83,9 +80,18 @@ const MapPrint = () => {
             overviewLayer.setZIndex(999);
             overviewLayer.set('id', 'overviewLayer');
 
-            map?.addLayer(overviewLayer);
+            if (showPrintWindow) {
+                map?.addLayer(overviewLayer);
+            } else {
+                map?.getLayers().forEach(layer => {
+                    const layerId = layer ? layer.get('id') : null;
+                    if (layerId === 'overviewLayer') {
+                        map?.removeLayer(layer);
+                    }
+                });
+            }
         }
-    }, [formData, map]);
+    }, [showPrintWindow, map, formData]);
 
     return (
         <Card className={`map-print ${showPrintWindow ? 'open' : ''}`}>
@@ -97,18 +103,16 @@ const MapPrint = () => {
                 <IoClose />
             </button>
             <div className="map-print-content">
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form noValidate onSubmit={handleSubmit}>
                     <Row>
                         <Form.Group as={Col} controlId="pageSizeId">
+                            <Form.Label>Page size</Form.Label>
                             <Form.Select
                                 size="sm"
                                 name="pageSize"
                                 value={formData.pageSize}
                                 onChange={handleChange}
                                 required>
-                                <option value="" disabled>
-                                    Page size
-                                </option>
                                 <option value="a0-landscape">
                                     A0 Landscape
                                 </option>
@@ -134,48 +138,32 @@ const MapPrint = () => {
                                 </option>
                                 <option value="a5-portrait">A5 Portrait</option>
                             </Form.Select>
-                            <Form.Control.Feedback>
-                                Looks good!
-                            </Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">
-                                The field is required.
-                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group as={Col} controlId="resolutionId">
+                            <Form.Label>Resolution</Form.Label>
                             <Form.Select
                                 size="sm"
                                 name="resolution"
                                 value={formData.resolution}
                                 onChange={handleChange}
                                 required>
-                                <option value="" disabled>
-                                    Resolution
-                                </option>
                                 <option value="72">72 dpi (fast)</option>
                                 <option value="150">150 dpi</option>
                                 <option value="200">200 dpi</option>
                                 <option value="300">300 dpi (slow)</option>
                             </Form.Select>
-                            <Form.Control.Feedback>
-                                Looks good!
-                            </Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">
-                                The field is required.
-                            </Form.Control.Feedback>
                         </Form.Group>
                     </Row>
                     <br />
                     <Row>
                         <Form.Group as={Col} controlId="scaleId">
+                            <Form.Label>Scale</Form.Label>
                             <Form.Select
                                 size="sm"
                                 name="scale"
                                 value={formData.scale}
                                 onChange={handleChange}
                                 required>
-                                <option value="" disabled>
-                                    Scale
-                                </option>
                                 <option value="500">1:500000</option>
                                 <option value="250">1:250000</option>
                                 <option value="100">1:100000</option>
@@ -183,12 +171,6 @@ const MapPrint = () => {
                                 <option value="25">1:25000</option>
                                 <option value="10">1:10000</option>
                             </Form.Select>
-                            <Form.Control.Feedback>
-                                Looks good!
-                            </Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">
-                                The field is required.
-                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Button size="sm" type="submit" variant="primary">

@@ -10,20 +10,14 @@
 }
 
 .map-print .map-print-content {
-    bottom: -134px;
+    bottom: -198px;
     opacity: 0;
     width: 100%;
     padding: 1.5rem;
 }
 
-.map-print .map-print-content .invalid-feedback,
-.map-print .map-print-content .valid-feedback {
-    position: absolute;
-    margin: 0;
-}
-
 .map-print.open {
-    height: 134px !important;
+    height: 198px !important;
 }
 
 .map-print.open .map-print-content {
