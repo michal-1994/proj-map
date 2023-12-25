@@ -148,10 +148,6 @@ export const BUTTON_TOOLS: ButtonToolProps[] = [
 ];
 
 export const DMIS: Dims = {
-    a0: [1189, 841],
-    a1: [841, 594],
-    a2: [594, 420],
     a3: [420, 297],
-    a4: [297, 210],
-    a5: [210, 148]
+    a4: [297, 210]
 };

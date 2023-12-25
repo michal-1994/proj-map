@@ -118,18 +118,6 @@ const MapPrint = () => {
                                 value={formData.pageSize}
                                 onChange={handleChange}
                                 required>
-                                <option value="a0-landscape">
-                                    A0 Landscape
-                                </option>
-                                <option value="a0-portrait">A0 Portrait</option>
-                                <option value="a1-landscape">
-                                    A1 Landscape
-                                </option>
-                                <option value="a1-portrait">A1 Portrait</option>
-                                <option value="a2-landscape">
-                                    A2 Landscape
-                                </option>
-                                <option value="a2-portrait">A2 Portrait</option>
                                 <option value="a3-landscape">
                                     A3 Landscape
                                 </option>
@@ -138,10 +126,6 @@ const MapPrint = () => {
                                     A4 Landscape
                                 </option>
                                 <option value="a4-portrait">A4 Portrait</option>
-                                <option value="a5-landscape">
-                                    A5 Landscape
-                                </option>
-                                <option value="a5-portrait">A5 Portrait</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group as={Col} controlId="resolutionId">
@@ -169,12 +153,10 @@ const MapPrint = () => {
                                 value={formData.scale}
                                 onChange={handleChange}
                                 required>
-                                <option value="500">1:500000</option>
                                 <option value="250">1:250000</option>
                                 <option value="100">1:100000</option>
                                 <option value="50">1:50000</option>
                                 <option value="25">1:25000</option>
-                                <option value="10">1:10000</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group
