@@ -14,11 +14,6 @@ export const ToolProvider: React.FC<{ children: ReactNode }> = ({
 
     const openPrintWindow = (value: boolean) => {
         setShowPrintWindow(value);
-        if (value) {
-            document.getElementById('map-print')?.classList.add('open');
-        } else {
-            document.getElementById('map-print')?.classList.remove('open');
-        }
     };
 
     const toolContextValue: ToolContextProps = {

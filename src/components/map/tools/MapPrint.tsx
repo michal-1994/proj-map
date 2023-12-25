@@ -88,7 +88,7 @@ const MapPrint = () => {
     }, [formData, map]);
 
     return (
-        <Card id="map-print" className="map-print">
+        <Card className={`map-print ${showPrintWindow ? 'open' : ''}`}>
             <button
                 className="card"
                 onClick={() => {
