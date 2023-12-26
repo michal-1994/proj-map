@@ -9,9 +9,16 @@ import {
     Button
 } from 'react-bootstrap';
 
-import * as Constants from '../../constants';
 import { useAppContext } from '../../context/context';
 import { useModalContext } from '../../context/modal-context';
+import {
+    ADD_LAYERS_TOOL,
+    CONTRAST_TOOL,
+    DRAW_TOOL,
+    MEASURMENT_TOOL,
+    MINIMAP_TOOL,
+    PRINT_TOOL
+} from '../../constants';
 
 import './SettingsPanel.css';
 
@@ -98,12 +105,10 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Mini map visible"
-                                    disabled={
-                                        !getTool(Constants.MINIMAP_TOOL)?.enable
-                                    }
+                                    disabled={!getTool(MINIMAP_TOOL)?.enable}
                                     checked={
-                                        getTool(Constants.MINIMAP_TOOL)
-                                            ?.enable && minimapVisibility
+                                        getTool(MINIMAP_TOOL)?.enable &&
+                                        minimapVisibility
                                     }
                                     onChange={() => toggleMinimapVisibility()}
                                 />
@@ -124,12 +129,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Minimap"
-                                    checked={
-                                        getTool(Constants.MINIMAP_TOOL)?.enable
-                                    }
-                                    onChange={() =>
-                                        updateTool(Constants.MINIMAP_TOOL)
-                                    }
+                                    checked={getTool(MINIMAP_TOOL)?.enable}
+                                    onChange={() => updateTool(MINIMAP_TOOL)}
                                 />
                             </Form.Group>
                         </Form>
@@ -143,12 +144,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Print map"
-                                    checked={
-                                        getTool(Constants.PRINT_TOOL)?.enable
-                                    }
-                                    onChange={() =>
-                                        updateTool(Constants.PRINT_TOOL)
-                                    }
+                                    checked={getTool(PRINT_TOOL)?.enable}
+                                    onChange={() => updateTool(PRINT_TOOL)}
                                 />
                             </Form.Group>
                         </Form>
@@ -162,13 +159,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Add layers"
-                                    checked={
-                                        getTool(Constants.ADD_LAYERS_TOOL)
-                                            ?.enable
-                                    }
-                                    onChange={() =>
-                                        updateTool(Constants.ADD_LAYERS_TOOL)
-                                    }
+                                    checked={getTool(ADD_LAYERS_TOOL)?.enable}
+                                    onChange={() => updateTool(ADD_LAYERS_TOOL)}
                                 />
                             </Form.Group>
                         </Form>
@@ -182,12 +174,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Draw"
-                                    checked={
-                                        getTool(Constants.DRAW_TOOL)?.enable
-                                    }
-                                    onChange={() =>
-                                        updateTool(Constants.DRAW_TOOL)
-                                    }
+                                    checked={getTool(DRAW_TOOL)?.enable}
+                                    onChange={() => updateTool(DRAW_TOOL)}
                                 />
                             </Form.Group>
                         </Form>
@@ -201,13 +189,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Measurment"
-                                    checked={
-                                        getTool(Constants.MEASURMENT_TOOL)
-                                            ?.enable
-                                    }
-                                    onChange={() =>
-                                        updateTool(Constants.MEASURMENT_TOOL)
-                                    }
+                                    checked={getTool(MEASURMENT_TOOL)?.enable}
+                                    onChange={() => updateTool(MEASURMENT_TOOL)}
                                 />
                             </Form.Group>
                         </Form>
@@ -221,12 +204,8 @@ const SettingsPanel = () => {
                                 <Form.Check
                                     type="switch"
                                     label="Contrast"
-                                    checked={
-                                        getTool(Constants.CONTRAST_TOOL)?.enable
-                                    }
-                                    onChange={() =>
-                                        updateTool(Constants.CONTRAST_TOOL)
-                                    }
+                                    checked={getTool(CONTRAST_TOOL)?.enable}
+                                    onChange={() => updateTool(CONTRAST_TOOL)}
                                 />
                             </Form.Group>
                         </Form>

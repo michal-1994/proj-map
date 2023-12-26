@@ -1,12 +1,18 @@
 import { Card } from 'react-bootstrap';
 
-import * as Constants from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
-
-import { toggleHighContrast } from '../../../utils/tool-utils';
-
-import { ToolProps } from '../../../models';
 import { useToolContext } from '../../../context/tool-context';
+import { toggleHighContrast } from '../../../utils/tool-utils';
+import {
+    ADD_LAYERS_TOOL,
+    BUTTON_TOOLS,
+    CONTRAST_TOOL,
+    DRAW_TOOL,
+    MEASURMENT_TOOL,
+    MINIMAP_TOOL,
+    PRINT_TOOL
+} from '../../../constants';
+import { ToolProps } from '../../../models';
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();
@@ -14,26 +20,26 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
 
     const handleClick = (id: string) => {
         switch (id) {
-            case Constants.MINIMAP_TOOL:
+            case MINIMAP_TOOL:
                 toggleMinimap();
                 break;
-            case Constants.PRINT_TOOL:
+            case PRINT_TOOL:
                 openPrintWindow(!showPrintWindow);
                 break;
-            case Constants.ADD_LAYERS_TOOL:
+            case ADD_LAYERS_TOOL:
                 break;
-            case Constants.DRAW_TOOL:
+            case DRAW_TOOL:
                 break;
-            case Constants.MEASURMENT_TOOL:
+            case MEASURMENT_TOOL:
                 break;
-            case Constants.CONTRAST_TOOL:
+            case CONTRAST_TOOL:
                 toggleHighContrast();
                 break;
         }
     };
 
     const getTool = (id: string) => {
-        return Constants.BUTTON_TOOLS.find(tool => tool.id === id);
+        return BUTTON_TOOLS.find(tool => tool.id === id);
     };
 
     return (

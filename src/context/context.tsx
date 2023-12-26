@@ -6,8 +6,7 @@ import React, {
     ReactNode
 } from 'react';
 
-import * as Constants from '../constants/index';
-
+import { TOOLS } from '../constants';
 import { ToolProps } from '../models';
 
 interface AppContextProps {
@@ -27,7 +26,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const [darkMode, setDarkMode] = useState<boolean>(true);
     const [minimapVisibility, setMinimapVisibility] = useState<boolean>(false);
-    const [tools, setTools] = useState<ToolProps[]>(Constants.TOOLS);
+    const [tools, setTools] = useState<ToolProps[]>(TOOLS);
 
     useEffect(() => {
         const savedConfig = localStorage.getItem('appConfig');
@@ -68,7 +67,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
         setDarkMode(true);
         setMinimapVisibility(false);
-        setTools(Constants.TOOLS);
+        setTools(TOOLS);
     };
 
     const appContextValue: AppContextProps = {

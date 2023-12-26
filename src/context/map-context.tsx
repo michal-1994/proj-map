@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Map } from 'ol';
 
-import * as Constants from '../constants';
 import { useAppContext } from './context';
 import { createMap } from '../utils/map-utils';
+import { BASE_LAYERS, LAYERS } from '../constants';
 import { BaseLayerProps, LayerProps } from '../models';
 
 interface MapContextProps {
@@ -27,12 +27,10 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
     const { minimapVisibility } = useAppContext();
     const [map, setMap] = useState<Map | null>(null);
     const [isMinimap, setIsMinimap] = useState<boolean>(minimapVisibility);
-    const [layers, setLayers] = useState<LayerProps[]>(Constants.LAYERS);
-    const [baseLayers, setBaseLayers] = useState<BaseLayerProps[]>(
-        Constants.BASE_LAYERS
-    );
+    const [layers, setLayers] = useState<LayerProps[]>(LAYERS);
+    const [baseLayers, setBaseLayers] = useState<BaseLayerProps[]>(BASE_LAYERS);
     const [selectAll, setSelectAll] = useState<boolean>(
-        Constants.LAYERS.every(layer => layer.enable)
+        LAYERS.every(layer => layer.enable)
     );
 
     const initMap = () => {

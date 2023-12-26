@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { OverviewMap } from 'ol/control';
 import 'ol/ol.css';
 
-import * as Constants from '../../../constants';
 import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 import {
@@ -12,6 +11,7 @@ import {
     updateMapBaseLayers,
     updateMapLayers
 } from '../../../utils/map-utils';
+import { MINIMAP_TOOL } from '../../../constants';
 
 import './MapView.css';
 
@@ -28,10 +28,7 @@ const MapView = () => {
     }, []);
 
     useEffect(() => {
-        if (
-            getTool(tools, Constants.MINIMAP_TOOL)?.enable &&
-            minimapVisibility
-        ) {
+        if (getTool(tools, MINIMAP_TOOL)?.enable && minimapVisibility) {
             map?.addControl(overviewMapControl!);
         } else {
             map?.removeControl(overviewMapControl!);
@@ -45,7 +42,7 @@ const MapView = () => {
             .includes(overviewMapControl!);
 
         if (
-            getTool(tools, Constants.MINIMAP_TOOL)?.enable &&
+            getTool(tools, MINIMAP_TOOL)?.enable &&
             isMinimap &&
             overviewMapActive
         ) {
