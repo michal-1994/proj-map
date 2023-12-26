@@ -7,6 +7,7 @@ import {
     ButtonToolProps,
     Dims,
     LayerProps,
+    Option,
     TileProps,
     ToolProps
 } from '../models';
@@ -151,3 +152,24 @@ export const DMIS: Dims = {
     a3: [420, 297],
     a4: [297, 210]
 };
+
+export const PAGE_SIZES: Option[] = [
+    { value: 'a3-landscape', label: 'A3 Landscape' },
+    { value: 'a3-portrait', label: 'A3 Portrait' },
+    { value: 'a4-landscape', label: 'A4 Landscape' },
+    { value: 'a4-portrait', label: 'A4 Portrait' }
+];
+
+export const RESOLUTIONS: Option[] = [
+    { value: '72', label: '72 dpi (fast)' },
+    { value: '150', label: '150 dpi' },
+    { value: '200', label: '200 dpi' },
+    { value: '300', label: '300 dpi (slow)' }
+];
+
+export const SCALES: Option[] = [
+    { value: '250', label: '1:250000' },
+    { value: '100', label: '1:100000' },
+    { value: '50', label: '1:50000' },
+    { value: '25', label: '1:25000' }
+];

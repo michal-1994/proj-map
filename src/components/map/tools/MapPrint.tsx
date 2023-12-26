@@ -5,7 +5,7 @@ import { Coordinate } from 'ol/coordinate';
 import { Translate } from 'ol/interaction';
 import Collection from 'ol/Collection';
 
-import { DMIS } from '../../../constants';
+import { DMIS, PAGE_SIZES, RESOLUTIONS, SCALES } from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
 import { exportToPDF } from '../../../utils/tool-utils';
@@ -15,7 +15,7 @@ import {
     createOverviewSource,
     transformProjection
 } from '../../../utils/map-utils';
-import { PrintData } from '../../../models';
+import { Option, PrintData } from '../../../models';
 
 import './MapPrint.css';
 
@@ -107,6 +107,14 @@ const MapPrint = () => {
         }
     }, [showPrintWindow, map, formData]);
 
+    const createOptions = (options: Option[]) => {
+        return options.map((option: Option) => (
+            <option key={option.value} value={option.value}>
+                {option.label}
+            </option>
+        ));
+    };
+
     return (
         <Card className={`map-print ${showPrintWindow ? 'open' : ''}`}>
             <button
@@ -127,14 +135,7 @@ const MapPrint = () => {
                                 value={formData.pageSize}
                                 onChange={handleChange}
                                 required>
-                                <option value="a3-landscape">
-                                    A3 Landscape
-                                </option>
-                                <option value="a3-portrait">A3 Portrait</option>
-                                <option value="a4-landscape">
-                                    A4 Landscape
-                                </option>
-                                <option value="a4-portrait">A4 Portrait</option>
+                                {createOptions(PAGE_SIZES)}
                             </Form.Select>
                         </Form.Group>
                         <Form.Group as={Col} controlId="resolutionId">
@@ -145,10 +146,7 @@ const MapPrint = () => {
                                 value={formData.resolution}
                                 onChange={handleChange}
                                 required>
-                                <option value="72">72 dpi (fast)</option>
-                                <option value="150">150 dpi</option>
-                                <option value="200">200 dpi</option>
-                                <option value="300">300 dpi (slow)</option>
+                                {createOptions(RESOLUTIONS)}
                             </Form.Select>
                         </Form.Group>
                     </Row>
@@ -162,10 +160,7 @@ const MapPrint = () => {
                                 value={formData.scale}
                                 onChange={handleChange}
                                 required>
-                                <option value="250">1:250000</option>
-                                <option value="100">1:100000</option>
-                                <option value="50">1:50000</option>
-                                <option value="25">1:25000</option>
+                                {createOptions(SCALES)}
                             </Form.Select>
                         </Form.Group>
                         <Form.Group

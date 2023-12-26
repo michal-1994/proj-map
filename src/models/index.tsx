@@ -47,3 +47,8 @@ export interface Dims {
     a3: number[];
     a4: number[];
 }
+
+export interface Option {
+    value: string;
+    label: string;
+}
