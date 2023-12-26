@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { Map } from 'ol';
-import { getPointResolution } from 'ol/proj.js';
+// import { getPointResolution } from 'ol/proj.js';
 
 import { DMIS } from '../constants';
 import { PrintData } from '../models';
@@ -13,22 +13,22 @@ export const toggleHighContrast = () => {
 export const exportToPDF = (formData: PrintData, map: Map) => {
     const pageSize: string = formData.pageSize.split('-')[0];
     const orientation: any = formData.pageSize.split('-')[1];
-    const resolution: number = +formData.resolution;
-    const scale: number = +formData.scale;
+    // const resolution: number = +formData.resolution;
+    // const scale: number = +formData.scale;
 
     let dim: number[] = (DMIS as any)[pageSize];
 
-    const width = Math.round((dim[0] * resolution) / 25.4);
-    const height = Math.round((dim[1] * resolution) / 25.4);
+    // const width = Math.round((dim[0] * resolution) / 25.4);
+    // const height = Math.round((dim[1] * resolution) / 25.4);
 
-    const viewResolution = map.getView().getResolution();
-    const scaleResolution =
-        scale /
-        getPointResolution(
-            map.getView().getProjection(),
-            resolution / 25.4,
-            map.getView().getCenter()!
-        );
+    // const viewResolution = map.getView().getResolution();
+    // const scaleResolution =
+    //     scale /
+    //     getPointResolution(
+    //         map.getView().getProjection(),
+    //         resolution / 25.4,
+    //         map.getView().getCenter()!
+    //     );
 
     if (orientation === 'portrait') {
         dim.reverse();

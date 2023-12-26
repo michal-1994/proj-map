@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
 import { Coordinate } from 'ol/coordinate';
+import { Translate } from 'ol/interaction';
+import Collection from 'ol/Collection';
 
 import { DMIS } from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
@@ -10,6 +12,7 @@ import { exportToPDF } from '../../../utils/tool-utils';
 import {
     createGeometry,
     createOverviewLayer,
+    createOverviewSource,
     transformProjection
 } from '../../../utils/map-utils';
 import { PrintData } from '../../../models';
@@ -49,7 +52,6 @@ const MapPrint = () => {
         const pageSize: string = formData.pageSize.split('-')[0];
         const orientation: any = formData.pageSize.split('-')[1];
         const dim: number[] = (DMIS as any)[pageSize];
-        let overviewLayer: any | null = null;
 
         if (orientation === 'portrait') {
             dim.reverse();
@@ -81,9 +83,8 @@ const MapPrint = () => {
                 }
             });
 
-            overviewLayer = createOverviewLayer(geometry);
-            overviewLayer.setZIndex(999);
-            overviewLayer.set('id', 'overviewLayer');
+            const overviewSource = createOverviewSource(geometry);
+            const overviewLayer = createOverviewLayer(overviewSource);
 
             if (showPrintWindow) {
                 map?.addLayer(overviewLayer);
@@ -95,6 +96,14 @@ const MapPrint = () => {
                     }
                 });
             }
+
+            const translate = new Translate({
+                features: new Collection(overviewSource.getFeatures())
+            });
+            map?.addInteraction(translate);
+
+            overviewLayer.setZIndex(999);
+            overviewLayer.set('id', 'overviewLayer');
         }
     }, [showPrintWindow, map, formData]);
 

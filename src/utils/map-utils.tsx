@@ -65,11 +65,15 @@ export const createOSMLayer = () => {
     });
 };
 
-export const createOverviewLayer = (geometry: Geometry) => {
+export const createOverviewSource = (geometry: Geometry) => {
+    return new VectorSource({
+        features: [new Feature(geometry)]
+    });
+};
+
+export const createOverviewLayer = (source: VectorSource) => {
     return new VectorLayer({
-        source: new VectorSource({
-            features: [new Feature(geometry)]
-        }),
+        source: source,
         style: new Style({
             fill: new Fill({
                 color: 'rgba(230, 215, 173, 0.1)'
