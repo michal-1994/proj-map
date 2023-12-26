@@ -13,6 +13,7 @@ import {
     createGeometry,
     createOverviewLayer,
     createOverviewSource,
+    removeOverviewLayer,
     transformProjection
 } from '../../../utils/map-utils';
 import { Option, PrintData } from '../../../models';
@@ -47,8 +48,9 @@ const MapPrint = () => {
     };
 
     useEffect(() => {
-        const centerT = map?.getView().getCenter() as Coordinate;
-        const center = transformProjection(centerT);
+        const center = transformProjection(
+            map?.getView().getCenter() as Coordinate
+        );
         const pageSize: string = formData.pageSize.split('-')[0];
         const orientation: any = formData.pageSize.split('-')[1];
         const dim: number[] = (DMIS as any)[pageSize];
@@ -57,7 +59,7 @@ const MapPrint = () => {
             dim.reverse();
         }
 
-        if (dim && center) {
+        if (map && dim && center) {
             const widthScaleFactor = dim[0] / 200;
             const heightScaleFactor = dim[1] / 200;
 
@@ -76,25 +78,13 @@ const MapPrint = () => {
                 bottomLeft
             );
 
-            map?.getLayers().forEach(layer => {
-                const layerId = layer ? layer.get('id') : null;
-                if (layerId === 'overviewLayer') {
-                    map?.removeLayer(layer);
-                }
-            });
+            removeOverviewLayer(map);
 
             const overviewSource = createOverviewSource(geometry);
             const overviewLayer = createOverviewLayer(overviewSource);
 
             if (showPrintWindow) {
                 map?.addLayer(overviewLayer);
-            } else {
-                map?.getLayers().forEach(layer => {
-                    const layerId = layer ? layer.get('id') : null;
-                    if (layerId === 'overviewLayer') {
-                        map?.removeLayer(layer);
-                    }
-                });
             }
 
             const translate = new Translate({

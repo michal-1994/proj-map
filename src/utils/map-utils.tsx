@@ -86,6 +86,15 @@ export const createOverviewLayer = (source: VectorSource) => {
     });
 };
 
+export const removeOverviewLayer = (map: Map) => {
+    map?.getLayers().forEach(layer => {
+        const layerId = layer ? layer.get('id') : null;
+        if (layerId === 'overviewLayer') {
+            map?.removeLayer(layer);
+        }
+    });
+};
+
 export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
     layers.forEach((layer: LayerProps) => {
         const existingLayer = map
