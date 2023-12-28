@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { OverviewMap } from 'ol/control';
+import { fromLonLat } from 'ol/proj';
 import 'ol/ol.css';
 
 import { useAppContext } from '../../../context/context';
@@ -7,7 +8,6 @@ import { useMapContext } from '../../../context/map-context';
 import {
     createOverviewMap,
     getTool,
-    transformCoordinate,
     updateMapBaseLayers,
     updateMapLayers
 } from '../../../utils/map-utils';
@@ -57,10 +57,7 @@ const MapView = () => {
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const { longitude, latitude } = position.coords;
-                    const currentPosition = transformCoordinate(
-                        longitude,
-                        latitude
-                    );
+                    const currentPosition = fromLonLat([longitude, latitude]);
                     map.getView().setCenter(currentPosition);
                 },
                 error => {

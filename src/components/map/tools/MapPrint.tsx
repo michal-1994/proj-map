@@ -3,6 +3,8 @@ import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
 import { Coordinate } from 'ol/coordinate';
 import { Translate } from 'ol/interaction';
+import { getCenter } from 'ol/extent';
+import { toLonLat } from 'ol/proj';
 import Collection from 'ol/Collection';
 
 import { DMIS, PAGE_SIZES, RESOLUTIONS, SCALES } from '../../../constants';
@@ -13,8 +15,7 @@ import {
     createGeometry,
     createOverviewLayer,
     createOverviewSource,
-    removeOverviewLayer,
-    transformProjection
+    removeOverviewLayer
 } from '../../../utils/map-utils';
 import { Option, PrintData } from '../../../models';
 
@@ -24,6 +25,7 @@ const MapPrint = () => {
     const { map } = useMapContext();
     const { showPrintWindow, openPrintWindow } = useToolContext();
 
+    const [center, setCenter] = useState<Coordinate | null>(null);
     const [formData, setFormData] = useState<PrintData>({
         pageSize: 'a4-landscape',
         resolution: '200',
@@ -48,9 +50,13 @@ const MapPrint = () => {
     };
 
     useEffect(() => {
-        const center = transformProjection(
-            map?.getView().getCenter() as Coordinate
-        );
+        if (showPrintWindow) {
+            const center = map?.getView().getCenter();
+            setCenter(center ? (toLonLat(center) as Coordinate) : null);
+        }
+    }, [showPrintWindow]);
+
+    useEffect(() => {
         const pageSize: string = formData.pageSize.split('-')[0];
         const orientation: any = formData.pageSize.split('-')[1];
         const dim: number[] = (DMIS as any)[pageSize];
@@ -59,7 +65,7 @@ const MapPrint = () => {
             dim.reverse();
         }
 
-        if (map && dim && center) {
+        if (map && center && showPrintWindow) {
             const widthScaleFactor = dim[0] / 200;
             const heightScaleFactor = dim[1] / 200;
 
@@ -83,19 +89,29 @@ const MapPrint = () => {
             const overviewSource = createOverviewSource(geometry);
             const overviewLayer = createOverviewLayer(overviewSource);
 
-            if (showPrintWindow) {
-                map?.addLayer(overviewLayer);
-            }
+            map?.addLayer(overviewLayer);
 
             const translate = new Translate({
                 features: new Collection(overviewSource.getFeatures())
             });
             map?.addInteraction(translate);
 
+            translate.on('translateend', event => {
+                const feature = event.features.item(0);
+                const geometry = feature.getGeometry();
+                const extent = geometry?.getExtent();
+                const center = getCenter(extent!);
+                setCenter(toLonLat(center) as Coordinate);
+            });
+
             overviewLayer.setZIndex(999);
             overviewLayer.set('id', 'overviewLayer');
         }
-    }, [showPrintWindow, map, formData]);
+
+        if (map && !showPrintWindow) {
+            removeOverviewLayer(map);
+        }
+    }, [map, formData, showPrintWindow]);
 
     const createOptions = (options: Option[]) => {
         return options.map((option: Option) => (

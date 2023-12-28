@@ -6,9 +6,8 @@ import {
     defaults as defaultControls
 } from 'ol/control';
 import { Fill, Stroke, Style, Text } from 'ol/style';
-import { fromLonLat, toLonLat } from 'ol/proj';
 import { Geometry, Polygon } from 'ol/geom';
-import { Coordinate } from 'ol/coordinate';
+import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
@@ -183,10 +182,10 @@ export const createGeometry = (
 ) => {
     return new Polygon([
         [
-            transformCoordinate(bottomLeft[0], bottomLeft[1]),
-            transformCoordinate(bottomRight[0], bottomRight[1]),
-            transformCoordinate(topRight[0], topRight[1]),
-            transformCoordinate(topLeft[0], topLeft[1])
+            fromLonLat([bottomLeft[0], bottomLeft[1]]),
+            fromLonLat([bottomRight[0], bottomRight[1]]),
+            fromLonLat([topRight[0], topRight[1]]),
+            fromLonLat([topLeft[0], topLeft[1]])
         ]
     ]);
 };
@@ -197,16 +196,8 @@ export const createMap = () => {
         target: 'map-view',
         layers: [],
         view: new View({
-            center: transformCoordinate(21.0122, 52.2297), // Default Warszawa
+            center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
             zoom: 9
         })
     });
-};
-
-export const transformCoordinate = (longitude: number, latitude: number) => {
-    return fromLonLat([longitude, latitude]);
-};
-
-export const transformProjection = (point: Coordinate | undefined) => {
-    return point ? toLonLat(point) : null;
 };
