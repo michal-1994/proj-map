@@ -94,6 +94,10 @@ export const removeOverviewLayer = (map: Map) => {
     });
 };
 
+export const addOverviewLayer = (map: Map, overviewLayer: any) => {
+    map?.addLayer(overviewLayer);
+};
+
 export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
     layers.forEach((layer: LayerProps) => {
         const existingLayer = map

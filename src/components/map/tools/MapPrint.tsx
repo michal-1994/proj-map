@@ -12,6 +12,7 @@ import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
 import { exportToPDF } from '../../../utils/tool-utils';
 import {
+    addOverviewLayer,
     createGeometry,
     createOverviewLayer,
     createOverviewSource,
@@ -58,24 +59,24 @@ const MapPrint = () => {
 
     useEffect(() => {
         const pageSize: string = formData.pageSize.split('-')[0];
-        const orientation: any = formData.pageSize.split('-')[1];
+        const orientation: string = formData.pageSize.split('-')[1];
         const dim: number[] = (DMIS as any)[pageSize];
+        const scale: number = +formData.scale;
 
         if (orientation === 'portrait') {
             dim.reverse();
         }
 
-        if (map && center && showPrintWindow) {
-            const widthScaleFactor = dim[0] / 200;
-            const heightScaleFactor = dim[1] / 200;
+        if (map && showPrintWindow) {
+            const [width, height] = dim;
+            const [centerX, centerY] = center || [0, 0];
+            const halfWidth = width / 2000 / scale;
+            const halfHeight = height / 2000 / scale;
 
-            const halfWidth = widthScaleFactor / 10;
-            const halfHeight = heightScaleFactor / 10;
-
-            const bottomLeft = [center[0] - halfWidth, center[1] - halfHeight];
-            const bottomRight = [center[0] + halfWidth, center[1] - halfHeight];
-            const topRight = [center[0] + halfWidth, center[1] + halfHeight];
-            const topLeft = [center[0] - halfWidth, center[1] + halfHeight];
+            const bottomLeft = [centerX - halfWidth, centerY - halfHeight];
+            const bottomRight = [centerX + halfWidth, centerY - halfHeight];
+            const topRight = [centerX + halfWidth, centerY + halfHeight];
+            const topLeft = [centerX - halfWidth, centerY + halfHeight];
 
             const geometry = createGeometry(
                 topLeft,
@@ -84,12 +85,11 @@ const MapPrint = () => {
                 bottomLeft
             );
 
-            removeOverviewLayer(map);
-
             const overviewSource = createOverviewSource(geometry);
             const overviewLayer = createOverviewLayer(overviewSource);
 
-            map?.addLayer(overviewLayer);
+            removeOverviewLayer(map);
+            addOverviewLayer(map, overviewLayer);
 
             const translate = new Translate({
                 features: new Collection(overviewSource.getFeatures())
