@@ -75,10 +75,10 @@ export const createOverviewLayer = (source: VectorSource) => {
         source: source,
         style: new Style({
             fill: new Fill({
-                color: 'rgba(230, 215, 173, 0.1)'
+                color: 'rgba(95, 20, 216, 0.1)'
             }),
             stroke: new Stroke({
-                color: 'rgb(204, 116, 0)',
+                color: 'rgb(95, 20, 216)',
                 width: 2
             })
         })
