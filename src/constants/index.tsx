@@ -168,8 +168,10 @@ export const RESOLUTIONS: Option[] = [
 ];
 
 export const SCALES: Option[] = [
+    { value: '500', label: '1:500000' },
     { value: '250', label: '1:250000' },
     { value: '100', label: '1:100000' },
     { value: '50', label: '1:50000' },
-    { value: '25', label: '1:25000' }
+    { value: '25', label: '1:25000' },
+    { value: '10', label: '1:10000' }
 ];
