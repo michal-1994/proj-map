@@ -201,7 +201,7 @@ export const createMap = () => {
         layers: [],
         view: new View({
             center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
-            zoom: 9
+            zoom: 15
         })
     });
 };

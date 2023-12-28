@@ -19,7 +19,7 @@ export const LAYERS: LayerProps[] = [
         id: 'voivodeships',
         type: GEOJSON_TYPE,
         url: 'geojson/voivodeships.geojson',
-        enable: true
+        enable: false
     },
     {
         id: 'counties',

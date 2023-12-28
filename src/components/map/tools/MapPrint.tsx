@@ -67,7 +67,7 @@ const MapPrint = () => {
             dim.reverse();
         }
 
-        if (map && showPrintWindow) {
+        if (center && map && showPrintWindow) {
             const [width, height] = dim;
             const [centerX, centerY] = center || [0, 0];
             const halfWidth = width / 2000 / scale;
@@ -111,7 +111,7 @@ const MapPrint = () => {
         if (map && !showPrintWindow) {
             removeOverviewLayer(map);
         }
-    }, [map, formData, showPrintWindow]);
+    }, [map, center, formData, showPrintWindow]);
 
     const createOptions = (options: Option[]) => {
         return options.map((option: Option) => (
