@@ -7,7 +7,13 @@ import { getCenter } from 'ol/extent';
 import { toLonLat } from 'ol/proj';
 import Collection from 'ol/Collection';
 
-import { DMIS, PAGE_SIZES, RESOLUTIONS, SCALES } from '../../../constants';
+import {
+    DMIS,
+    PAGE_SIZES,
+    RESOLUTIONS,
+    SCALES,
+    SCALE_FACTOR
+} from '../../../constants';
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
 import { exportToPDF } from '../../../utils/tool-utils';
@@ -43,6 +49,26 @@ const MapPrint = () => {
         }
     };
 
+    const calculateDimensions = () => {
+        const [x, y] = (DMIS as any)[format!];
+
+        let widthResult, heightResult;
+
+        if (orientation === 'portrait') {
+            widthResult = y;
+            heightResult = x;
+        } else if (orientation === 'landscape') {
+            widthResult = x;
+            heightResult = y;
+        } else {
+            widthResult = x;
+            heightResult = y;
+        }
+
+        setWidth(widthResult);
+        setHeight(heightResult);
+    };
+
     useEffect(() => {
         if (showPrintWindow) {
             const center = map?.getView().getCenter();
@@ -59,26 +85,16 @@ const MapPrint = () => {
     }, [showPrintWindow, pageSize]);
 
     useEffect(() => {
-        if (showPrintWindow && format) {
-            const [x, y] = (DMIS as any)[format];
-
-            if (orientation === 'portrait') {
-                setWidth(y);
-                setHeight(x);
-            }
-
-            if (orientation === 'landscape') {
-                setWidth(x);
-                setHeight(y);
-            }
+        if (showPrintWindow && format && orientation) {
+            calculateDimensions();
         }
     }, [showPrintWindow, format, orientation]);
 
     useEffect(() => {
         if (map && center && pageSize && width && height && scale) {
             const [centerX, centerY] = center || [0, 0];
-            const halfWidth = width / 2000 / +scale;
-            const halfHeight = height / 2000 / +scale;
+            const halfWidth = width / SCALE_FACTOR / +scale;
+            const halfHeight = height / SCALE_FACTOR / +scale;
 
             const bottomLeft = [centerX - halfWidth, centerY - halfHeight];
             const bottomRight = [centerX + halfWidth, centerY - halfHeight];

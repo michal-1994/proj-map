@@ -148,16 +148,30 @@ export const BUTTON_TOOLS: ButtonToolProps[] = [
     }
 ];
 
+export const SCALE_FACTOR = 2000;
+
 export const DMIS: Dims = {
+    a0: [1189, 841],
+    a1: [841, 594],
+    a2: [594, 420],
     a3: [420, 297],
-    a4: [297, 210]
+    a4: [297, 210],
+    a5: [210, 148]
 };
 
 export const PAGE_SIZES: Option[] = [
+    { value: 'a0-landscape', label: 'A0 Landscape' },
+    { value: 'a0-portrait', label: 'A0 Portrait' },
+    { value: 'a1-landscape', label: 'A1 Landscape' },
+    { value: 'a1-portrait', label: 'A1 Portrait' },
+    { value: 'a2-landscape', label: 'A2 Landscape' },
+    { value: 'a2-portrait', label: 'A2 Portrait' },
     { value: 'a3-landscape', label: 'A3 Landscape' },
     { value: 'a3-portrait', label: 'A3 Portrait' },
     { value: 'a4-landscape', label: 'A4 Landscape' },
-    { value: 'a4-portrait', label: 'A4 Portrait' }
+    { value: 'a4-portrait', label: 'A4 Portrait' },
+    { value: 'a5-landscape', label: 'A5 Landscape' },
+    { value: 'a5-portrait', label: 'A5 Portrait' }
 ];
 
 export const RESOLUTIONS: Option[] = [
