@@ -26,7 +26,10 @@ const MapPrint = () => {
     const { showPrintWindow, openPrintWindow } = useToolContext();
 
     const [center, setCenter] = useState<Coordinate | null>(null);
-    const [dim, setDim] = useState<number[] | null>();
+    const [width, setWidth] = useState<number | null>(null);
+    const [height, setHeight] = useState<number | null>(null);
+    const [orientation, setOrientation] = useState<string | null>(null);
+    const [format, setFormat] = useState<string | null>(null);
     const [pageSize, setPageSize] = useState<string>('a4-landscape');
     const [resolution, setResolution] = useState<string>('200');
     const [scale, setScale] = useState<string>('100');
@@ -34,8 +37,8 @@ const MapPrint = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        if (map && dim) {
-            exportToPDF(pageSize, resolution, scale, dim, map);
+        if (map && width && height) {
+            exportToPDF(pageSize, resolution, scale, [width, height], map);
             openPrintWindow(!showPrintWindow);
         }
     };
@@ -51,20 +54,28 @@ const MapPrint = () => {
     }, [showPrintWindow]);
 
     useEffect(() => {
-        if (showPrintWindow) {
-            if (pageSize.split('-')[1] === 'portrait') {
-                setDim((DMIS as any)[pageSize.split('-')[0]]);
-            }
-
-            if (pageSize.split('-')[1] === 'landscape') {
-                setDim((DMIS as any)[pageSize.split('-')[0]].reverse());
-            }
-        }
+        setOrientation(pageSize.split('-')[1]);
+        setFormat(pageSize.split('-')[0]);
     }, [showPrintWindow, pageSize]);
 
     useEffect(() => {
-        if (map && center && showPrintWindow && dim) {
-            const [width, height] = dim;
+        if (showPrintWindow && format) {
+            const [x, y] = (DMIS as any)[format];
+
+            if (orientation === 'portrait') {
+                setWidth(y);
+                setHeight(x);
+            }
+
+            if (orientation === 'landscape') {
+                setWidth(x);
+                setHeight(y);
+            }
+        }
+    }, [showPrintWindow, format, orientation]);
+
+    useEffect(() => {
+        if (map && center && pageSize && width && height && scale) {
             const [centerX, centerY] = center || [0, 0];
             const halfWidth = width / 2000 / +scale;
             const halfHeight = height / 2000 / +scale;
@@ -105,7 +116,7 @@ const MapPrint = () => {
         if (map && !showPrintWindow) {
             removeOverviewLayer(map);
         }
-    }, [showPrintWindow, pageSize, dim, center, scale]);
+    }, [map, showPrintWindow, center, width, height, scale]);
 
     const createOptions = (options: Option[]) => {
         return options.map((option: Option) => (
