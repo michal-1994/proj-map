@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
 import { Coordinate } from 'ol/coordinate';
@@ -24,6 +24,7 @@ import {
     removeOverviewLayer
 } from '../../../utils/map-utils';
 import { Option } from '../../../models';
+import { initialState, reducer } from '../../../reducers/mapPrintReducer';
 
 import './MapPrint.css';
 
@@ -31,14 +32,17 @@ const MapPrint = () => {
     const { map } = useMapContext();
     const { showPrintWindow, openPrintWindow } = useToolContext();
 
-    const [center, setCenter] = useState<Coordinate | null>(null);
-    const [width, setWidth] = useState<number | null>(null);
-    const [height, setHeight] = useState<number | null>(null);
-    const [orientation, setOrientation] = useState<string | null>(null);
-    const [format, setFormat] = useState<string | null>(null);
-    const [pageSize, setPageSize] = useState<string>('a4-landscape');
-    const [resolution, setResolution] = useState<string>('200');
-    const [scale, setScale] = useState<string>('100');
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const {
+        center,
+        width,
+        height,
+        orientation,
+        format,
+        pageSize,
+        resolution,
+        scale
+    } = state;
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -65,8 +69,8 @@ const MapPrint = () => {
             heightResult = y;
         }
 
-        setWidth(widthResult);
-        setHeight(heightResult);
+        dispatch({ type: 'SET_WIDTH', payload: widthResult });
+        dispatch({ type: 'SET_HEIGHT', payload: heightResult });
     };
 
     useEffect(() => {
@@ -74,14 +78,17 @@ const MapPrint = () => {
             const center = map?.getView().getCenter();
 
             if (center) {
-                setCenter(toLonLat(center) as Coordinate);
+                dispatch({
+                    type: 'SET_CENTER',
+                    payload: toLonLat(center) as Coordinate
+                });
             }
         }
     }, [showPrintWindow]);
 
     useEffect(() => {
-        setOrientation(pageSize.split('-')[1]);
-        setFormat(pageSize.split('-')[0]);
+        dispatch({ type: 'SET_ORIENTATION', payload: pageSize.split('-')[1] });
+        dispatch({ type: 'SET_FORMAT', payload: pageSize.split('-')[0] });
     }, [showPrintWindow, pageSize]);
 
     useEffect(() => {
@@ -122,7 +129,10 @@ const MapPrint = () => {
                 const feature = event.features.item(0);
                 const geometry = feature.getGeometry();
                 const extent = geometry?.getExtent();
-                setCenter(toLonLat(getCenter(extent!)) as Coordinate);
+                dispatch({
+                    type: 'SET_CENTER',
+                    payload: toLonLat(getCenter(extent!)) as Coordinate
+                });
             });
 
             overviewLayer.setZIndex(999);
@@ -161,7 +171,10 @@ const MapPrint = () => {
                                 name="pageSize"
                                 value={pageSize}
                                 onChange={event => {
-                                    setPageSize(event.target.value);
+                                    dispatch({
+                                        type: 'SET_PAGE_SIZE',
+                                        payload: event.target.value
+                                    });
                                 }}
                                 required>
                                 {createOptions(PAGE_SIZES)}
@@ -174,7 +187,10 @@ const MapPrint = () => {
                                 name="resolution"
                                 value={resolution}
                                 onChange={event => {
-                                    setResolution(event.target.value);
+                                    dispatch({
+                                        type: 'SET_RESOLUTION',
+                                        payload: event.target.value
+                                    });
                                 }}
                                 required>
                                 {createOptions(RESOLUTIONS)}
@@ -190,7 +206,10 @@ const MapPrint = () => {
                                 name="scale"
                                 value={scale}
                                 onChange={event => {
-                                    setScale(event.target.value);
+                                    dispatch({
+                                        type: 'SET_SCALE',
+                                        payload: event.target.value
+                                    });
                                 }}
                                 required>
                                 {createOptions(SCALES)}
