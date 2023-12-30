@@ -1,42 +1,51 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { Map } from 'ol';
 // import { getPointResolution } from 'ol/proj.js';
 
 export const toggleHighContrast = () => {
     document.getElementsByTagName('html')[0].classList.toggle('high-contrast');
 };
 
-export const exportToPDF = (
-    pageSize: string,
-    resolution: string,
-    scale: string,
-    dim: number[],
-    map: Map
-) => {
-    const orientation: any = pageSize.split('-')[1];
-    // const width = Math.round((dim[0] * +resolution) / 25.4);
-    // const height = Math.round((dim[1] * +resolution) / 25.4);
+export const exportToPDF = (config: any) => {
+    if (config.map && config.width && config.height && config.overviewExtent) {
+        document.body.style.cursor = 'progress';
+        const originalExtent = config.map
+            .getView()
+            .calculateExtent(config.map.getSize());
 
-    // const viewResolution = map.getView().getResolution();
-    // const scaleResolution =
-    //     +scale /
-    //     getPointResolution(
-    //         map.getView().getProjection(),
-    //         +resolution / 25.4,
-    //         map.getView().getCenter()!
-    //     );
+        config.map.getView().fit(config.overviewExtent, config.map.getSize());
 
-    html2canvas(map.getViewport()).then(function (canvas) {
-        const pdf = new jsPDF(orientation, undefined, dim);
-        pdf.addImage(
-            canvas.toDataURL('image/jpeg'),
-            'JPEG',
-            0,
-            0,
-            dim[0],
-            dim[1]
-        );
-        pdf.save('map.pdf');
-    });
+        // const viewResolution = config.map.getView().getResolution();
+        // const scaleResolution =
+        //     +config.scale /
+        //     getPointResolution(
+        //         config.map.getView().getProjection(),
+        //         +config.resolution / 25.4,
+        //         config.map.getView().getCenter()!
+        //     );
+
+        setTimeout(() => {
+            html2canvas(config.map.getViewport()).then(canvas => {
+                const pdf = new jsPDF({
+                    orientation: config.orientation,
+                    unit: 'mm',
+                    format: [config.width, config.height]
+                });
+
+                pdf.addImage(
+                    canvas.toDataURL('image/png'),
+                    'JPEG',
+                    0,
+                    0,
+                    config.width,
+                    config.height
+                );
+
+                config.map.getView().fit(originalExtent, config.map.getSize());
+                pdf.save('map.pdf');
+
+                document.body.style.cursor = 'auto';
+            });
+        }, 2000);
+    }
 };

@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
 import { IoClose } from 'react-icons/io5';
 import { Coordinate } from 'ol/coordinate';
@@ -32,6 +32,7 @@ const MapPrint = () => {
     const { map } = useMapContext();
     const { showPrintWindow, openPrintWindow } = useToolContext();
 
+    const [overviewExtent, setOverviewExtent] = useState<number[] | null>(null);
     const [state, dispatch] = useReducer(reducer, initialState);
     const {
         center,
@@ -48,7 +49,14 @@ const MapPrint = () => {
         event.preventDefault();
 
         if (map && width && height) {
-            exportToPDF(pageSize, resolution, scale, [width, height], map);
+            exportToPDF({
+                map,
+                width,
+                height,
+                overviewExtent,
+                scale,
+                resolution
+            });
             openPrintWindow(!showPrintWindow);
         }
     };
@@ -125,10 +133,13 @@ const MapPrint = () => {
             map?.addLayer(overviewLayer);
             map?.addInteraction(translate);
 
+            setOverviewExtent(geometry?.getExtent()!);
+
             translate.on('translateend', event => {
                 const feature = event.features.item(0);
                 const geometry = feature.getGeometry();
                 const extent = geometry?.getExtent();
+                setOverviewExtent(extent!);
                 dispatch({
                     type: 'SET_CENTER',
                     payload: toLonLat(getCenter(extent!)) as Coordinate
