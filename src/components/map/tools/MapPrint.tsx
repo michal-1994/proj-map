@@ -48,7 +48,7 @@ const MapPrint = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        if (map && width && height) {
+        if (map && width && height && overviewExtent) {
             exportToPDF({
                 map,
                 width,

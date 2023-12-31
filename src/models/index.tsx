@@ -1,3 +1,5 @@
+import { Map } from 'ol';
+
 export interface BaseLayerProps {
     id: string;
     name: string;
@@ -49,4 +51,14 @@ export interface Dims {
 export interface Option {
     value: string;
     label: string;
+}
+
+export interface ExportModel {
+    map: Map;
+    width: number;
+    height: number;
+    overviewExtent: number[];
+    scale: string;
+    resolution: string;
+    orientation: 'portrait' | 'landscape';
 }
