@@ -42,7 +42,14 @@ export const exportToPDF = (config: any) => {
                 );
 
                 config.map.getView().fit(originalExtent, config.map.getSize());
-                pdf.save('map.pdf');
+
+                // Save
+                // pdf.save('map.pdf');
+
+                // Open in new window
+                const pdfBlob = pdf.output('blob');
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+                window.open(pdfUrl, '_blank');
 
                 document.body.style.cursor = 'auto';
             });
