@@ -26,13 +26,15 @@ export const exportToPDF = (config: any) => {
 
         setTimeout(() => {
             html2canvas(config.map.getViewport()).then(canvas => {
+                console.log(config.orientation);
+
                 const pdf = new jsPDF({
                     orientation: config.orientation,
                     unit: 'mm',
                     format: [config.width, config.height]
                 });
 
-                const margin = 10;
+                const margin = 0; // temporary - default value is 10
                 const marginLeft = margin;
                 const marginTop = margin;
 

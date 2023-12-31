@@ -55,7 +55,8 @@ const MapPrint = () => {
                 height,
                 overviewExtent,
                 scale,
-                resolution
+                resolution,
+                orientation
             });
             openPrintWindow(!showPrintWindow);
         }
