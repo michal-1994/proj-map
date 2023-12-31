@@ -32,13 +32,17 @@ export const exportToPDF = (config: any) => {
                     format: [config.width, config.height]
                 });
 
+                const margin = 10;
+                const marginLeft = margin;
+                const marginTop = margin;
+
                 pdf.addImage(
                     canvas.toDataURL('image/png'),
                     'JPEG',
-                    0,
-                    0,
-                    config.width,
-                    config.height
+                    marginLeft,
+                    marginTop,
+                    config.width - 2 * marginLeft,
+                    config.height - 2 * marginTop
                 );
 
                 config.map.getView().fit(originalExtent, config.map.getSize());
