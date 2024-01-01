@@ -1,5 +1,5 @@
 import icon from '../assets/react.svg';
-import { FaPrint, FaMap, FaDrawPolygon, FaPlus, FaRuler } from 'react-icons/fa';
+import { FaPrint, FaMap, FaPlus, FaRuler } from 'react-icons/fa';
 import { MdContrast } from 'react-icons/md';
 
 import {
@@ -84,7 +84,6 @@ export const TILES: TileProps[] = [
 export const MINIMAP_TOOL: string = 'minimap';
 export const PRINT_TOOL: string = 'print';
 export const ADD_LAYERS_TOOL: string = 'addlayers';
-export const DRAW_TOOL: string = 'draw';
 export const MEASURMENT_TOOL: string = 'measurment';
 export const CONTRAST_TOOL: string = 'contrast';
 
@@ -99,10 +98,6 @@ export const TOOLS: ToolProps[] = [
     },
     {
         id: ADD_LAYERS_TOOL,
-        enable: false
-    },
-    {
-        id: DRAW_TOOL,
         enable: false
     },
     {
@@ -130,11 +125,6 @@ export const BUTTON_TOOLS: ButtonToolProps[] = [
         id: ADD_LAYERS_TOOL,
         title: 'Add layers',
         icon: <FaPlus />
-    },
-    {
-        id: DRAW_TOOL,
-        title: 'Draw',
-        icon: <FaDrawPolygon />
     },
     {
         id: MEASURMENT_TOOL,

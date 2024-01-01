@@ -14,7 +14,6 @@ import { useModalContext } from '../../context/modal-context';
 import {
     ADD_LAYERS_TOOL,
     CONTRAST_TOOL,
-    DRAW_TOOL,
     MEASURMENT_TOOL,
     MINIMAP_TOOL,
     PRINT_TOOL
@@ -161,21 +160,6 @@ const SettingsPanel = () => {
                                     label="Add layers"
                                     checked={getTool(ADD_LAYERS_TOOL)?.enable}
                                     onChange={() => updateTool(ADD_LAYERS_TOOL)}
-                                />
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                </Row>
-                <br />
-                <Row>
-                    <Col>
-                        <Form>
-                            <Form.Group controlId="drawToolSwitcher">
-                                <Form.Check
-                                    type="switch"
-                                    label="Draw"
-                                    checked={getTool(DRAW_TOOL)?.enable}
-                                    onChange={() => updateTool(DRAW_TOOL)}
                                 />
                             </Form.Group>
                         </Form>

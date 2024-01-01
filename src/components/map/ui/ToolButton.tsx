@@ -7,7 +7,6 @@ import {
     ADD_LAYERS_TOOL,
     BUTTON_TOOLS,
     CONTRAST_TOOL,
-    DRAW_TOOL,
     MEASURMENT_TOOL,
     MINIMAP_TOOL,
     PRINT_TOOL
@@ -27,8 +26,6 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                 openPrintWindow(!showPrintWindow);
                 break;
             case ADD_LAYERS_TOOL:
-                break;
-            case DRAW_TOOL:
                 break;
             case MEASURMENT_TOOL:
                 break;
