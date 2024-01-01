@@ -25,6 +25,7 @@ export interface ButtonToolProps {
     id: string;
     title: string;
     icon: JSX.Element;
+    options?: ButtonToolProps[];
 }
 
 export interface TileProps {

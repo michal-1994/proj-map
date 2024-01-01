@@ -1,4 +1,4 @@
-import { Card } from 'react-bootstrap';
+import { Card, Dropdown } from 'react-bootstrap';
 
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
@@ -13,11 +13,13 @@ import {
 } from '../../../constants';
 import { ToolProps } from '../../../models';
 
+import './ToolButton.css';
+
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();
     const { showPrintWindow, openPrintWindow } = useToolContext();
 
-    const handleClick = (id: string) => {
+    const handleClick = (id: string, option?: string) => {
         switch (id) {
             case MINIMAP_TOOL:
                 toggleMinimap();
@@ -28,6 +30,8 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
             case ADD_LAYERS_TOOL:
                 break;
             case MEASURMENT_TOOL:
+                console.log(id);
+                console.log(option);
                 break;
             case CONTRAST_TOOL:
                 toggleHighContrast();
@@ -39,13 +43,50 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         return BUTTON_TOOLS.find(tool => tool.id === id);
     };
 
-    return (
+    const getIconById = (id: string, options: any) => {
+        for (const tool of options) {
+            if (tool.id === id) {
+                return tool.icon;
+            }
+
+            if (tool.options) {
+                const nestedIcon: any = getIconById(id, tool.options);
+                if (nestedIcon) {
+                    return nestedIcon;
+                }
+            }
+        }
+
+        return null;
+    };
+
+    return !getTool(id)!.options ? (
         <button
-            className="nav-link"
+            className="nav-link tool-button"
             title={getTool(id)?.title}
             onClick={() => handleClick(id)}>
-            <Card style={{ padding: '.45rem' }}>{getTool(id)?.icon}</Card>
+            <Card className="btn btn-primary">
+                {getIconById(id, BUTTON_TOOLS)}
+            </Card>
         </button>
+    ) : (
+        <Dropdown className="nav-link tool-button">
+            <Dropdown.Toggle className="card">
+                {getIconById(id, BUTTON_TOOLS)}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+                {getTool(id)!.options!.map((option: any) => {
+                    return (
+                        <Dropdown.Item
+                            key={option.id}
+                            onClick={() => handleClick(id, option.id)}>
+                            {getIconById(option.id, BUTTON_TOOLS)}{' '}
+                            {option.title}
+                        </Dropdown.Item>
+                    );
+                })}
+            </Dropdown.Menu>
+        </Dropdown>
     );
 };
 

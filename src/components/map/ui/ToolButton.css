@@ -1,0 +1,7 @@
+.tool-button .card {
+    padding: 0.45rem;
+}
+
+.tool-button .card:after {
+    display: none;
+}

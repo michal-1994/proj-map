@@ -1,6 +1,8 @@
 import icon from '../assets/react.svg';
 import { FaPrint, FaMap, FaPlus, FaRuler } from 'react-icons/fa';
 import { MdContrast } from 'react-icons/md';
+import { BiShapePolygon } from 'react-icons/bi';
+import { IoAnalyticsOutline } from 'react-icons/io5';
 
 import {
     BaseLayerProps,
@@ -85,6 +87,8 @@ export const MINIMAP_TOOL: string = 'minimap';
 export const PRINT_TOOL: string = 'print';
 export const ADD_LAYERS_TOOL: string = 'addlayers';
 export const MEASURMENT_TOOL: string = 'measurment';
+export const LINEAR_MEASURMENT: string = 'linear';
+export const POLYGON_MEASURMENT: string = 'polygon';
 export const CONTRAST_TOOL: string = 'contrast';
 
 export const TOOLS: ToolProps[] = [
@@ -102,7 +106,7 @@ export const TOOLS: ToolProps[] = [
     },
     {
         id: MEASURMENT_TOOL,
-        enable: false
+        enable: true
     },
     {
         id: CONTRAST_TOOL,
@@ -129,7 +133,19 @@ export const BUTTON_TOOLS: ButtonToolProps[] = [
     {
         id: MEASURMENT_TOOL,
         title: 'Measurement',
-        icon: <FaRuler />
+        icon: <FaRuler />,
+        options: [
+            {
+                id: LINEAR_MEASURMENT,
+                title: 'Linear',
+                icon: <IoAnalyticsOutline />
+            },
+            {
+                id: POLYGON_MEASURMENT,
+                title: 'Polygon',
+                icon: <BiShapePolygon />
+            }
+        ]
     },
     {
         id: CONTRAST_TOOL,
