@@ -5,7 +5,6 @@ import {
     ScaleLine,
     defaults as defaultControls
 } from 'ol/control';
-import { Fill, Stroke, Style, Text } from 'ol/style';
 import { Geometry, Polygon } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
@@ -13,6 +12,7 @@ import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import TileLayer from 'ol/layer/Tile';
 
+import { createGeoJSONStyle, createOverviewStyle } from './style-utils';
 import { BaseLayerProps, LayerProps, ToolProps } from '../models';
 
 export const createGeoJSONLayer = (url: string) => {
@@ -22,30 +22,7 @@ export const createGeoJSONLayer = (url: string) => {
             url: url
         }),
         style: function (feature) {
-            const label = feature.get('nazwa');
-
-            return new Style({
-                fill: new Fill({
-                    color: 'rgba(173, 216, 230, 0.6)'
-                }),
-                stroke: new Stroke({
-                    color: 'rgb(0, 102, 204)',
-                    width: 2
-                }),
-                text: new Text({
-                    font: '15px Arial, sans-serif',
-                    text: label,
-                    fill: new Fill({
-                        color: 'rgb(0, 0, 0)'
-                    }),
-                    stroke: new Stroke({
-                        color: 'rgba(255, 255, 255, 0.5)',
-                        width: 2
-                    }),
-                    offsetX: 0,
-                    offsetY: -10
-                })
-            });
+            return createGeoJSONStyle(feature.get('nazwa'));
         }
     });
 };
@@ -73,15 +50,7 @@ export const createOverviewSource = (geometry: Geometry) => {
 export const createOverviewLayer = (source: VectorSource) => {
     return new VectorLayer({
         source: source,
-        style: new Style({
-            fill: new Fill({
-                color: 'rgba(95, 20, 216, 0.1)'
-            }),
-            stroke: new Stroke({
-                color: 'rgb(95, 20, 216)',
-                width: 2
-            })
-        })
+        style: createOverviewStyle()
     });
 };
 

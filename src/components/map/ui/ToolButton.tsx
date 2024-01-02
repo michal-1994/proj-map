@@ -2,7 +2,10 @@ import { Card, Dropdown } from 'react-bootstrap';
 
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
-import { toggleHighContrast } from '../../../utils/tool-utils';
+import {
+    switchMeasurmentTool,
+    toggleHighContrast
+} from '../../../utils/tool-utils';
 import {
     ADD_LAYERS_TOOL,
     BUTTON_TOOLS,
@@ -18,6 +21,7 @@ import './ToolButton.css';
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();
     const { showPrintWindow, openPrintWindow } = useToolContext();
+    const { map } = useMapContext();
 
     const handleClick = (id: string, option?: string) => {
         switch (id) {
@@ -30,8 +34,9 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
             case ADD_LAYERS_TOOL:
                 break;
             case MEASURMENT_TOOL:
-                console.log(id);
-                console.log(option);
+                if (map && option) {
+                    switchMeasurmentTool(map, option);
+                }
                 break;
             case CONTRAST_TOOL:
                 toggleHighContrast();

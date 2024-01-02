@@ -1,11 +1,145 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { ExportModel } from '../models';
+
+import { Map, Overlay } from 'ol';
 import { FitOptions } from 'ol/View';
-// import { getPointResolution } from 'ol/proj.js';
+import { Draw } from 'ol/interaction';
+import { getArea, getLength } from 'ol/sphere.js';
+import { unByKey } from 'ol/Observable.js';
+import { EventsKey } from 'ol/events';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+
+import { LINEAR_MEASURMENT, POLYGON_MEASURMENT } from '../constants';
+import {
+    createMeasurmentPreviewStyle,
+    createMeasurmentResultStyle
+} from './style-utils';
+import { ExportModel } from '../models';
 
 export const toggleHighContrast = () => {
     document.getElementsByTagName('html')[0].classList.toggle('high-contrast');
+};
+
+export const formatLength = (line: any) => {
+    const length = getLength(line);
+    let output;
+    if (length > 100) {
+        output = Math.round((length / 1000) * 100) / 100 + ' ' + 'km';
+    } else {
+        output = Math.round(length * 100) / 100 + ' ' + 'm';
+    }
+    return output;
+};
+
+export const formatArea = (polygon: any) => {
+    const area = getArea(polygon);
+    let output;
+    if (area > 10000) {
+        output =
+            Math.round((area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
+    } else {
+        output = Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
+    }
+    return output;
+};
+
+export const switchMeasurmentTool = (map: Map, idOption: string) => {
+    const source = new VectorSource();
+    const vector = new VectorLayer({
+        source: source,
+        style: createMeasurmentResultStyle()
+    });
+
+    let sketch: any;
+    let helpTooltipElement: any;
+    let helpTooltip: any;
+    let measureTooltipElement: any;
+    let measureTooltip: any;
+    let draw: any;
+
+    const createHelpTooltip = () => {
+        if (helpTooltipElement) {
+            helpTooltipElement.parentNode.removeChild(helpTooltipElement);
+        }
+        helpTooltipElement = document.createElement('div');
+        helpTooltipElement.className = 'ol-tooltip hidden';
+        helpTooltip = new Overlay({
+            element: helpTooltipElement,
+            offset: [15, 0],
+            positioning: 'center-left'
+        });
+        map.addOverlay(helpTooltip);
+    };
+
+    const createMeasureTooltip = () => {
+        if (measureTooltipElement) {
+            measureTooltipElement.parentNode.removeChild(measureTooltipElement);
+        }
+        measureTooltipElement = document.createElement('div');
+        measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+        measureTooltip = new Overlay({
+            element: measureTooltipElement,
+            offset: [0, -15],
+            positioning: 'bottom-center',
+            stopEvent: false,
+            insertFirst: false
+        });
+        map.addOverlay(measureTooltip);
+    };
+
+    const addInteraction = () => {
+        const type = idOption === POLYGON_MEASURMENT ? 'Polygon' : 'LineString';
+        draw = new Draw({
+            source: source,
+            type: type,
+            style: function (feature) {
+                const geometryType = feature?.getGeometry()?.getType();
+                if (geometryType === type || geometryType === 'Point') {
+                    return createMeasurmentPreviewStyle();
+                }
+            }
+        });
+        map.addInteraction(draw);
+
+        createMeasureTooltip();
+        createHelpTooltip();
+
+        let listener: EventsKey | EventsKey[];
+        draw.on('drawstart', function (evt: any) {
+            sketch = evt.feature;
+
+            let tooltipCoord = evt.coordinate;
+
+            listener = sketch.getGeometry().on('change', function (evt: any) {
+                const geom = evt.target;
+                let output;
+                if (idOption === POLYGON_MEASURMENT) {
+                    output = formatArea(geom);
+                    tooltipCoord = geom.getInteriorPoint().getCoordinates();
+                } else if (idOption === LINEAR_MEASURMENT) {
+                    output = formatLength(geom);
+                    tooltipCoord = geom.getLastCoordinate();
+                }
+                measureTooltipElement.innerHTML = output;
+                measureTooltip.setPosition(tooltipCoord);
+            });
+        });
+
+        draw.on('drawend', function () {
+            measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
+            measureTooltip.setOffset([0, -7]);
+            sketch = null;
+            measureTooltipElement = null;
+            createMeasureTooltip();
+            unByKey(listener);
+        });
+    };
+
+    map?.addLayer(vector);
+
+    map.removeInteraction(draw);
+    addInteraction();
 };
 
 export const exportToPDF = (config: ExportModel) => {
@@ -19,15 +153,6 @@ export const exportToPDF = (config: ExportModel) => {
         .getView()
         .fit(config.overviewExtent, config.map.getSize() as FitOptions);
 
-    // const viewResolution = config.map.getView().getResolution();
-    // const scaleResolution =
-    //     +config.scale /
-    //     getPointResolution(
-    //         config.map.getView().getProjection(),
-    //         +config.resolution / 25.4,
-    //         config.map.getView().getCenter()!
-    //     );
-
     setTimeout(() => {
         html2canvas(config.map.getViewport()).then(canvas => {
             const pdf = new jsPDF({
@@ -36,7 +161,7 @@ export const exportToPDF = (config: ExportModel) => {
                 format: [config.width, config.height]
             });
 
-            const margin = 0; // temporary - default value is 10
+            const margin = 0;
             const marginLeft = margin;
             const marginTop = margin;
 
@@ -53,10 +178,6 @@ export const exportToPDF = (config: ExportModel) => {
                 .getView()
                 .fit(originalExtent, config.map.getSize() as FitOptions);
 
-            // Save
-            // pdf.save('map.pdf');
-
-            // Open in new window
             const pdfBlob = pdf.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
             window.open(pdfUrl, '_blank');
