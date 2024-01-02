@@ -1,5 +1,9 @@
 import { Feature, Map, View } from 'ol';
+import VectorLayer from 'ol/layer/Vector';
+import TileLayer from 'ol/layer/Tile';
 import { OSM, StadiaMaps } from 'ol/source';
+import VectorSource from 'ol/source/Vector';
+import TileSource from 'ol/source/Tile';
 import {
     OverviewMap,
     ScaleLine,
@@ -8,10 +12,6 @@ import {
 import { Geometry, Polygon } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
-import TileSource from 'ol/source/Tile';
-import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import TileLayer from 'ol/layer/Tile';
 
 import { createGeoJSONStyle, createOverviewStyle } from './style-utils';
 import { BaseLayerProps, LayerProps, ToolProps } from '../models';
