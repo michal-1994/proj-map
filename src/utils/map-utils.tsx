@@ -8,6 +8,7 @@ import {
 import { Geometry, Polygon } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
+import TileSource from 'ol/source/Tile';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import TileLayer from 'ol/layer/Tile';
@@ -15,7 +16,13 @@ import TileLayer from 'ol/layer/Tile';
 import { createGeoJSONStyle, createOverviewStyle } from './style-utils';
 import { BaseLayerProps, LayerProps, ToolProps } from '../models';
 
-export const createGeoJSONLayer = (url: string) => {
+/**
+ * Creates a VectorLayer for GeoJSON data.
+ *
+ * @param {string} url - The URL of the GeoJSON data.
+ * @returns {VectorLayer<VectorSource>} A VectorLayer with GeoJSON data.
+ */
+export const createGeoJSONLayer = (url: string): VectorLayer<VectorSource> => {
     return new VectorLayer({
         source: new VectorSource({
             format: new GeoJSON(),
@@ -27,7 +34,13 @@ export const createGeoJSONLayer = (url: string) => {
     });
 };
 
-export const createStamenLayer = (layerId: string) => {
+/**
+ * Creates a Stamen TileLayer.
+ *
+ * @param {string} layerId - The Stamen layer ID.
+ * @returns {TileLayer<TileSource>} A TileLayer with Stamen source.
+ */
+export const createStamenLayer = (layerId: string): TileLayer<TileSource> => {
     return new TileLayer({
         source: new StadiaMaps({
             layer: layerId
@@ -35,26 +48,50 @@ export const createStamenLayer = (layerId: string) => {
     });
 };
 
-export const createOSMLayer = () => {
+/**
+ * Creates an OSM TileLayer.
+ *
+ * @returns {TileLayer<TileSource>} A TileLayer with OSM source.
+ */
+export const createOSMLayer = (): TileLayer<TileSource> => {
     return new TileLayer({
         source: new OSM()
     });
 };
 
-export const createOverviewSource = (geometry: Geometry) => {
+/**
+ * Creates a VectorSource for the overview map.
+ *
+ * @param {Geometry} geometry - The overview geometry.
+ * @returns {VectorSource} A VectorSource with the overview geometry.
+ */
+export const createOverviewSource = (geometry: Geometry): VectorSource => {
     return new VectorSource({
         features: [new Feature(geometry)]
     });
 };
 
-export const createOverviewLayer = (source: VectorSource) => {
+/**
+ * Creates a VectorLayer for the overview map.
+ *
+ * @param {VectorSource} source - The VectorSource for the overview map.
+ * @returns {VectorLayer<VectorSource>} A VectorLayer for the overview map.
+ */
+export const createOverviewLayer = (
+    source: VectorSource
+): VectorLayer<VectorSource> => {
     return new VectorLayer({
         source: source,
         style: createOverviewStyle()
     });
 };
 
-export const removeOverviewLayer = (map: Map) => {
+/**
+ * Removes the overview layer from the map.
+ *
+ * @param {Map} map - The OpenLayers Map.
+ */
+export const removeOverviewLayer = (map: Map): void => {
     map?.getLayers().forEach(layer => {
         const layerId = layer ? layer.get('id') : null;
         if (layerId === 'overviewLayer') {
@@ -63,7 +100,13 @@ export const removeOverviewLayer = (map: Map) => {
     });
 };
 
-export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
+/**
+ * Updates map layers based on the provided layer configurations.
+ *
+ * @param {Map} map - The OpenLayers Map.
+ * @param {LayerProps[]} layers - An array of LayerProps for configuration.
+ */
+export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
     layers.forEach((layer: LayerProps) => {
         const existingLayer = map
             ?.getLayers()
@@ -92,7 +135,16 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]) => {
     });
 };
 
-export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
+/**
+ * Updates map base layers based on the provided base layer configurations.
+ *
+ * @param {Map} map - The OpenLayers Map.
+ * @param {BaseLayerProps[]} baseLayers - An array of BaseLayerProps for configuration.
+ */
+export const updateMapBaseLayers = (
+    map: Map,
+    baseLayers: BaseLayerProps[]
+): void => {
     baseLayers.forEach((baseLayer: BaseLayerProps) => {
         const existingLayer = map
             ?.getLayers()
@@ -124,11 +176,26 @@ export const updateMapBaseLayers = (map: Map, baseLayers: BaseLayerProps[]) => {
     });
 };
 
-export const getTool = (tools: ToolProps[], id: string) => {
+/**
+ * Retrieves a tool by its ID from the provided tools array.
+ *
+ * @param {ToolProps[]} tools - An array of ToolProps.
+ * @param {string} id - The ID of the tool to retrieve.
+ * @returns {ToolProps | undefined} The tool with the specified ID.
+ */
+export const getTool = (
+    tools: ToolProps[],
+    id: string
+): ToolProps | undefined => {
     return tools.find(tool => tool.id === id);
 };
 
-export const createOverviewMap = () => {
+/**
+ * Creates an OverviewMap control.
+ *
+ * @returns {OverviewMap} An OverviewMap control.
+ */
+export const createOverviewMap = (): OverviewMap => {
     return new OverviewMap({
         layers: [
             new TileLayer({
@@ -139,16 +206,30 @@ export const createOverviewMap = () => {
     });
 };
 
-export const createScaleLine = () => {
+/**
+ * Creates a ScaleLine control.
+ *
+ * @returns {ScaleLine} A ScaleLine control.
+ */
+export const createScaleLine = (): ScaleLine => {
     return new ScaleLine();
 };
 
+/**
+ * Creates a Polygon geometry based on provided coordinates.
+ *
+ * @param {number[]} topLeft - Top-left coordinates.
+ * @param {number[]} topRight - Top-right coordinates.
+ * @param {number[]} bottomRight - Bottom-right coordinates.
+ * @param {number[]} bottomLeft - Bottom-left coordinates.
+ * @returns {Polygon} A Polygon geometry.
+ */
 export const createGeometry = (
     topLeft: number[],
     topRight: number[],
     bottomRight: number[],
     bottomLeft: number[]
-) => {
+): Polygon => {
     return new Polygon([
         [
             fromLonLat([bottomLeft[0], bottomLeft[1]]),
@@ -159,7 +240,12 @@ export const createGeometry = (
     ]);
 };
 
-export const createMap = () => {
+/**
+ * Creates an OpenLayers Map.
+ *
+ * @returns {Map} An OpenLayers Map.
+ */
+export const createMap = (): Map => {
     return new Map({
         controls: defaultControls().extend([createScaleLine()]),
         target: 'map-view',
