@@ -17,11 +17,20 @@ import {
 } from './style-utils';
 import { ExportModel } from '../models';
 
-export const toggleHighContrast = () => {
+/**
+ * Toggles high contrast mode by adding or removing the 'high-contrast' class to the HTML element.
+ */
+export const toggleHighContrast = (): void => {
     document.getElementsByTagName('html')[0].classList.toggle('high-contrast');
 };
 
-export const switchMeasurmentTool = (map: Map, idOption: string) => {
+/**
+ * Switches the measurement tool based on the selected option (idOption) for either polygon or linear measurements.
+ *
+ * @param {Map} map - The OpenLayers map instance.
+ * @param {string} idOption - The selected measurement option ('POLYGON_MEASUREMENT' or 'LINEAR_MEASUREMENT').
+ */
+export const switchMeasurmentTool = (map: Map, idOption: string): void => {
     const source = new VectorSource();
     const vector = new VectorLayer({
         source: source,
@@ -113,7 +122,12 @@ export const switchMeasurmentTool = (map: Map, idOption: string) => {
     });
 };
 
-export const exportToPDF = (config: ExportModel) => {
+/**
+ * Exports the map view to a PDF document with the specified configuration.
+ *
+ * @param {ExportModel} config - The configuration object containing map and export settings.
+ */
+export const exportToPDF = (config: ExportModel): void => {
     document.body.style.cursor = 'progress';
 
     const originalExtent = config.map
