@@ -3,7 +3,7 @@ import { jsPDF } from 'jspdf';
 
 import { Map, Overlay } from 'ol';
 import { FitOptions } from 'ol/View';
-import { Draw } from 'ol/interaction';
+import { Draw, Interaction } from 'ol/interaction';
 import { getArea, getLength } from 'ol/sphere.js';
 import { unByKey } from 'ol/Observable.js';
 import { EventsKey } from 'ol/events';
@@ -15,7 +15,8 @@ import {
     createMeasurmentResultStyle
 } from './style-utils';
 import { ExportModel } from '../models';
-import { Type } from 'ol/geom/Geometry';
+import Geometry, { Type } from 'ol/geom/Geometry';
+import { LineString, Polygon } from 'ol/geom';
 
 /**
  * Toggles high contrast mode by adding or removing the 'high-contrast' class to the HTML element.
@@ -39,10 +40,11 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
 
     let sketch: any;
     let measureTooltipElement: any;
-    let measureTooltip: any;
-    let draw: any;
+    let measureTooltip: Overlay | null;
+    let draw: Draw | null = null;
+    let listener: EventsKey | EventsKey[];
 
-    const createMeasureTooltip = () => {
+    const createMeasureTooltip = (): void => {
         if (measureTooltipElement) {
             measureTooltipElement.parentNode.removeChild(measureTooltipElement);
         }
@@ -59,12 +61,12 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
     };
 
     const updateMeasurementTooltip = (
-        geom: any,
+        geom: Polygon | LineString,
         tooltipCoord: number[]
     ): void => {
         let output;
 
-        if (type === 'Polygon') {
+        if (geom instanceof Polygon) {
             const area = getArea(geom);
             output =
                 area > 10000
@@ -73,7 +75,7 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
                       } km<sup>2</sup>`
                     : `${Math.round(area * 100) / 100} m<sup>2</sup>`;
             tooltipCoord = geom.getInteriorPoint().getCoordinates();
-        } else if (type === 'LineString') {
+        } else if (geom instanceof LineString) {
             const length = getLength(geom);
             output =
                 length > 100
@@ -82,7 +84,7 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
             tooltipCoord = geom.getLastCoordinate();
         }
         measureTooltipElement.innerHTML = output;
-        measureTooltip.setPosition(tooltipCoord);
+        measureTooltip?.setPosition(tooltipCoord);
     };
 
     const handleDrawStart = (evt: any): void => {
@@ -94,15 +96,18 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
 
     const handleDrawEnd = (): void => {
         measureTooltipElement.style.color = 'black';
-        measureTooltip.setOffset([0, -7]);
+        measureTooltip?.setOffset([0, -7]);
         sketch = null;
         measureTooltipElement = null;
         createMeasureTooltip();
         unByKey(listener);
     };
 
-    map?.addLayer(vector);
-    map.removeInteraction(draw);
+    map.addLayer(vector);
+
+    if (draw) {
+        map.removeInteraction(draw);
+    }
 
     draw = new Draw({
         source: source,
@@ -117,8 +122,6 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
 
     map.addInteraction(draw);
     createMeasureTooltip();
-
-    let listener: EventsKey | EventsKey[];
 
     draw.on('drawstart', handleDrawStart);
     draw.on('drawend', handleDrawEnd);
