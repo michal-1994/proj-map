@@ -31,8 +31,6 @@ export const toggleHighContrast = (): void => {
  * @param {string} type - The selected measurement option ('Polygon' or 'LineString').
  */
 export const switchMeasurmentTool = (map: Map, type: string): void => {
-    console.log(type);
-
     const source = new VectorSource();
     const vector = new VectorLayer({
         source: source,
@@ -60,6 +58,49 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
         map.addOverlay(measureTooltip);
     };
 
+    const updateMeasurementTooltip = (
+        geom: any,
+        tooltipCoord: number[]
+    ): void => {
+        let output;
+
+        if (type === 'Polygon') {
+            const area = getArea(geom);
+            output =
+                area > 10000
+                    ? `${
+                          Math.round((area / 1000000) * 100) / 100
+                      } km<sup>2</sup>`
+                    : `${Math.round(area * 100) / 100} m<sup>2</sup>`;
+            tooltipCoord = geom.getInteriorPoint().getCoordinates();
+        } else if (type === 'LineString') {
+            const length = getLength(geom);
+            output =
+                length > 100
+                    ? `${Math.round((length / 1000) * 100) / 100} km`
+                    : `${Math.round(length * 100) / 100} m`;
+            tooltipCoord = geom.getLastCoordinate();
+        }
+        measureTooltipElement.innerHTML = output;
+        measureTooltip.setPosition(tooltipCoord);
+    };
+
+    const handleDrawStart = (evt: any): void => {
+        sketch = evt.feature;
+        listener = sketch.getGeometry().on('change', function (evt: any) {
+            updateMeasurementTooltip(evt.target, evt.coordinate);
+        });
+    };
+
+    const handleDrawEnd = (): void => {
+        measureTooltipElement.style.color = 'black';
+        measureTooltip.setOffset([0, -7]);
+        sketch = null;
+        measureTooltipElement = null;
+        createMeasureTooltip();
+        unByKey(listener);
+    };
+
     map?.addLayer(vector);
     map.removeInteraction(draw);
 
@@ -73,49 +114,14 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
             }
         }
     });
-    map.addInteraction(draw);
 
+    map.addInteraction(draw);
     createMeasureTooltip();
 
     let listener: EventsKey | EventsKey[];
-    draw.on('drawstart', function (evt: any) {
-        sketch = evt.feature;
-        let tooltipCoord = evt.coordinate;
 
-        listener = sketch.getGeometry().on('change', function (evt: any) {
-            const geom = evt.target;
-            let output;
-
-            if (type === 'Polygon') {
-                const area = getArea(geom);
-                output =
-                    area > 10000
-                        ? `${
-                              Math.round((area / 1000000) * 100) / 100
-                          } km<sup>2</sup>`
-                        : `${Math.round(area * 100) / 100} m<sup>2</sup>`;
-                tooltipCoord = geom.getInteriorPoint().getCoordinates();
-            } else if (type === 'LineString') {
-                const length = getLength(geom);
-                output =
-                    length > 100
-                        ? `${Math.round((length / 1000) * 100) / 100} km`
-                        : `${Math.round(length * 100) / 100} m`;
-                tooltipCoord = geom.getLastCoordinate();
-            }
-            measureTooltipElement.innerHTML = output;
-            measureTooltip.setPosition(tooltipCoord);
-        });
-    });
-
-    draw.on('drawend', function () {
-        measureTooltipElement.style.color = 'black';
-        measureTooltip.setOffset([0, -7]);
-        sketch = null;
-        measureTooltipElement = null;
-        createMeasureTooltip();
-        unByKey(listener);
-    });
+    draw.on('drawstart', handleDrawStart);
+    draw.on('drawend', handleDrawEnd);
 };
 
 /**
