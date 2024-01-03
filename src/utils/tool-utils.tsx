@@ -10,12 +10,12 @@ import { EventsKey } from 'ol/events';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 
-import { LINEAR_MEASURMENT, POLYGON_MEASURMENT } from '../constants';
 import {
     createMeasurmentPreviewStyle,
     createMeasurmentResultStyle
 } from './style-utils';
 import { ExportModel } from '../models';
+import { Type } from 'ol/geom/Geometry';
 
 /**
  * Toggles high contrast mode by adding or removing the 'high-contrast' class to the HTML element.
@@ -25,12 +25,14 @@ export const toggleHighContrast = (): void => {
 };
 
 /**
- * Switches the measurement tool based on the selected option (idOption) for either polygon or linear measurements.
+ * Switches the measurement tool based on the selected option (type) for either polygon or linear measurements.
  *
  * @param {Map} map - The OpenLayers map instance.
- * @param {string} idOption - The selected measurement option ('POLYGON_MEASUREMENT' or 'LINEAR_MEASUREMENT').
+ * @param {string} type - The selected measurement option ('Polygon' or 'LineString').
  */
-export const switchMeasurmentTool = (map: Map, idOption: string): void => {
+export const switchMeasurmentTool = (map: Map, type: string): void => {
+    console.log(type);
+
     const source = new VectorSource();
     const vector = new VectorLayer({
         source: source,
@@ -61,10 +63,9 @@ export const switchMeasurmentTool = (map: Map, idOption: string): void => {
     map?.addLayer(vector);
     map.removeInteraction(draw);
 
-    const type = idOption === POLYGON_MEASURMENT ? 'Polygon' : 'LineString'; // TODO: refactor - add type to object Polygon | LineString
     draw = new Draw({
         source: source,
-        type: type,
+        type: type as Type,
         style: function (feature) {
             const geometryType = feature?.getGeometry()?.getType();
             if (geometryType === type || geometryType === 'Point') {
@@ -85,26 +86,21 @@ export const switchMeasurmentTool = (map: Map, idOption: string): void => {
             const geom = evt.target;
             let output;
 
-            if (idOption === POLYGON_MEASURMENT) {
+            if (type === 'Polygon') {
                 const area = getArea(geom);
-                if (area > 10000) {
-                    output =
-                        Math.round((area / 1000000) * 100) / 100 +
-                        ' ' +
-                        'km<sup>2</sup>';
-                } else {
-                    output =
-                        Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
-                }
+                output =
+                    area > 10000
+                        ? `${
+                              Math.round((area / 1000000) * 100) / 100
+                          } km<sup>2</sup>`
+                        : `${Math.round(area * 100) / 100} m<sup>2</sup>`;
                 tooltipCoord = geom.getInteriorPoint().getCoordinates();
-            } else if (idOption === LINEAR_MEASURMENT) {
+            } else if (type === 'LineString') {
                 const length = getLength(geom);
-                if (length > 100) {
-                    output =
-                        Math.round((length / 1000) * 100) / 100 + ' ' + 'km';
-                } else {
-                    output = Math.round(length * 100) / 100 + ' ' + 'm';
-                }
+                output =
+                    length > 100
+                        ? `${Math.round((length / 1000) * 100) / 100} km`
+                        : `${Math.round(length * 100) / 100} m`;
                 tooltipCoord = geom.getLastCoordinate();
             }
             measureTooltipElement.innerHTML = output;

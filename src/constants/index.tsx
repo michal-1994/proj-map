@@ -137,11 +137,13 @@ export const BUTTON_TOOLS: ButtonToolProps[] = [
         options: [
             {
                 id: LINEAR_MEASURMENT,
+                type: 'LineString',
                 title: 'Linear',
                 icon: <IoAnalyticsOutline />
             },
             {
                 id: POLYGON_MEASURMENT,
+                type: 'Polygon',
                 title: 'Polygon',
                 icon: <BiShapePolygon />
             }

@@ -23,6 +23,7 @@ export interface ToolProps {
 
 export interface ButtonToolProps {
     id: string;
+    type?: string;
     title: string;
     icon: JSX.Element;
     options?: ButtonToolProps[];

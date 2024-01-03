@@ -23,7 +23,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { showPrintWindow, openPrintWindow } = useToolContext();
     const { map } = useMapContext();
 
-    const handleClick = (id: string, option?: string) => {
+    const handleClick = (id: string, type?: string) => {
         switch (id) {
             case MINIMAP_TOOL:
                 toggleMinimap();
@@ -34,8 +34,8 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
             case ADD_LAYERS_TOOL:
                 break;
             case MEASURMENT_TOOL:
-                if (map && option) {
-                    switchMeasurmentTool(map, option);
+                if (map && type) {
+                    switchMeasurmentTool(map, type);
                 }
                 break;
             case CONTRAST_TOOL:
@@ -84,7 +84,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                     return (
                         <Dropdown.Item
                             key={option.id}
-                            onClick={() => handleClick(id, option.id)}>
+                            onClick={() => handleClick(id, option.type)}>
                             {getIconById(option.id, BUTTON_TOOLS)}{' '}
                             {option.title}
                         </Dropdown.Item>
