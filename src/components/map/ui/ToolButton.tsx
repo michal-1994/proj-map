@@ -1,8 +1,10 @@
 import { Card, Dropdown } from 'react-bootstrap';
+import { Draw } from 'ol/interaction';
 
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
 import {
+    removeInteraction,
     switchMeasurmentTool,
     toggleHighContrast
 } from '../../../utils/tool-utils';
@@ -10,6 +12,7 @@ import {
     ADD_LAYERS_TOOL,
     BUTTON_TOOLS,
     CONTRAST_TOOL,
+    DEFAULT_CURSOR,
     MEASURMENT_TOOL,
     MINIMAP_TOOL,
     PRINT_TOOL
@@ -25,6 +28,11 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
 
     const handleClick = (id: string, type?: string) => {
         switch (id) {
+            case DEFAULT_CURSOR:
+                if (map) {
+                    removeInteraction(map, Draw);
+                }
+                break;
             case MINIMAP_TOOL:
                 toggleMinimap();
                 break;
@@ -76,7 +84,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         </button>
     ) : (
         <Dropdown className="nav-link tool-button">
-            <Dropdown.Toggle className="card">
+            <Dropdown.Toggle className="card" title={getTool(id)?.title}>
                 {getIconById(id, BUTTON_TOOLS)}
             </Dropdown.Toggle>
             <Dropdown.Menu>

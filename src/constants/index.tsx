@@ -1,5 +1,11 @@
 import icon from '../assets/react.svg';
-import { FaPrint, FaMap, FaPlus, FaRuler } from 'react-icons/fa';
+import {
+    FaPrint,
+    FaMap,
+    FaPlus,
+    FaRuler,
+    FaRegHandPaper
+} from 'react-icons/fa';
 import { MdContrast } from 'react-icons/md';
 import { BiShapePolygon } from 'react-icons/bi';
 import { IoAnalyticsOutline } from 'react-icons/io5';
@@ -83,6 +89,7 @@ export const TILES: TileProps[] = [
     }
 ];
 
+export const DEFAULT_CURSOR: string = 'default';
 export const MINIMAP_TOOL: string = 'minimap';
 export const PRINT_TOOL: string = 'print';
 export const ADD_LAYERS_TOOL: string = 'addlayers';
@@ -92,6 +99,10 @@ export const POLYGON_MEASURMENT: string = 'polygon';
 export const CONTRAST_TOOL: string = 'contrast';
 
 export const TOOLS: ToolProps[] = [
+    {
+        id: DEFAULT_CURSOR,
+        enable: true
+    },
     {
         id: MINIMAP_TOOL,
         enable: true
@@ -115,6 +126,11 @@ export const TOOLS: ToolProps[] = [
 ];
 
 export const BUTTON_TOOLS: ButtonToolProps[] = [
+    {
+        id: DEFAULT_CURSOR,
+        title: 'Default cursor',
+        icon: <FaRegHandPaper />
+    },
     {
         id: MINIMAP_TOOL,
         title: 'Minimap',
