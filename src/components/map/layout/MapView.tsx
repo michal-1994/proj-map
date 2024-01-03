@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { OverviewMap } from 'ol/control';
+import { Draw } from 'ol/interaction';
 import { fromLonLat } from 'ol/proj';
 import 'ol/ol.css';
 
@@ -11,6 +12,7 @@ import {
     updateMapBaseLayers,
     updateMapLayers
 } from '../../../utils/map-utils';
+import { removeInteraction } from '../../../utils/tool-utils';
 import { MINIMAP_TOOL } from '../../../constants';
 
 import './MapView.css';
@@ -67,6 +69,18 @@ const MapView = () => {
             );
             updateMapLayers(map, layers);
             updateMapBaseLayers(map, baseLayers);
+
+            const handleKeyPress = (event: any) => {
+                if (map && event.key === 'Escape') {
+                    removeInteraction(map, Draw);
+                }
+            };
+
+            window.addEventListener('keydown', handleKeyPress);
+
+            return () => {
+                window.removeEventListener('keydown', handleKeyPress);
+            };
         }
     }, [map]);
 
