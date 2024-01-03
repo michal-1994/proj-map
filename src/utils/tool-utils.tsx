@@ -6,6 +6,7 @@ import { FitOptions } from 'ol/View';
 import { Draw, Interaction } from 'ol/interaction';
 import { getArea, getLength } from 'ol/sphere.js';
 import { unByKey } from 'ol/Observable.js';
+import { Type } from 'ol/geom/Geometry';
 import { EventsKey } from 'ol/events';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
@@ -15,7 +16,6 @@ import {
     createMeasurmentResultStyle
 } from './style-utils';
 import { ExportModel } from '../models';
-import Geometry, { Type } from 'ol/geom/Geometry';
 import { LineString, Polygon } from 'ol/geom';
 
 /**
@@ -44,6 +44,8 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
     let draw: Draw | null = null;
     let listener: EventsKey | EventsKey[];
 
+    map.addLayer(vector);
+
     const createMeasureTooltip = (): void => {
         if (measureTooltipElement) {
             measureTooltipElement.parentNode.removeChild(measureTooltipElement);
@@ -65,7 +67,6 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
         tooltipCoord: number[]
     ): void => {
         let output;
-
         if (geom instanceof Polygon) {
             const area = getArea(geom);
             output =
@@ -103,28 +104,46 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
         unByKey(listener);
     };
 
-    map.addLayer(vector);
-
-    if (draw) {
-        map.removeInteraction(draw);
-    }
-
-    draw = new Draw({
-        source: source,
-        type: type as Type,
-        style: function (feature) {
-            const geometryType = feature?.getGeometry()?.getType();
-            if (geometryType === type || geometryType === 'Point') {
-                return createMeasurmentPreviewStyle();
+    const addInteraction = (): void => {
+        draw = new Draw({
+            source: source,
+            type: type as Type,
+            style: function (feature) {
+                const geometryType = feature?.getGeometry()?.getType();
+                if (geometryType === type || geometryType === 'Point') {
+                    return createMeasurmentPreviewStyle();
+                }
             }
-        }
-    });
+        });
 
-    map.addInteraction(draw);
-    createMeasureTooltip();
+        map.addInteraction(draw);
+        createMeasureTooltip();
 
-    draw.on('drawstart', handleDrawStart);
-    draw.on('drawend', handleDrawEnd);
+        draw.on('drawstart', handleDrawStart);
+        draw.on('drawend', handleDrawEnd);
+    };
+
+    removeInteraction(map, Draw);
+    addInteraction();
+};
+
+/**
+ * Removes a specific interaction from the given map.
+ * @param {Map} map - The map from which to remove the interaction.
+ * @param {Function} type - The type of the interaction to be removed.
+ */
+export const removeInteraction = (map: Map, type: Function): void => {
+    const isInstanceOfType = (interaction: Interaction): boolean => {
+        return interaction instanceof type;
+    };
+
+    const interactionToRemove = map
+        .getInteractions()
+        .getArray()
+        .find(isInstanceOfType);
+    if (interactionToRemove) {
+        map.removeInteraction(interactionToRemove);
+    }
 };
 
 /**
