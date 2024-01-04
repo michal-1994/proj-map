@@ -18,27 +18,14 @@ import { createGeoJSONStyle } from './style-utils';
 import { BaseLayerProps, LayerProps } from '../models';
 
 /**
- * Creates a Stamen TileLayer.
+ * Creates a TileLayer.
  *
- * @param {string} layerId - The Stamen layer ID.
- * @returns {TileLayer<TileSource>} A TileLayer with Stamen source.
+ * @param {TileSource} source - The TileSource for the layer.
+ * @returns {TileLayer<TileSource>} A TileLayer with the specified source.
  */
-export const createStamenLayer = (layerId: string): TileLayer<TileSource> => {
+export const createTileLayer = (source: TileSource): TileLayer<TileSource> => {
     return new TileLayer({
-        source: new StadiaMaps({
-            layer: layerId
-        })
-    });
-};
-
-/**
- * Creates an OSM TileLayer.
- *
- * @returns {TileLayer<TileSource>} A TileLayer with OSM source.
- */
-export const createOSMLayer = (): TileLayer<TileSource> => {
-    return new TileLayer({
-        source: new OSM()
+        source
     });
 };
 
@@ -133,14 +120,19 @@ export const updateMapBaseLayers = (
             .find(l => l.get('id') === baseLayer.id);
 
         if (baseLayer.enable && !existingLayer) {
-            let createdLayer: any;
+            let createdLayer: TileLayer<TileSource> | undefined;
+            let source: TileSource;
 
             switch (baseLayer.type) {
                 case 'osm':
-                    createdLayer = createOSMLayer();
+                    source = new OSM();
+                    createdLayer = createTileLayer(source);
                     break;
                 case 'stamen':
-                    createdLayer = createStamenLayer(baseLayer.id);
+                    source = new StadiaMaps({
+                        layer: baseLayer.id
+                    });
+                    createdLayer = createTileLayer(source);
                     break;
             }
 
