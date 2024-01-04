@@ -47,6 +47,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                     switchMeasurmentTool(map, type);
                 } else if (map) {
                     removeLayerById(map, 'measurmentLayer');
+                    removeInteraction(map, Draw);
                 }
                 break;
             case CONTRAST_TOOL:
