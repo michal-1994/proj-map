@@ -12,7 +12,6 @@ import { IoAnalyticsOutline } from 'react-icons/io5';
 
 import {
     BaseLayerProps,
-    ButtonToolProps,
     Dims,
     LayerProps,
     Option,
@@ -126,7 +125,7 @@ export const TOOLS: ToolProps[] = [
     }
 ];
 
-export const BUTTON_TOOLS: ButtonToolProps[] = [
+export const BUTTON_TOOLS: ToolProps[] = [
     {
         id: DEFAULT_CURSOR,
         title: 'Default cursor',

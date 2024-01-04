@@ -8,11 +8,10 @@ import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 import {
     createOverviewMap,
-    getTool,
     updateMapBaseLayers,
     updateMapLayers
 } from '../../../utils/map-utils';
-import { removeInteraction } from '../../../utils/tool-utils';
+import { getTool, removeInteraction } from '../../../utils/tool-utils';
 import { MINIMAP_TOOL } from '../../../constants';
 
 import './MapView.css';

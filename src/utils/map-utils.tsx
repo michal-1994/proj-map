@@ -15,7 +15,7 @@ import { GeoJSON } from 'ol/format';
 import { Style } from 'ol/style';
 
 import { createGeoJSONStyle } from './style-utils';
-import { BaseLayerProps, LayerProps, ToolProps } from '../models';
+import { BaseLayerProps, LayerProps } from '../models';
 
 /**
  * Creates a VectorLayer for GeoJSON data.
@@ -178,20 +178,6 @@ export const updateMapBaseLayers = (
             map?.removeLayer(existingLayer);
         }
     });
-};
-
-/**
- * Retrieves a tool by its ID from the provided tools array.
- *
- * @param {ToolProps[]} tools - An array of ToolProps.
- * @param {string} id - The ID of the tool to retrieve.
- * @returns {ToolProps | undefined} The tool with the specified ID.
- */
-export const getTool = (
-    tools: ToolProps[],
-    id: string
-): ToolProps | undefined => {
-    return tools.find(tool => tool.id === id);
 };
 
 /**

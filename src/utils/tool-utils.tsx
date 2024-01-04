@@ -5,6 +5,7 @@ import { Map, Overlay } from 'ol';
 import { FitOptions } from 'ol/View';
 import { Draw, Interaction } from 'ol/interaction';
 import { getArea, getLength } from 'ol/sphere.js';
+import { LineString, Polygon } from 'ol/geom';
 import { unByKey } from 'ol/Observable.js';
 import { Type } from 'ol/geom/Geometry';
 import { EventsKey } from 'ol/events';
@@ -15,14 +16,27 @@ import {
     createMeasurmentResultStyle
 } from './style-utils';
 import { createVectorLayer } from './map-utils';
-import { ExportModel } from '../models';
-import { LineString, Polygon } from 'ol/geom';
+import { ExportModel, ToolProps } from '../models';
 
 /**
  * Toggles high contrast mode by adding or removing the 'high-contrast' class to the HTML element.
  */
 export const toggleHighContrast = (): void => {
     document.getElementsByTagName('html')[0].classList.toggle('high-contrast');
+};
+
+/**
+ * Retrieves a tool by its ID from the provided tools array.
+ *
+ * @param {ToolProps[]} tools - An array of ToolProps.
+ * @param {string} id - The ID of the tool to retrieve.
+ * @returns {ToolProps | undefined} The tool with the specified ID.
+ */
+export const getTool = (
+    tools: ToolProps[],
+    id: string
+): ToolProps | undefined => {
+    return tools.find(tool => tool.id === id);
 };
 
 /**

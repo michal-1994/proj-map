@@ -18,15 +18,11 @@ export interface LayerProps {
 
 export interface ToolProps {
     id: string;
-    enable: boolean;
-}
-
-export interface ButtonToolProps {
-    id: string;
+    enable?: boolean;
     type?: string;
-    title: string;
-    icon: JSX.Element;
-    options?: ButtonToolProps[];
+    title?: string;
+    icon?: JSX.Element;
+    options?: ToolProps[];
 }
 
 export interface TileProps {

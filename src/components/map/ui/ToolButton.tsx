@@ -4,6 +4,7 @@ import { Draw } from 'ol/interaction';
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
 import {
+    getTool,
     removeInteraction,
     switchMeasurmentTool,
     toggleHighContrast
@@ -56,10 +57,6 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         }
     };
 
-    const getTool = (id: string) => {
-        return BUTTON_TOOLS.find(tool => tool.id === id);
-    };
-
     const getIconById = (id: string, options: any) => {
         for (const tool of options) {
             if (tool.id === id) {
@@ -77,10 +74,10 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         return null;
     };
 
-    return !getTool(id)!.options ? (
+    return !getTool(BUTTON_TOOLS, id)?.options ? (
         <button
             className="nav-link tool-button"
-            title={getTool(id)?.title}
+            title={getTool(BUTTON_TOOLS, id)?.title}
             onClick={() => handleClick(id)}>
             <Card className="btn btn-primary">
                 {getIconById(id, BUTTON_TOOLS)}
@@ -88,11 +85,13 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         </button>
     ) : (
         <Dropdown className="nav-link tool-button">
-            <Dropdown.Toggle className="card" title={getTool(id)?.title}>
+            <Dropdown.Toggle
+                className="card"
+                title={getTool(BUTTON_TOOLS, id)?.title}>
                 {getIconById(id, BUTTON_TOOLS)}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-                {getTool(id)!.options!.map((option: any) => {
+                {getTool(BUTTON_TOOLS, id)!.options!.map((option: any) => {
                     return (
                         <Dropdown.Item
                             key={option.id}
