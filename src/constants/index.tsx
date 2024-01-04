@@ -6,7 +6,7 @@ import {
     FaRuler,
     FaRegHandPaper
 } from 'react-icons/fa';
-import { MdContrast } from 'react-icons/md';
+import { MdContrast, MdDeleteOutline } from 'react-icons/md';
 import { BiShapePolygon } from 'react-icons/bi';
 import { IoAnalyticsOutline } from 'react-icons/io5';
 
@@ -96,6 +96,7 @@ export const ADD_LAYERS_TOOL: string = 'addlayers';
 export const MEASURMENT_TOOL: string = 'measurment';
 export const LINEAR_MEASURMENT: string = 'linear';
 export const POLYGON_MEASURMENT: string = 'polygon';
+export const REMOVE_MEASURMENTS: string = 'remove_measurments';
 export const CONTRAST_TOOL: string = 'contrast';
 
 export const TOOLS: ToolProps[] = [
@@ -162,6 +163,11 @@ export const BUTTON_TOOLS: ButtonToolProps[] = [
                 type: 'Polygon',
                 title: 'Polygon',
                 icon: <BiShapePolygon />
+            },
+            {
+                id: REMOVE_MEASURMENTS,
+                title: 'Remove measurments',
+                icon: <MdDeleteOutline />
             }
         ]
     },

@@ -14,7 +14,7 @@ import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
 import { Style } from 'ol/style';
 
-import { createGeoJSONStyle, createOverviewStyle } from './style-utils';
+import { createGeoJSONStyle } from './style-utils';
 import { BaseLayerProps, LayerProps, ToolProps } from '../models';
 
 /**
@@ -90,14 +90,15 @@ export const createVectorLayer = (
 };
 
 /**
- * Removes the overview layer from the map.
+ * Removes the layer by id from the map.
  *
  * @param {Map} map - The OpenLayers Map.
+ * @param {string} id - The layer id.
  */
-export const removeOverviewLayer = (map: Map): void => {
+export const removeLayerById = (map: Map, id: string): void => {
     map?.getLayers().forEach(layer => {
         const layerId = layer ? layer.get('id') : null;
-        if (layerId === 'overviewLayer') {
+        if (layerId === id) {
             map?.removeLayer(layer);
         }
     });

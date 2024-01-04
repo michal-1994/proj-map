@@ -21,7 +21,7 @@ import {
     createGeometry,
     createOverviewSource,
     createVectorLayer,
-    removeOverviewLayer
+    removeLayerById
 } from '../../../utils/map-utils';
 import { createOverviewStyle } from '../../../utils/style-utils';
 import { Option } from '../../../models';
@@ -132,7 +132,7 @@ const MapPrint = () => {
                 features: new Collection(source.getFeatures())
             });
 
-            removeOverviewLayer(map);
+            removeLayerById(map, 'overviewLayer');
             map?.addLayer(overviewLayer);
             map?.addInteraction(translate);
 
@@ -154,7 +154,7 @@ const MapPrint = () => {
         }
 
         if (map && !showPrintWindow) {
-            removeOverviewLayer(map);
+            removeLayerById(map, 'overviewLayer');
         }
     }, [map, showPrintWindow, center, width, height, scale]);
 

@@ -44,6 +44,7 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
 
     map.addLayer(measurmentLayer);
     measurmentLayer.setZIndex(998);
+    measurmentLayer.set('id', 'measurmentLayer');
 
     const createMeasureTooltip = (): void => {
         if (measureTooltipElement) {

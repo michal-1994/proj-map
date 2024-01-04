@@ -8,6 +8,7 @@ import {
     switchMeasurmentTool,
     toggleHighContrast
 } from '../../../utils/tool-utils';
+import { removeLayerById } from '../../../utils/map-utils';
 import {
     ADD_LAYERS_TOOL,
     BUTTON_TOOLS,
@@ -44,6 +45,8 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
             case MEASURMENT_TOOL:
                 if (map && type) {
                     switchMeasurmentTool(map, type);
+                } else if (map) {
+                    removeLayerById(map, 'measurmentLayer');
                 }
                 break;
             case CONTRAST_TOOL:
