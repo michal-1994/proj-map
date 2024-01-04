@@ -1,14 +1,9 @@
 import icon from '../assets/react.svg';
-import {
-    FaPrint,
-    FaMap,
-    FaPlus,
-    FaRuler,
-    FaRegHandPaper
-} from 'react-icons/fa';
+import { FaPrint, FaMap, FaPlus, FaRuler } from 'react-icons/fa';
 import { MdContrast, MdDeleteOutline } from 'react-icons/md';
 import { BiShapePolygon } from 'react-icons/bi';
 import { IoAnalyticsOutline } from 'react-icons/io5';
+import { GrCursor } from 'react-icons/gr';
 
 import {
     BaseLayerProps,
@@ -129,7 +124,7 @@ export const BUTTON_TOOLS: ToolProps[] = [
     {
         id: DEFAULT_CURSOR,
         title: 'Default cursor',
-        icon: <FaRegHandPaper />
+        icon: <GrCursor />
     },
     {
         id: MINIMAP_TOOL,
