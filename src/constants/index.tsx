@@ -14,18 +14,16 @@ import {
     ToolProps
 } from '../models';
 
-export const GEOJSON_TYPE: string = 'geojson';
-
 export const LAYERS: LayerProps[] = [
     {
         id: 'voivodeships',
-        type: GEOJSON_TYPE,
+        type: 'geojson',
         url: 'geojson/voivodeships.geojson',
         enable: false
     },
     {
         id: 'counties',
-        type: GEOJSON_TYPE,
+        type: 'geojson',
         url: 'geojson/counties.geojson',
         enable: false
     }
