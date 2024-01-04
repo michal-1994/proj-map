@@ -1,10 +1,13 @@
 import { useEffect, useReducer, useState } from 'react';
 import { Card, Form, Button, Col, Row } from 'react-bootstrap';
+
+import { Feature } from 'ol';
 import { IoClose } from 'react-icons/io5';
 import { Coordinate } from 'ol/coordinate';
 import { Translate } from 'ol/interaction';
 import { getCenter } from 'ol/extent';
 import { toLonLat } from 'ol/proj';
+import VectorSource from 'ol/source/Vector';
 import Collection from 'ol/Collection';
 
 import {
@@ -19,13 +22,12 @@ import { useToolContext } from '../../../context/tool-context';
 import { exportToPDF } from '../../../utils/tool-utils';
 import {
     createGeometry,
-    createOverviewSource,
     createVectorLayer,
     removeLayerById
 } from '../../../utils/map-utils';
 import { createOverviewStyle } from '../../../utils/style-utils';
-import { Option } from '../../../models';
 import { initialState, reducer } from '../../../reducers/mapPrintReducer';
+import { Option } from '../../../models';
 
 import './MapPrint.css';
 
@@ -125,9 +127,13 @@ const MapPrint = () => {
                 bottomLeft
             );
 
-            const source = createOverviewSource(geometry);
-            const style = createOverviewStyle();
-            const overviewLayer = createVectorLayer(source, style);
+            const source = new VectorSource({
+                features: [new Feature(geometry)]
+            });
+            const overviewLayer = createVectorLayer(
+                source,
+                createOverviewStyle
+            );
             const translate = new Translate({
                 features: new Collection(source.getFeatures())
             });

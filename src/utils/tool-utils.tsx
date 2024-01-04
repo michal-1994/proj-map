@@ -47,8 +47,10 @@ export const getTool = (
  */
 export const switchMeasurmentTool = (map: Map, type: string): void => {
     const source = new VectorSource();
-    const style = createMeasurmentResultStyle();
-    const measurmentLayer = createVectorLayer(source, style);
+    const measurmentLayer = createVectorLayer(
+        source,
+        createMeasurmentResultStyle
+    );
 
     let sketch: any;
     let measureTooltipElement: any;

@@ -1,39 +1,21 @@
-import { Feature, Map, View } from 'ol';
-import VectorLayer from 'ol/layer/Vector';
-import TileLayer from 'ol/layer/Tile';
+import { Map, View } from 'ol';
 import { OSM, StadiaMaps } from 'ol/source';
-import VectorSource from 'ol/source/Vector';
-import TileSource from 'ol/source/Tile';
 import {
     OverviewMap,
     ScaleLine,
     defaults as defaultControls
 } from 'ol/control';
-import { Geometry, Polygon } from 'ol/geom';
+import { Polygon } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
 import { Style } from 'ol/style';
+import VectorLayer from 'ol/layer/Vector';
+import TileLayer from 'ol/layer/Tile';
+import VectorSource from 'ol/source/Vector';
+import TileSource from 'ol/source/Tile';
 
 import { createGeoJSONStyle } from './style-utils';
 import { BaseLayerProps, LayerProps } from '../models';
-
-/**
- * Creates a VectorLayer for GeoJSON data.
- *
- * @param {string} url - The URL of the GeoJSON data.
- * @returns {VectorLayer<VectorSource>} A VectorLayer with GeoJSON data.
- */
-export const createGeoJSONLayer = (url: string): VectorLayer<VectorSource> => {
-    return new VectorLayer({
-        source: new VectorSource({
-            format: new GeoJSON(),
-            url: url
-        }),
-        style: function (feature) {
-            return createGeoJSONStyle(feature.get('nazwa'));
-        }
-    });
-};
 
 /**
  * Creates a Stamen TileLayer.
@@ -61,31 +43,19 @@ export const createOSMLayer = (): TileLayer<TileSource> => {
 };
 
 /**
- * Creates a VectorSource for the overview map.
- *
- * @param {Geometry} geometry - The overview geometry.
- * @returns {VectorSource} A VectorSource with the overview geometry.
- */
-export const createOverviewSource = (geometry: Geometry): VectorSource => {
-    return new VectorSource({
-        features: [new Feature(geometry)]
-    });
-};
-
-/**
  * Creates a VectorLayer.
  *
- * @param {VectorSource} source - The VectorSource.
- * @param {Style} style - The Style.
- * @returns {VectorLayer<VectorSource>} A VectorLayer.
+ * @param {VectorSource} source - The VectorSource for the layer.
+ * @param {function} styleFn - The styling function that defines the style for each feature.
+ * @returns {VectorLayer<VectorSource>} A VectorLayer with the specified source and style.
  */
 export const createVectorLayer = (
     source: VectorSource,
-    style: Style
+    styleFn: (feature?: any) => Style
 ): VectorLayer<VectorSource> => {
     return new VectorLayer({
-        source: source,
-        style: style
+        source,
+        style: styleFn
     });
 };
 
@@ -122,7 +92,14 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
             switch (layer.type) {
                 case 'geojson':
                     if (layer.url) {
-                        createdLayer = createGeoJSONLayer(layer.url);
+                        const source = new VectorSource({
+                            format: new GeoJSON(),
+                            url: layer.url
+                        });
+                        createdLayer = createVectorLayer(
+                            source,
+                            createGeoJSONStyle
+                        );
                     }
                     break;
             }
@@ -197,15 +174,6 @@ export const createOverviewMap = (): OverviewMap => {
 };
 
 /**
- * Creates a ScaleLine control.
- *
- * @returns {ScaleLine} A ScaleLine control.
- */
-export const createScaleLine = (): ScaleLine => {
-    return new ScaleLine();
-};
-
-/**
  * Creates a Polygon geometry based on provided coordinates.
  *
  * @param {number[]} topLeft - Top-left coordinates.
@@ -237,7 +205,7 @@ export const createGeometry = (
  */
 export const createMap = (): Map => {
     return new Map({
-        controls: defaultControls().extend([createScaleLine()]),
+        controls: defaultControls().extend([new ScaleLine()]),
         target: 'map-view',
         layers: [],
         view: new View({

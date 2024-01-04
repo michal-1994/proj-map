@@ -1,13 +1,14 @@
+import { Object } from 'ol';
 import { Fill, Stroke, Style, Text } from 'ol/style';
 import CircleStyle from 'ol/style/Circle';
 
 /**
  * Creates a GeoJSON style for OpenLayers features.
  *
- * @param {string} label - The text label for the feature.
+ * @param {Object} feature - The OpenLayers feature to be styled.
  * @returns {Style} The configured style for the feature.
  */
-export const createGeoJSONStyle = (label: string): Style => {
+export const createGeoJSONStyle = (feature: Object): Style => {
     return new Style({
         fill: new Fill({
             color: 'rgba(173, 216, 230, 0.6)'
@@ -18,7 +19,7 @@ export const createGeoJSONStyle = (label: string): Style => {
         }),
         text: new Text({
             font: '15px Arial, sans-serif',
-            text: label,
+            text: feature.get('nazwa'),
             fill: new Fill({
                 color: 'rgb(0, 0, 0)'
             }),
