@@ -9,12 +9,12 @@ import { unByKey } from 'ol/Observable.js';
 import { Type } from 'ol/geom/Geometry';
 import { EventsKey } from 'ol/events';
 import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
 
 import {
     createMeasurmentPreviewStyle,
     createMeasurmentResultStyle
 } from './style-utils';
+import { createVectorLayer } from './map-utils';
 import { ExportModel } from '../models';
 import { LineString, Polygon } from 'ol/geom';
 
@@ -33,10 +33,8 @@ export const toggleHighContrast = (): void => {
  */
 export const switchMeasurmentTool = (map: Map, type: string): void => {
     const source = new VectorSource();
-    const vector = new VectorLayer({
-        source: source,
-        style: createMeasurmentResultStyle()
-    });
+    const style = createMeasurmentResultStyle();
+    const measurmentLayer = createVectorLayer(source, style);
 
     let sketch: any;
     let measureTooltipElement: any;
@@ -44,7 +42,8 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
     let draw: Draw | null = null;
     let listener: EventsKey | EventsKey[];
 
-    map.addLayer(vector);
+    map.addLayer(measurmentLayer);
+    measurmentLayer.setZIndex(998);
 
     const createMeasureTooltip = (): void => {
         if (measureTooltipElement) {

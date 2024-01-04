@@ -12,6 +12,7 @@ import {
 import { Geometry, Polygon } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
+import { Style } from 'ol/style';
 
 import { createGeoJSONStyle, createOverviewStyle } from './style-utils';
 import { BaseLayerProps, LayerProps, ToolProps } from '../models';
@@ -72,17 +73,19 @@ export const createOverviewSource = (geometry: Geometry): VectorSource => {
 };
 
 /**
- * Creates a VectorLayer for the overview map.
+ * Creates a VectorLayer.
  *
- * @param {VectorSource} source - The VectorSource for the overview map.
- * @returns {VectorLayer<VectorSource>} A VectorLayer for the overview map.
+ * @param {VectorSource} source - The VectorSource.
+ * @param {Style} style - The Style.
+ * @returns {VectorLayer<VectorSource>} A VectorLayer.
  */
-export const createOverviewLayer = (
-    source: VectorSource
+export const createVectorLayer = (
+    source: VectorSource,
+    style: Style
 ): VectorLayer<VectorSource> => {
     return new VectorLayer({
         source: source,
-        style: createOverviewStyle()
+        style: style
     });
 };
 

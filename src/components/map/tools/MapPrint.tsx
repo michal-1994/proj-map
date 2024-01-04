@@ -19,10 +19,11 @@ import { useToolContext } from '../../../context/tool-context';
 import { exportToPDF } from '../../../utils/tool-utils';
 import {
     createGeometry,
-    createOverviewLayer,
     createOverviewSource,
+    createVectorLayer,
     removeOverviewLayer
 } from '../../../utils/map-utils';
+import { createOverviewStyle } from '../../../utils/style-utils';
 import { Option } from '../../../models';
 import { initialState, reducer } from '../../../reducers/mapPrintReducer';
 
@@ -124,10 +125,11 @@ const MapPrint = () => {
                 bottomLeft
             );
 
-            const overviewSource = createOverviewSource(geometry);
-            const overviewLayer = createOverviewLayer(overviewSource);
+            const source = createOverviewSource(geometry);
+            const style = createOverviewStyle();
+            const overviewLayer = createVectorLayer(source, style);
             const translate = new Translate({
-                features: new Collection(overviewSource.getFeatures())
+                features: new Collection(source.getFeatures())
             });
 
             removeOverviewLayer(map);
