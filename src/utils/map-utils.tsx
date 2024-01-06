@@ -9,10 +9,11 @@ import { Polygon } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
 import { Style } from 'ol/style';
-import VectorLayer from 'ol/layer/Vector';
-import TileLayer from 'ol/layer/Tile';
 import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
 import TileSource from 'ol/source/Tile';
+import TileLayer from 'ol/layer/Tile';
+import Layer from 'ol/layer/Layer';
 
 import { createGeoJSONStyle } from './style-utils';
 import { BaseLayerProps, LayerProps } from '../models';
@@ -44,6 +45,22 @@ export const createVectorLayer = (
         source,
         style: styleFn
     });
+};
+
+/**
+ * Get the layer by id from the map.
+ *
+ * @param {Map} map - The OpenLayers map.
+ * @param {string} layerId - The layer id.
+ * @returns {Layer | null} - The OpenLayers layer with the specified id, or null if not found.
+ */
+export const getLayerById = (map: Map, layerId: string): Layer | null => {
+    return (
+        (map
+            ?.getLayers()
+            .getArray()
+            .find(layer => layer.get('id') === layerId) as Layer) || null
+    );
 };
 
 /**

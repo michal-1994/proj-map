@@ -15,7 +15,7 @@ import {
     createMeasurmentPreviewStyle,
     createMeasurmentResultStyle
 } from './style-utils';
-import { createVectorLayer } from './map-utils';
+import { createVectorLayer, getLayerById } from './map-utils';
 import { ExportModel, ToolProps } from '../models';
 
 /**
@@ -46,21 +46,24 @@ export const getTool = (
  * @param {string} type - The selected measurement option ('Polygon' or 'LineString').
  */
 export const switchMeasurmentTool = (map: Map, type: string): void => {
-    const source = new VectorSource();
-    const measurmentLayer = createVectorLayer(
-        source,
-        createMeasurmentResultStyle
-    );
+    let measurmentLayer = getLayerById(map, 'measurmentLayer');
+
+    if (!measurmentLayer) {
+        const source = new VectorSource();
+        measurmentLayer = createVectorLayer(
+            source,
+            createMeasurmentResultStyle
+        );
+        map.addLayer(measurmentLayer);
+        measurmentLayer.setZIndex(998);
+        measurmentLayer.set('id', 'measurmentLayer');
+    }
 
     let sketch: any;
     let measureTooltipElement: any;
     let measureTooltip: Overlay | null;
     let draw: Draw | null = null;
     let listener: EventsKey | EventsKey[];
-
-    map.addLayer(measurmentLayer);
-    measurmentLayer.setZIndex(998);
-    measurmentLayer.set('id', 'measurmentLayer');
 
     const createMeasureTooltip = (): void => {
         if (measureTooltipElement) {
@@ -121,6 +124,8 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
     };
 
     const addInteraction = (): void => {
+        const source = measurmentLayer?.getSource() as VectorSource;
+
         draw = new Draw({
             source: source,
             type: type as Type,
