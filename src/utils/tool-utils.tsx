@@ -70,7 +70,7 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
             measureTooltipElement.parentNode.removeChild(measureTooltipElement);
         }
         measureTooltipElement = document.createElement('div');
-        measureTooltipElement.style.color = 'black';
+        measureTooltipElement.className = 'ol-tooltip';
         measureTooltip = new Overlay({
             element: measureTooltipElement,
             offset: [0, -15],
@@ -115,7 +115,7 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
     };
 
     const handleDrawEnd = (): void => {
-        measureTooltipElement.style.color = 'black';
+        measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
         measureTooltip?.setOffset([0, -7]);
         sketch = null;
         measureTooltipElement = null;

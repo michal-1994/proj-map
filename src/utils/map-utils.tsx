@@ -64,7 +64,7 @@ export const getLayerById = (map: Map, layerId: string): Layer | null => {
 };
 
 /**
- * Removes the layer by id from the map.
+ * Removes the layer by id from the map, if layerId is equal to measurmentLayer remove tooltips.
  *
  * @param {Map} map - The OpenLayers Map.
  * @param {string} id - The layer id.
@@ -74,6 +74,12 @@ export const removeLayerById = (map: Map, id: string): void => {
         const layerId = layer ? layer.get('id') : null;
         if (layerId === id) {
             map?.removeLayer(layer);
+        }
+        if (layerId === 'measurmentLayer') {
+            const tooltips = document.querySelectorAll('.ol-tooltip');
+            for (let tooltip of tooltips) {
+                tooltip.remove();
+            }
         }
     });
 };
