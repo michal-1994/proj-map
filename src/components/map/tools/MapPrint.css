@@ -3,7 +3,7 @@
     left: calc(50vw - 180px);
     bottom: 0;
     height: 0 !important;
-    position: absolute !important;
+    position: fixed !important;
     width: 360px;
     z-index: 1000;
     overflow: hidden;

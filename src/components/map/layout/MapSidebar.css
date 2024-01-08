@@ -1,9 +1,9 @@
 .map-sidebar {
     transition: width 0.3s;
     left: 0;
-    bottom: 55px;
+    top: 55px;
     height: calc(100vh - 110px) !important;
-    position: absolute !important;
+    position: fixed !important;
     width: 0;
     z-index: 1000;
 }

@@ -101,16 +101,16 @@ export const TOOLS: ToolProps[] = [
         enable: true
     },
     {
+        id: MEASURMENT_TOOL,
+        enable: true
+    },
+    {
         id: PRINT_TOOL,
         enable: true
     },
     {
         id: ADD_LAYERS_TOOL,
         enable: false
-    },
-    {
-        id: MEASURMENT_TOOL,
-        enable: true
     },
     {
         id: CONTRAST_TOOL,
@@ -128,16 +128,6 @@ export const BUTTON_TOOLS: ToolProps[] = [
         id: MINIMAP_TOOL,
         title: 'Minimap',
         icon: <FaMap />
-    },
-    {
-        id: PRINT_TOOL,
-        title: 'Print map',
-        icon: <FaPrint />
-    },
-    {
-        id: ADD_LAYERS_TOOL,
-        title: 'Add layers',
-        icon: <FaPlus />
     },
     {
         id: MEASURMENT_TOOL,
@@ -162,6 +152,16 @@ export const BUTTON_TOOLS: ToolProps[] = [
                 icon: <MdDeleteOutline />
             }
         ]
+    },
+    {
+        id: PRINT_TOOL,
+        title: 'Print map',
+        icon: <FaPrint />
+    },
+    {
+        id: ADD_LAYERS_TOOL,
+        title: 'Add layers',
+        icon: <FaPlus />
     },
     {
         id: CONTRAST_TOOL,
