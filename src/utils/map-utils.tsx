@@ -75,9 +75,8 @@ export const removeLayerById = (map: Map, id: string): void => {
         if (layerId === id) {
             map?.removeLayer(layer);
         }
-        if (layerId === 'measurmentLayer') {
-            const tooltips = document.querySelectorAll('.ol-tooltip');
-            for (let tooltip of tooltips) {
+        if (id === 'measurmentLayer') {
+            for (let tooltip of document.querySelectorAll('.ol-tooltip')) {
                 tooltip.remove();
             }
         }
