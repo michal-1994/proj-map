@@ -1,0 +1,1 @@
+.tile-card{transition:transform .3s ease-in-out}.tile-card:hover{transform:scale(1.05)}.tile-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;margin-bottom:1.5rem}@media (max-width: 768px){.tile-grid{gap:1.5rem}}
