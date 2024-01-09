@@ -16,6 +16,15 @@
     justify-content: space-between;
 }
 
+.sidebar-layer-dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-layer-dropdown .dropdown-item svg {
+    margin-right: 4px;
+}
+
 .sidebar-layer-dropdown .card {
     padding: 4px;
 }
