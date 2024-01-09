@@ -11,7 +11,8 @@ import { useMapContext } from '../../../context/map-context';
 import './SidebarLayers.css';
 
 const SidebarLayers = () => {
-    const { layers, updateLayer, selectAll, updateAllLayers } = useMapContext();
+    const { layers, switchLayer, removeLayer, selectAll, updateAllLayers } =
+        useMapContext();
 
     return (
         <Form className="sidebar-layers">
@@ -29,7 +30,7 @@ const SidebarLayers = () => {
                         type="checkbox"
                         label={layer.id}
                         checked={layer.enable}
-                        onChange={() => updateLayer(layer.id)}
+                        onChange={() => switchLayer(layer.id)}
                     />
                     <Dropdown className="sidebar-layer-dropdown">
                         <Dropdown.Toggle className="card">
@@ -43,9 +44,7 @@ const SidebarLayers = () => {
                                 <MdOutlineTableView /> Details
                             </Dropdown.Item>
                             <Dropdown.Item
-                                onClick={() =>
-                                    console.log('Remove: ', layer.id)
-                                }>
+                                onClick={() => removeLayer(layer.id)}>
                                 <MdDeleteOutline /> Remove
                             </Dropdown.Item>
                             <Dropdown.Item>

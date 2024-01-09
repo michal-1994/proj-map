@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Map } from 'ol';
 
 import { useAppContext } from './context';
-import { createMap } from '../utils/map-utils';
+import { createMap, removeLayerById } from '../utils/map-utils';
 import { BASE_LAYERS, LAYERS } from '../constants';
 import { BaseLayerProps, LayerProps } from '../models';
 
@@ -12,7 +12,8 @@ interface MapContextProps {
     isMinimap: boolean;
     toggleMinimap: () => void;
     layers: LayerProps[];
-    updateLayer: (id: string) => void;
+    switchLayer: (id: string) => void;
+    removeLayer: (id: string) => void;
     selectAll: boolean;
     updateAllLayers: (value: boolean) => void;
     baseLayers: BaseLayerProps[];
@@ -41,7 +42,7 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         setIsMinimap(prevIsMinimap => !prevIsMinimap);
     };
 
-    const updateLayer = (id: string) => {
+    const switchLayer = (id: string) => {
         const updatedLayers = layers.map(layer => {
             return layer.id === id
                 ? { ...layer, enable: !layer.enable }
@@ -50,6 +51,15 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
 
         setSelectAll(updatedLayers.every(layer => layer.enable));
         setLayers(updatedLayers);
+    };
+
+    const removeLayer = (id: string) => {
+        const updatedLayers = layers.filter(layer => layer.id !== id);
+        setLayers(updatedLayers);
+
+        if (map) {
+            removeLayerById(map, id);
+        }
     };
 
     const updateAllLayers = (value: boolean) => {
@@ -78,7 +88,8 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         isMinimap,
         toggleMinimap,
         layers,
-        updateLayer,
+        switchLayer,
+        removeLayer,
         selectAll,
         updateAllLayers,
         baseLayers,
