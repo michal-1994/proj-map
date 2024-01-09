@@ -1,11 +1,26 @@
+import { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { GridLoader } from 'react-spinners';
 
 import HomePage from './pages/HomePage';
-import MapPage from './pages/MapPage';
 import ConfiguratorPage from './pages/ConfiguratorPage';
 
 import { AppProvider } from './context/context';
 import { ModalProvider } from './context/modal-context';
+
+const MapPage = lazy(() => import('./pages/MapPage'));
+
+const loadingElement = (
+    <div
+        style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh'
+        }}>
+        <GridLoader color="#0d6efd" />
+    </div>
+);
 
 const routes = [
     {
@@ -15,7 +30,11 @@ const routes = [
     },
     {
         path: '/map',
-        element: <MapPage />
+        element: (
+            <Suspense fallback={loadingElement}>
+                <MapPage />
+            </Suspense>
+        )
     },
     {
         path: '/configurator',
