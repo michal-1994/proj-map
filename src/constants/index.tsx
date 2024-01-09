@@ -19,13 +19,15 @@ export const LAYERS: LayerProps[] = [
         id: 'voivodeships',
         type: 'geojson',
         url: 'geojson/voivodeships.geojson',
-        enable: false
+        enable: false,
+        opacity: 1
     },
     {
         id: 'counties',
         type: 'geojson',
         url: 'geojson/counties.geojson',
-        enable: false
+        enable: false,
+        opacity: 1
     }
 ];
 

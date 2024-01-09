@@ -14,6 +14,7 @@ export interface LayerProps {
     type: string;
     url?: string;
     enable: boolean;
+    opacity: number;
 }
 
 export interface ToolProps {

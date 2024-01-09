@@ -1,5 +1,10 @@
 import { Form, Dropdown } from 'react-bootstrap';
-import { MdDeleteOutline, MdMenu } from 'react-icons/md';
+import {
+    MdDeleteOutline,
+    MdMenu,
+    MdOutlineOpacity,
+    MdOutlineTableView
+} from 'react-icons/md';
 
 import { useMapContext } from '../../../context/map-context';
 
@@ -7,10 +12,6 @@ import './SidebarLayers.css';
 
 const SidebarLayers = () => {
     const { layers, updateLayer, selectAll, updateAllLayers } = useMapContext();
-
-    const removeLayer = (id: string) => {
-        console.log('removeLayer: ', id);
-    };
 
     return (
         <Form className="sidebar-layers">
@@ -36,8 +37,33 @@ const SidebarLayers = () => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item
-                                onClick={() => removeLayer(layer.id)}>
+                                onClick={() =>
+                                    console.log('Details: ', layer.id)
+                                }>
+                                <MdOutlineTableView /> Details
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                                onClick={() =>
+                                    console.log('Remove: ', layer.id)
+                                }>
                                 <MdDeleteOutline /> Remove
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                                <MdOutlineOpacity />
+                                <Form.Range
+                                    value={layer.opacity}
+                                    min={0}
+                                    max={1}
+                                    step={0.1}
+                                    onChange={e =>
+                                        console.log(
+                                            'Opacity: ',
+                                            layer.id +
+                                                ' ' +
+                                                parseFloat(e.target.value)
+                                        )
+                                    }
+                                />
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
