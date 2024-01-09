@@ -98,9 +98,10 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
 
         if (existingLayer) {
             existingLayer.set('opacity', layer.opacity);
+            existingLayer.set('visible', layer.enable);
         }
 
-        if (layer.enable && !existingLayer) {
+        if (!existingLayer) {
             let createdLayer: any;
             switch (layer.type) {
                 case 'geojson':
@@ -118,14 +119,11 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
             }
 
             if (createdLayer) {
-                createdLayer.set('opacity', layer.opacity);
                 createdLayer.set('id', layer.id);
+                createdLayer.set('opacity', layer.opacity);
+                createdLayer.set('visible', layer.enable);
                 map?.addLayer(createdLayer);
             }
-        }
-
-        if (!layer.enable && existingLayer) {
-            map?.removeLayer(existingLayer);
         }
     });
 };
