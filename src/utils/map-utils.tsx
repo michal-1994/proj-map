@@ -96,6 +96,10 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
             .getArray()
             .find(l => l.get('id') === layer.id);
 
+        if (existingLayer) {
+            existingLayer.set('opacity', layer.opacity);
+        }
+
         if (layer.enable && !existingLayer) {
             let createdLayer: any;
             switch (layer.type) {
@@ -114,6 +118,7 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
             }
 
             if (createdLayer) {
+                createdLayer.set('opacity', layer.opacity);
                 createdLayer.set('id', layer.id);
                 map?.addLayer(createdLayer);
             }

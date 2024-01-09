@@ -11,8 +11,14 @@ import { useMapContext } from '../../../context/map-context';
 import './SidebarLayers.css';
 
 const SidebarLayers = () => {
-    const { layers, switchLayer, removeLayer, selectAll, updateAllLayers } =
-        useMapContext();
+    const {
+        layers,
+        switchLayer,
+        removeLayer,
+        changeOpacityLayer,
+        selectAll,
+        updateAllLayers
+    } = useMapContext();
 
     return (
         <Form className="sidebar-layers">
@@ -55,11 +61,9 @@ const SidebarLayers = () => {
                                     max={1}
                                     step={0.1}
                                     onChange={e =>
-                                        console.log(
-                                            'Opacity: ',
-                                            layer.id +
-                                                ' ' +
-                                                parseFloat(e.target.value)
+                                        changeOpacityLayer(
+                                            layer.id,
+                                            parseFloat(e.target.value)
                                         )
                                     }
                                 />
