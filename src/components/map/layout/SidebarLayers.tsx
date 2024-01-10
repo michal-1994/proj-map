@@ -1,4 +1,4 @@
-import { Form, Dropdown } from 'react-bootstrap';
+import { Form, Dropdown, Button } from 'react-bootstrap';
 import {
     MdDeleteOutline,
     MdMenu,
@@ -44,6 +44,7 @@ const SidebarLayers = () => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item
+                                as={Button}
                                 onClick={event => event.stopPropagation()}>
                                 <div>
                                     <MdOutlineOpacity />
@@ -63,12 +64,14 @@ const SidebarLayers = () => {
                                 />
                             </Dropdown.Item>
                             <Dropdown.Item
+                                as={Button}
                                 onClick={() =>
                                     console.log('Details: ', layer.id)
                                 }>
                                 <MdOutlineTableView /> Details
                             </Dropdown.Item>
                             <Dropdown.Item
+                                as={Button}
                                 onClick={() => removeLayer(layer.id)}>
                                 <MdDeleteOutline /> Remove
                             </Dropdown.Item>

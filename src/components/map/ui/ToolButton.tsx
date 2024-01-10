@@ -1,4 +1,4 @@
-import { Card, Dropdown } from 'react-bootstrap';
+import { Button, Card, Dropdown } from 'react-bootstrap';
 import { Draw } from 'ol/interaction';
 
 import { useMapContext } from '../../../context/map-context';
@@ -94,6 +94,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                 {getTool(BUTTON_TOOLS, id)!.options!.map((option: any) => {
                     return (
                         <Dropdown.Item
+                            as={Button}
                             key={option.id}
                             onClick={() => handleClick(id, option.type)}>
                             {getIconById(option.id, BUTTON_TOOLS)}{' '}
