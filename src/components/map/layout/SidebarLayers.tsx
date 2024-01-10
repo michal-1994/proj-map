@@ -44,18 +44,11 @@ const SidebarLayers = () => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item
-                                onClick={() =>
-                                    console.log('Details: ', layer.id)
-                                }>
-                                <MdOutlineTableView /> Details
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                onClick={() => removeLayer(layer.id)}>
-                                <MdDeleteOutline /> Remove
-                            </Dropdown.Item>
-                            <Dropdown.Item
                                 onClick={event => event.stopPropagation()}>
-                                <MdOutlineOpacity />
+                                <div>
+                                    <MdOutlineOpacity />
+                                    Opacity: {' ' + layer.opacity}
+                                </div>
                                 <Form.Range
                                     value={layer.opacity}
                                     min={0}
@@ -68,6 +61,16 @@ const SidebarLayers = () => {
                                         )
                                     }
                                 />
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                                onClick={() =>
+                                    console.log('Details: ', layer.id)
+                                }>
+                                <MdOutlineTableView /> Details
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                                onClick={() => removeLayer(layer.id)}>
+                                <MdDeleteOutline /> Remove
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

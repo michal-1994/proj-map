@@ -19,6 +19,7 @@
 .sidebar-layer-dropdown .dropdown-item {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .sidebar-layer-dropdown .dropdown-item svg {
