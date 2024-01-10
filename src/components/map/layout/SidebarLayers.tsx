@@ -7,6 +7,7 @@ import {
 } from 'react-icons/md';
 
 import { useMapContext } from '../../../context/map-context';
+import { useToolContext } from '../../../context/tool-context';
 
 import './SidebarLayers.css';
 
@@ -19,6 +20,11 @@ const SidebarLayers = () => {
         selectAll,
         updateAllLayers
     } = useMapContext();
+    const { openMoreDetailsWindow } = useToolContext();
+
+    const handleMoreDetailsClick = (id: string) => {
+        openMoreDetailsWindow('Information about ' + id, 'Content');
+    };
 
     return (
         <Form className="sidebar-layers">
@@ -66,7 +72,7 @@ const SidebarLayers = () => {
                             <Dropdown.Item
                                 as={Button}
                                 onClick={() =>
-                                    console.log('Details: ', layer.id)
+                                    handleMoreDetailsClick(layer.id)
                                 }>
                                 <MdOutlineTableView /> Details
                             </Dropdown.Item>

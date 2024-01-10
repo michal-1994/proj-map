@@ -1,0 +1,15 @@
+.more-details-window {
+    max-width: 90vw;
+    width: 90%;
+    max-height: 90vh;
+    margin: auto;
+}
+
+.more-details-window .modal-content {
+    max-height: 90vh;
+    max-width: 90vw;
+}
+
+.more-details-window .modal-body {
+    overflow: auto;
+}
