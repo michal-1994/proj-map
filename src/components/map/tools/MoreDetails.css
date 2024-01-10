@@ -10,6 +10,6 @@
     max-width: 90vw;
 }
 
-.more-details-window .modal-body {
-    overflow: auto;
+.more-details-window .table-responsive {
+    max-height: calc(90vh - 150px - 2rem);
 }
