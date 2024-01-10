@@ -53,7 +53,8 @@ const SidebarLayers = () => {
                                 onClick={() => removeLayer(layer.id)}>
                                 <MdDeleteOutline /> Remove
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item
+                                onClick={event => event.stopPropagation()}>
                                 <MdOutlineOpacity />
                                 <Form.Range
                                     value={layer.opacity}
