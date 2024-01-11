@@ -30,6 +30,14 @@ export const LAYERS: LayerProps[] = [
         url: 'geojson/counties.geojson',
         enable: false,
         opacity: 1
+    },
+    {
+        id: 'wroclaw',
+        name: 'Wroclaw',
+        type: 'geojson',
+        url: 'geojson/wroclaw.geojson',
+        enable: false,
+        opacity: 1
     }
 ];
 
