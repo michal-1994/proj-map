@@ -13,3 +13,14 @@
 .more-details-window .table-responsive {
     max-height: calc(90vh - 150px - 2rem);
 }
+
+.more-details-window .table tr > th:nth-of-type(1),
+.more-details-window .table tr > td:nth-of-type(1) {
+    width: 2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.more-details-window .table tr:nth-child(odd) td {
+    filter: brightness(95%);
+}

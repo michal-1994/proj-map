@@ -26,7 +26,7 @@ const MoreDetails: React.FC = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th></th>
                         {attributes.map((attribute: any, index: number) => (
                             <th key={index}>{attribute.toUpperCase()}</th>
                         ))}
