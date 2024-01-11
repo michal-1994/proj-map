@@ -5274,7 +5274,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 1, "nazwa": "śląskie", "area": "12.333 km2" },
+            "properties": {
+                "id": 1,
+                "nazwa": "Silesian",
+                "polish_name": "śląskie",
+                "capital_city": "Katowice",
+                "area": "12 333 km2"
+            },
             "id": 0
         },
         {
@@ -8966,7 +8972,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 2, "nazwa": "opolskie" },
+            "properties": {
+                "id": 2,
+                "nazwa": "Opole",
+                "polish_name": "opolskie",
+                "capital_city": "Opole",
+                "area": "9 412 km2"
+            },
             "id": 1
         },
         {
@@ -16326,7 +16338,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 3, "nazwa": "wielkopolskie" },
+            "properties": {
+                "id": 3,
+                "nazwa": "Greater Poland",
+                "polish_name": "wielkopolskie",
+                "capital_city": "Poznań",
+                "area": "29 826 km2"
+            },
             "id": 2
         },
         {
@@ -20418,7 +20436,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 4, "nazwa": "zachodniopomorskie" },
+            "properties": {
+                "id": 4,
+                "nazwa": "West Pomeranian",
+                "polish_name": "zachodniopomorskie",
+                "capital_city": "Szczecin",
+                "area": "22 905 km2"
+            },
             "id": 3
         },
         {
@@ -23639,7 +23663,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 5, "nazwa": "świętokrzyskie" },
+            "properties": {
+                "id": 5,
+                "nazwa": "Holy Cross",
+                "polish_name": "świętokrzyskie",
+                "capital_city": "Kielce",
+                "area": "11 710 km2"
+            },
             "id": 4
         },
         {
@@ -28399,7 +28429,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 6, "nazwa": "kujawsko-pomorskie" },
+            "properties": {
+                "id": 6,
+                "nazwa": "Kuyavian-Pomeranian",
+                "polish_name": "kujawsko-pomorskie",
+                "capital_city": "Bydgoszcz, Toruń",
+                "area": "17 971 km2"
+            },
             "id": 5
         },
         {
@@ -31887,7 +31923,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 7, "nazwa": "podlaskie" },
+            "properties": {
+                "id": 7,
+                "nazwa": "Podlaskie",
+                "polish_name": "podlaskie",
+                "capital_city": "Białystok",
+                "area": "20 187 km2"
+            },
             "id": 6
         },
         {
@@ -37801,7 +37843,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 8, "nazwa": "dolnośląskie" },
+            "properties": {
+                "id": 8,
+                "nazwa": "Lower Silesian",
+                "polish_name": "dolnośląskie",
+                "capital_city": "Wrocław",
+                "area": "19 947 km2"
+            },
             "id": 7
         },
         {
@@ -42146,7 +42194,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 9, "nazwa": "podkarpackie" },
+            "properties": {
+                "id": 9,
+                "nazwa": "Subcarpathian",
+                "polish_name": "podkarpackie",
+                "capital_city": "Rzeszów",
+                "area": "17 846 km2"
+            },
             "id": 8
         },
         {
@@ -47570,7 +47624,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 10, "nazwa": "małopolskie" },
+            "properties": {
+                "id": 10,
+                "nazwa": "Lesser Poland",
+                "polish_name": "małopolskie",
+                "capital_city": "Kraków",
+                "area": "15 183 km2"
+            },
             "id": 9
         },
         {
@@ -51722,7 +51782,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 11, "nazwa": "pomorskie" },
+            "properties": {
+                "id": 11,
+                "nazwa": "Pomeranian",
+                "polish_name": "pomorskie",
+                "capital_city": "Gdańsk",
+                "area": "18 323 km2"
+            },
             "id": 10
         },
         {
@@ -55425,7 +55491,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 12, "nazwa": "warmińsko-mazurskie" },
+            "properties": {
+                "id": 12,
+                "nazwa": "Warmian-Masurian",
+                "polish_name": "warmińsko-mazurskie",
+                "capital_city": "Olsztyn",
+                "area": "24 173 km2"
+            },
             "id": 11
         },
         {
@@ -60026,7 +60098,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 13, "nazwa": "łódzkie" },
+            "properties": {
+                "id": 13,
+                "nazwa": "Łódź",
+                "polish_name": "łódzkie",
+                "capital_city": "Łódź",
+                "area": "18 219 km2"
+            },
             "id": 12
         },
         {
@@ -66888,7 +66966,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 14, "nazwa": "mazowieckie" },
+            "properties": {
+                "id": 14,
+                "nazwa": "Masovian",
+                "polish_name": "mazowieckie",
+                "capital_city": "Warsaw",
+                "area": "35 559 km2"
+            },
             "id": 13
         },
         {
@@ -72624,7 +72708,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 15, "nazwa": "lubelskie" },
+            "properties": {
+                "id": 15,
+                "nazwa": "Lublin",
+                "polish_name": "lubelskie",
+                "capital_city": "Lublin",
+                "area": "25 123 km2"
+            },
             "id": 14
         },
         {
@@ -77091,7 +77181,13 @@
                     ]
                 ]
             },
-            "properties": { "id": 16, "nazwa": "lubuskie" },
+            "properties": {
+                "id": 16,
+                "nazwa": "Lubusz",
+                "polish_name": "lubuskie",
+                "capital_city": "Gorzów Wielkopolski, Zielona Góra",
+                "area": "13 988 km2"
+            },
             "id": 15
         }
     ]
