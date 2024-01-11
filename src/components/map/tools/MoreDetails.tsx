@@ -28,7 +28,7 @@ const MoreDetails: React.FC = () => {
                     <tr>
                         <th>#</th>
                         {attributes.map((attribute: any, index: number) => (
-                            <th key={index}>{attribute}</th>
+                            <th key={index}>{attribute.toUpperCase()}</th>
                         ))}
                     </tr>
                 </thead>
