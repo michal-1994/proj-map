@@ -63,7 +63,14 @@ export const getLayerById = (map: Map, layerId: string): Layer | null => {
     );
 };
 
-export const getFeatures = async (url: string) => {
+/**
+ * Fetches GeoJSON features from the specified URL using the Fetch API.
+ *
+ * @param {string} url - The URL from which to fetch the GeoJSON data.
+ * @returns {Promise<any>} - A promise that resolves to an array of GeoJSON features.
+ * @throws {Error} - If there is an error during the fetch operation or if no features are found.
+ */
+export const getFeatures = async (url: string): Promise<any> => {
     try {
         const response = await fetch(url);
         const geojson = await response.json();
