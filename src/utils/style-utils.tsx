@@ -11,7 +11,7 @@ import CircleStyle from 'ol/style/Circle';
 export const createGeoJSONStyle = (feature: Object): Style => {
     return new Style({
         fill: new Fill({
-            color: 'rgba(173, 216, 230, 0.6)'
+            color: 'rgba(173, 216, 230, 0.75)'
         }),
         stroke: new Stroke({
             color: 'rgb(0, 102, 204)',
@@ -19,12 +19,12 @@ export const createGeoJSONStyle = (feature: Object): Style => {
         }),
         text: new Text({
             font: '15px Arial, sans-serif',
-            text: feature.get('nazwa'),
+            text: feature.get('nazwa') || feature.get('osiedle'),
             fill: new Fill({
                 color: 'rgb(0, 0, 0)'
             }),
             stroke: new Stroke({
-                color: 'rgba(255, 255, 255, 0.5)',
+                color: 'rgba(255, 255, 255, 0.75)',
                 width: 2
             }),
             offsetX: 0,
