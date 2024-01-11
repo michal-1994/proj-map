@@ -12,6 +12,46 @@ const MoreDetails: React.FC = () => {
         closeMoreDetailsWindow
     } = useToolContext();
 
+    let attributes: any = [];
+    let content: any;
+
+    if (moreDetailsWindowContent.features[0]?.properties) {
+        attributes = Object.keys(
+            moreDetailsWindowContent.features[0]?.properties
+        );
+    }
+
+    if (moreDetailsWindowContent.features.length > 0 && attributes.length > 0) {
+        content = (
+            <Table responsive>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        {attributes.map((attribute: any, index: number) => (
+                            <th key={index}>{attribute}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {moreDetailsWindowContent.features.map(
+                        (feature: any, index: number) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                {Object.values(feature.properties).map(
+                                    (value: any, index: number) => (
+                                        <td key={index}>{value}</td>
+                                    )
+                                )}
+                            </tr>
+                        )
+                    )}
+                </tbody>
+            </Table>
+        );
+    } else {
+        content = <>No features found</>;
+    }
+
     return (
         <Modal
             centered
@@ -22,28 +62,7 @@ const MoreDetails: React.FC = () => {
             <Modal.Header closeButton>
                 <Modal.Title>{moreDetailsWindowContent.title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            {Array.from({ length: 2 }).map((_, index) => (
-                                <th key={index}>Table heading</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Array.from({ length: 2 }).map((_, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                {Array.from({ length: 2 }).map((_, index) => (
-                                    <td key={index}>Table cell {index}</td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </Modal.Body>
+            <Modal.Body>{content}</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={closeMoreDetailsWindow}>
                     Close

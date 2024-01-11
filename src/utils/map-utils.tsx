@@ -79,9 +79,11 @@ export const getFeatures = async (url: string): Promise<any> => {
             return geojson.features;
         } else {
             console.error('No features found.');
+            return [];
         }
     } catch (error) {
         console.error('Error downloading GeoJSON.', error);
+        return [];
     }
 };
 
