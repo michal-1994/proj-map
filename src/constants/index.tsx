@@ -17,6 +17,7 @@ import {
 export const LAYERS: LayerProps[] = [
     {
         id: 'voivodeships',
+        name: 'Voivodeships',
         type: 'geojson',
         url: 'geojson/voivodeships.geojson',
         enable: false,
@@ -24,6 +25,7 @@ export const LAYERS: LayerProps[] = [
     },
     {
         id: 'counties',
+        name: 'Counties',
         type: 'geojson',
         url: 'geojson/counties.geojson',
         enable: false,

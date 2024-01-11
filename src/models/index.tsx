@@ -11,6 +11,7 @@ export interface BaseLayerProps {
 
 export interface LayerProps {
     id: string;
+    name: string;
     type: string;
     url?: string;
     enable: boolean;

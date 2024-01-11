@@ -6,11 +6,11 @@ interface ToolContextProps {
     showPrintWindow: boolean;
     openPrintWindow: (value: boolean) => void;
     showMoreDetailsWindow: boolean;
-    openMoreDetailsWindow: (title: string, content: string) => void;
+    openMoreDetailsWindow: (title: string, features: any) => void;
     closeMoreDetailsWindow: () => void;
     moreDetailsWindowContent: {
         title: string;
-        content: string;
+        features: any;
     };
 }
 
@@ -24,20 +24,20 @@ export const ToolProvider: React.FC<{ children: ReactNode }> = ({
         useState<boolean>(false);
     const [moreDetailsWindowContent, setMoreDetailsWindowContent] = useState<{
         title: string;
-        content: string;
+        features: any;
     }>({
         title: '',
-        content: ''
+        features: []
     });
 
     const openPrintWindow = (value: boolean) => {
         setShowPrintWindow(value);
     };
 
-    const openMoreDetailsWindow = (title: string, content: string) => {
+    const openMoreDetailsWindow = (title: string, features: any) => {
         setMoreDetailsWindowContent({
             title,
-            content
+            features
         });
         setShowMoreDetailsWindow(true);
     };

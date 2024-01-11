@@ -63,6 +63,21 @@ export const getLayerById = (map: Map, layerId: string): Layer | null => {
     );
 };
 
+export const getFeatures = async (url: string) => {
+    try {
+        const response = await fetch(url);
+        const geojson = await response.json();
+
+        if (geojson) {
+            return geojson.features;
+        } else {
+            console.error('No features found.');
+        }
+    } catch (error) {
+        console.error('Error downloading GeoJSON.', error);
+    }
+};
+
 /**
  * Removes the layer by id from the map, if layerId is equal to measurmentLayer remove tooltips.
  *
@@ -122,6 +137,7 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
                 createdLayer.set('id', layer.id);
                 createdLayer.set('opacity', layer.opacity);
                 createdLayer.set('visible', layer.enable);
+                createdLayer.set('url', layer.url);
                 map?.addLayer(createdLayer);
             }
         }

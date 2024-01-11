@@ -6,6 +6,7 @@ import {
     MdOutlineTableView
 } from 'react-icons/md';
 
+import { getFeatures } from '../../../utils/map-utils';
 import { useMapContext } from '../../../context/map-context';
 import { useToolContext } from '../../../context/tool-context';
 
@@ -22,8 +23,9 @@ const SidebarLayers = () => {
     } = useMapContext();
     const { openMoreDetailsWindow } = useToolContext();
 
-    const handleMoreDetailsClick = (id: string) => {
-        openMoreDetailsWindow('Information about ' + id, 'Content');
+    const handleMoreDetailsClick = async (name: string, url: string) => {
+        const features = await getFeatures(url);
+        openMoreDetailsWindow(name, features);
     };
 
     return (
@@ -40,7 +42,7 @@ const SidebarLayers = () => {
                     <Form.Check
                         id={layer.id}
                         type="checkbox"
-                        label={layer.id}
+                        label={layer.name}
                         checked={layer.enable}
                         onChange={() => switchLayer(layer.id)}
                     />
@@ -71,9 +73,14 @@ const SidebarLayers = () => {
                             </Dropdown.Item>
                             <Dropdown.Item
                                 as={Button}
-                                onClick={() =>
-                                    handleMoreDetailsClick(layer.id)
-                                }>
+                                onClick={() => {
+                                    if (layer.url) {
+                                        handleMoreDetailsClick(
+                                            layer.name,
+                                            layer.url
+                                        );
+                                    }
+                                }}>
                                 <MdOutlineTableView /> Details
                             </Dropdown.Item>
                             <Dropdown.Item
