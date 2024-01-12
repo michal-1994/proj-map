@@ -109,11 +109,11 @@ export const TOOLS: ToolProps[] = [
         enable: true
     },
     {
-        id: MINIMAP_TOOL,
+        id: MEASURMENT_TOOL,
         enable: true
     },
     {
-        id: MEASURMENT_TOOL,
+        id: MINIMAP_TOOL,
         enable: true
     },
     {
@@ -135,11 +135,6 @@ export const BUTTON_TOOLS: ToolProps[] = [
         id: DEFAULT_CURSOR,
         title: 'Default cursor',
         icon: <GrCursor />
-    },
-    {
-        id: MINIMAP_TOOL,
-        title: 'Minimap',
-        icon: <FaMap />
     },
     {
         id: MEASURMENT_TOOL,
@@ -164,6 +159,11 @@ export const BUTTON_TOOLS: ToolProps[] = [
                 icon: <MdDeleteOutline />
             }
         ]
+    },
+    {
+        id: MINIMAP_TOOL,
+        title: 'Minimap',
+        icon: <FaMap />
     },
     {
         id: PRINT_TOOL,
