@@ -25,7 +25,8 @@ import './ToolButton.css';
 
 const ToolButton: React.FC<ToolProps> = ({ id }) => {
     const { toggleMinimap } = useMapContext();
-    const { showPrintWindow, openPrintWindow } = useToolContext();
+    const { showPrintWindow, openPrintWindow, openAddLayerWindow } =
+        useToolContext();
     const { map } = useMapContext();
 
     const handleClick = (id: string, type?: string) => {
@@ -42,6 +43,7 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
                 openPrintWindow(!showPrintWindow);
                 break;
             case ADD_LAYERS_TOOL:
+                openAddLayerWindow(true);
                 break;
             case MEASURMENT_TOOL:
                 if (map && type) {

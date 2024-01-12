@@ -122,7 +122,7 @@ export const TOOLS: ToolProps[] = [
     },
     {
         id: ADD_LAYERS_TOOL,
-        enable: false
+        enable: true
     },
     {
         id: CONTRAST_TOOL,

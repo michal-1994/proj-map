@@ -1,10 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 import MoreDetails from '../components/map/tools/MoreDetails';
+import AddLayer from '../components/map/tools/AddLayer';
 
 interface ToolContextProps {
     showPrintWindow: boolean;
     openPrintWindow: (value: boolean) => void;
+    showAddLayerWindow: boolean;
+    openAddLayerWindow: (value: boolean) => void;
     showMoreDetailsWindow: boolean;
     openMoreDetailsWindow: (title: string, features: any) => void;
     closeMoreDetailsWindow: () => void;
@@ -20,6 +23,8 @@ export const ToolProvider: React.FC<{ children: ReactNode }> = ({
     children
 }) => {
     const [showPrintWindow, setShowPrintWindow] = useState<boolean>(false);
+    const [showAddLayerWindow, setShowAddLayerWindow] =
+        useState<boolean>(false);
     const [showMoreDetailsWindow, setShowMoreDetailsWindow] =
         useState<boolean>(false);
     const [moreDetailsWindowContent, setMoreDetailsWindowContent] = useState<{
@@ -32,6 +37,10 @@ export const ToolProvider: React.FC<{ children: ReactNode }> = ({
 
     const openPrintWindow = (value: boolean) => {
         setShowPrintWindow(value);
+    };
+
+    const openAddLayerWindow = (value: boolean) => {
+        setShowAddLayerWindow(value);
     };
 
     const openMoreDetailsWindow = (title: string, features: any) => {
@@ -49,6 +58,8 @@ export const ToolProvider: React.FC<{ children: ReactNode }> = ({
     const toolContextValue: ToolContextProps = {
         showPrintWindow,
         openPrintWindow,
+        showAddLayerWindow,
+        openAddLayerWindow,
         showMoreDetailsWindow,
         openMoreDetailsWindow,
         closeMoreDetailsWindow,
@@ -59,6 +70,7 @@ export const ToolProvider: React.FC<{ children: ReactNode }> = ({
         <ToolContext.Provider value={toolContextValue}>
             {children}
             <MoreDetails />
+            <AddLayer />
         </ToolContext.Provider>
     );
 };
