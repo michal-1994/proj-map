@@ -216,3 +216,23 @@ export const exportToPDF = (config: ExportModel): void => {
         });
     }, 2000);
 };
+
+/**
+ * Checks whether the user is using a mobile device.
+ * @returns {boolean} True if the user is on a mobile device, otherwise false.
+ */
+export const isMobile = () => {
+    const mobileUserAgents = [
+        'Android',
+        'webOS',
+        'iPhone',
+        'iPad',
+        'iPod',
+        'BlackBerry',
+        'Windows Phone'
+    ];
+
+    return mobileUserAgents.some((mobileAgent: any) =>
+        navigator.userAgent.includes(mobileAgent)
+    );
+};
