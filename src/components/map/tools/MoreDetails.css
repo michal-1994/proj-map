@@ -14,6 +14,19 @@
     max-height: calc(90vh - 150px - 2rem);
 }
 
+.more-details-window .table {
+    position: relative;
+}
+
+.more-details-window .table thead {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.5);
+}
+
 .more-details-window .table tr > th:nth-of-type(1),
 .more-details-window .table tr > td:nth-of-type(1) {
     width: 2rem;
