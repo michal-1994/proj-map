@@ -66,6 +66,9 @@ const SidebarLayers = () => {
                                     min={0}
                                     max={1}
                                     step={0.1}
+                                    onTouchMove={event =>
+                                        event.stopPropagation()
+                                    }
                                     onChange={e =>
                                         changeOpacityLayer(
                                             layer.id,

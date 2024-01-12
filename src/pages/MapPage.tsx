@@ -24,7 +24,6 @@ const MapPage = () => {
 
     const handleTouchEnd = () => {
         const swipeDistance = touchStartX.current - touchEndX.current;
-
         if (isMobile() && touchEndX.current && swipeDistance > 60) {
             setIsOpenSidebar(false);
             touchEndX.current = 0;
