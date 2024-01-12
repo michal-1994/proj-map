@@ -24,7 +24,10 @@ const SidebarLayers = () => {
     const { openMoreDetailsWindow } = useToolContext();
 
     const handleMoreDetailsClick = async (name: string, url: string) => {
+        document.body.style.cursor = 'progress';
         const features = await getFeatures(url);
+
+        document.body.style.cursor = 'auto';
         openMoreDetailsWindow(name, features);
     };
 
