@@ -1,0 +1,11 @@
+.add-layer-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.add-layer-field > div:nth-child(2) {
+    flex: 1;
+    margin-left: 10px;
+}
