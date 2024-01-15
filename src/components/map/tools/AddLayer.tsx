@@ -106,7 +106,7 @@ const AddLayer: React.FC = () => {
                                         setLinkToGeoJSON('');
                                         setFile(null);
                                         setShowLinkField(
-                                            event.target.value !== 'fileField'
+                                            event.target.value === 'linkField'
                                         );
                                     }}
                                 />
