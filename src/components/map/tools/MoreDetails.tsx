@@ -58,7 +58,7 @@ const MoreDetails: React.FC = () => {
             size="lg"
             show={showMoreDetailsWindow}
             onHide={closeMoreDetailsWindow}
-            dialogClassName="more-details-window">
+            dialogClassName="more-details">
             <Modal.Header closeButton>
                 <Modal.Title>{moreDetailsWindowContent.title}</Modal.Title>
             </Modal.Header>

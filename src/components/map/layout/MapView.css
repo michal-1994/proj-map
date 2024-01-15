@@ -1,10 +1,8 @@
-/* Map */
 .map-view {
     width: 100vw;
     height: 100vh;
 }
 
-/* Map zoom */
 .map-view .ol-zoom {
     top: unset;
     left: unset;
@@ -20,7 +18,6 @@
     font-weight: bold;
 }
 
-/* Map overview */
 .map-view .ol-overviewmap {
     top: unset;
     left: unset;

@@ -4,7 +4,7 @@
     cursor: pointer;
 }
 
-.sidebar-base-layers .sidebar-base-layers-row {
+.sidebar-base-layers-row {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -14,11 +14,11 @@
     cursor: pointer;
 }
 
-.sidebar-base-layers .sidebar-base-layers-row .form-check {
+.sidebar-base-layers-row .form-check {
     padding-left: 0;
 }
 
-.sidebar-base-layers .sidebar-base-layers-row .form-check-input {
+.sidebar-base-layers-row .form-check-input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -29,7 +29,7 @@
     border: 0;
 }
 
-.sidebar-base-layers .sidebar-base-layers-row img {
+.sidebar-base-layers-row img {
     height: 40px;
     width: 80px;
     margin-right: 0.25rem;
