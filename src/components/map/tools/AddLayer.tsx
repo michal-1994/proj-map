@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Form, Row, Button } from 'react-bootstrap';
 
+import Layer from 'ol/layer/Layer';
+
+import { getLayers } from '../../../utils/map-utils';
 import { useToolContext } from '../../../context/tool-context';
 import { useMapContext } from '../../../context/map-context';
 
 import './AddLayer.css';
-import { getLayers } from '../../../utils/map-utils';
 
 const AddLayer: React.FC = () => {
     const [layerName, setLayerName] = useState<string>('');
@@ -23,11 +25,6 @@ const AddLayer: React.FC = () => {
         setLayerNameError('');
         setLinkOrFileError('');
 
-        if (map) {
-            // TODO: Check layerName exist
-            console.log(getLayers(map));
-        }
-
         if (!layerName.trim()) {
             setLayerNameError('Layer name is required');
             return;
@@ -38,7 +35,17 @@ const AddLayer: React.FC = () => {
             return;
         }
 
-        if (layerName && (linkToGeoJSON || file)) {
+        if (map) {
+            // async???
+            getLayers(map).forEach((layer: Layer) => {
+                if (layerName === layer.get('id')) {
+                    setLayerNameError('Layer name exist');
+                    return;
+                }
+            });
+        }
+
+        if (!layerNameError && !linkOrFileError) {
             console.log('layerName: ', layerName);
             console.log('linkToGeoJSON: ', linkToGeoJSON);
             console.log('file: ', file);
