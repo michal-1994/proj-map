@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Modal, Form, Row, Button } from 'react-bootstrap';
 
 import { useToolContext } from '../../../context/tool-context';
+import { useMapContext } from '../../../context/map-context';
 
 import './AddLayer.css';
+import { getLayers } from '../../../utils/map-utils';
 
 const AddLayer: React.FC = () => {
     const [layerName, setLayerName] = useState<string>('');
@@ -14,11 +16,17 @@ const AddLayer: React.FC = () => {
     const [showLinkField, setShowLinkField] = useState<boolean>(true);
 
     const { showAddLayerWindow, openAddLayerWindow } = useToolContext();
+    const { map } = useMapContext();
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
         setLayerNameError('');
         setLinkOrFileError('');
+
+        if (map) {
+            // TODO: Check layerName exist
+            console.log(getLayers(map));
+        }
 
         if (!layerName.trim()) {
             setLayerNameError('Layer name is required');

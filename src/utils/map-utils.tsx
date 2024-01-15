@@ -48,6 +48,16 @@ export const createVectorLayer = (
 };
 
 /**
+ * Get the layers from the map.
+ *
+ * @param {Map} map - The OpenLayers map.
+ * @returns {Layer[]} - The OpenLayers layers.
+ */
+export const getLayers = (map: Map): Layer[] => {
+    return map?.getLayers().getArray() as Layer[];
+};
+
+/**
  * Get the layer by id from the map.
  *
  * @param {Map} map - The OpenLayers map.
@@ -56,10 +66,8 @@ export const createVectorLayer = (
  */
 export const getLayerById = (map: Map, layerId: string): Layer | null => {
     return (
-        (map
-            ?.getLayers()
-            .getArray()
-            .find(layer => layer.get('id') === layerId) as Layer) || null
+        (getLayers(map).find(layer => layer.get('id') === layerId) as Layer) ||
+        null
     );
 };
 
@@ -94,7 +102,7 @@ export const getFeatures = async (url: string): Promise<any> => {
  * @param {string} id - The layer id.
  */
 export const removeLayerById = (map: Map, id: string): void => {
-    map?.getLayers().forEach(layer => {
+    getLayers(map).forEach(layer => {
         const layerId = layer ? layer.get('id') : null;
         if (layerId === id) {
             map?.removeLayer(layer);
@@ -115,10 +123,9 @@ export const removeLayerById = (map: Map, id: string): void => {
  */
 export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
     layers.forEach((layer: LayerProps) => {
-        const existingLayer = map
-            ?.getLayers()
-            .getArray()
-            .find(l => l.get('id') === layer.id);
+        const existingLayer = getLayers(map).find(
+            l => l.get('id') === layer.id
+        );
 
         if (existingLayer) {
             existingLayer.set('opacity', layer.opacity);
@@ -164,10 +171,9 @@ export const updateMapBaseLayers = (
     baseLayers: BaseLayerProps[]
 ): void => {
     baseLayers.forEach((baseLayer: BaseLayerProps) => {
-        const existingLayer = map
-            ?.getLayers()
-            .getArray()
-            .find(l => l.get('id') === baseLayer.id);
+        const existingLayer = getLayers(map).find(
+            l => l.get('id') === baseLayer.id
+        );
 
         if (baseLayer.enable && !existingLayer) {
             let createdLayer: TileLayer<TileSource> | undefined;
