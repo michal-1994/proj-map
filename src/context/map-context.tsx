@@ -14,6 +14,7 @@ interface MapContextProps {
     layers: LayerProps[];
     switchLayer: (id: string) => void;
     removeLayer: (id: string) => void;
+    addLayer: (layer: LayerProps) => void;
     changeOpacityLayer: (id: string, value: number) => void;
     selectAll: boolean;
     updateAllLayers: (value: boolean) => void;
@@ -63,6 +64,11 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         }
     };
 
+    const addLayer = (layer: LayerProps) => {
+        const updatedLayers = [...layers, layer];
+        setLayers(updatedLayers);
+    };
+
     const changeOpacityLayer = (id: string, value: number) => {
         const updatedLayers = layers.map(layer => {
             return layer.id === id ? { ...layer, opacity: value } : layer;
@@ -99,6 +105,7 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         layers,
         switchLayer,
         removeLayer,
+        addLayer,
         changeOpacityLayer,
         selectAll,
         updateAllLayers,

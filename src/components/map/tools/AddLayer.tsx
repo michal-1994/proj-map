@@ -7,52 +7,52 @@ import { getLayers } from '../../../utils/map-utils';
 import { useToolContext } from '../../../context/tool-context';
 import { useMapContext } from '../../../context/map-context';
 
-import './AddLayer.css';
-
 const AddLayer: React.FC = () => {
     const [layerName, setLayerName] = useState<string>('');
-    const [linkToGeoJSON, setLinkToGeoJSON] = useState<string>('');
-    const [file, setFile] = useState<File | null>(null);
+    const [geoJSONUrl, setGeoJSONUrl] = useState<string>('');
     const [layerNameError, setLayerNameError] = useState<string>('');
-    const [linkOrFileError, setLinkOrFileError] = useState<string>('');
-    const [showLinkField, setShowLinkField] = useState<boolean>(true);
+    const [geoJSONUrlError, setGeoJSONUrlError] = useState<string>('');
 
     const { showAddLayerWindow, openAddLayerWindow } = useToolContext();
-    const { map } = useMapContext();
+    const { map, addLayer } = useMapContext();
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
+
         setLayerNameError('');
-        setLinkOrFileError('');
+        setGeoJSONUrlError('');
 
         if (!layerName.trim()) {
             setLayerNameError('Layer name is required');
             return;
         }
 
-        if (!(linkToGeoJSON || file)) {
-            setLinkOrFileError('Link or File is required');
+        if (!geoJSONUrl.trim()) {
+            setGeoJSONUrlError('Link is required');
             return;
         }
 
         if (map) {
-            // async???
             getLayers(map).forEach((layer: Layer) => {
-                if (layerName === layer.get('id')) {
+                if (layerName.toLowerCase() === layer.get('id').toLowerCase()) {
                     setLayerNameError('Layer name exist');
                     return;
                 }
             });
         }
 
-        if (!layerNameError && !linkOrFileError) {
-            console.log('layerName: ', layerName);
-            console.log('linkToGeoJSON: ', linkToGeoJSON);
-            console.log('file: ', file);
+        if (!layerNameError && !geoJSONUrlError) {
+            addLayer({
+                id: layerName.toLowerCase(),
+                name: layerName,
+                type: 'geojson',
+                url: geoJSONUrl,
+                enable: true,
+                opacity: 1
+            });
 
             setLayerName('');
-            setLinkToGeoJSON('');
-            setFile(null);
+            setGeoJSONUrl('');
         }
     };
 
@@ -83,61 +83,19 @@ const AddLayer: React.FC = () => {
                     </Row>
                     <br />
                     <Row>
-                        <Form.Group controlId="submitTypeId">
-                            <div className="add-layer-field">
-                                <Form.Check
-                                    type="radio"
-                                    name="submitType"
-                                    value="linkField"
-                                    checked={showLinkField}
-                                    onChange={event => {
-                                        setLinkToGeoJSON('');
-                                        setFile(null);
-                                        setShowLinkField(
-                                            event.target.value === 'linkField'
-                                        );
-                                    }}
-                                />
-                                <Form.Group controlId="linkToGeoJSONId">
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter link"
-                                        value={linkToGeoJSON}
-                                        onChange={event =>
-                                            setLinkToGeoJSON(event.target.value)
-                                        }
-                                        disabled={!showLinkField}
-                                    />
-                                </Form.Group>
-                            </div>
-                            <br />
-                            <div className="add-layer-field">
-                                <Form.Check
-                                    type="radio"
-                                    name="submitType"
-                                    value="fileField"
-                                    checked={!showLinkField}
-                                    onChange={event => {
-                                        setLinkToGeoJSON('');
-                                        setFile(null);
-                                        setShowLinkField(
-                                            event.target.value === 'linkField'
-                                        );
-                                    }}
-                                />
-                                <Form.Group controlId="fileId">
-                                    <Form.Control
-                                        type="file"
-                                        onChange={(event: any) =>
-                                            setFile(event.target.files[0])
-                                        }
-                                        disabled={showLinkField}
-                                    />
-                                    <Form.Text className="text-danger">
-                                        {linkOrFileError}
-                                    </Form.Text>
-                                </Form.Group>
-                            </div>
+                        <Form.Group controlId="geoJSONUrlId">
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter geoJSON url"
+                                value={geoJSONUrl}
+                                onChange={event =>
+                                    setGeoJSONUrl(event.target.value)
+                                }
+                                required
+                            />
+                            <Form.Text className="text-danger">
+                                {geoJSONUrlError}
+                            </Form.Text>
                         </Form.Group>
                     </Row>
                 </Modal.Body>
