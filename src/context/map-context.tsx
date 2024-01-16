@@ -15,7 +15,7 @@ interface MapContextProps {
     switchLayer: (id: string) => void;
     removeLayer: (id: string) => void;
     addLayer: (layer: LayerProps) => void;
-    moveLayer: (id: string, position: number) => void;
+    moveLayer: (id: string, direction: number) => void;
     changeOpacityLayer: (id: string, value: number) => void;
     selectAll: boolean;
     updateAllLayers: (value: boolean) => void;
