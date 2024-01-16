@@ -155,8 +155,8 @@ const MapPrint = () => {
                 });
             });
 
-            overviewLayer.setZIndex(999);
             overviewLayer.set('id', 'overviewLayer');
+            overviewLayer.setZIndex(1001);
         }
 
         if (map && !showPrintWindow) {

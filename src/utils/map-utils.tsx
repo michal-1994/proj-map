@@ -122,7 +122,7 @@ export const removeLayerById = (map: Map, id: string): void => {
  * @param {LayerProps[]} layers - An array of LayerProps for configuration.
  */
 export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
-    layers.forEach((layer: LayerProps) => {
+    layers.forEach((layer: LayerProps, index: number) => {
         const existingLayer = getLayers(map).find(
             l => l.get('id') === layer.id
         );
@@ -151,6 +151,7 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
 
             if (createdLayer) {
                 createdLayer.set('id', layer.id);
+                createdLayer.setZIndex(1000 - index);
                 createdLayer.set('opacity', layer.opacity);
                 createdLayer.set('visible', layer.enable);
                 createdLayer.set('url', layer.url);
@@ -193,8 +194,8 @@ export const updateMapBaseLayers = (
             }
 
             if (createdLayer) {
-                createdLayer.setZIndex(-Infinity);
                 createdLayer.set('id', baseLayer.id);
+                createdLayer.setZIndex(-Infinity);
                 map?.addLayer(createdLayer);
             }
         }
@@ -262,3 +263,11 @@ export const createMap = (): Map => {
         })
     });
 };
+
+// TEMPORARY
+export const helper = (layers: any): any => {
+    layers.forEach((layer: any) => {
+        console.log(layer.get('id'));
+        console.log(layer.getZIndex());
+    });
+}
