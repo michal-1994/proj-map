@@ -8,8 +8,6 @@ import { useAppContext } from '../../../context/context';
 import { useMapContext } from '../../../context/map-context';
 import {
     createOverviewMap,
-    getLayers,
-    helper,
     updateMapBaseLayers,
     updateMapLayers
 } from '../../../utils/map-utils';
@@ -71,12 +69,6 @@ const MapView = () => {
             updateMapLayers(map, layers);
             updateMapBaseLayers(map, baseLayers);
 
-            // TEMPORARY
-            // const testLayers = getLayers(map);
-            // console.log('%cinit', 'color: red');
-            // console.log(testLayers);
-            // helper(testLayers);
-
             const handleKeyPress = (event: any) => {
                 if (map && event.key === 'Escape') {
                     removeInteraction(map, Draw);
@@ -94,24 +86,12 @@ const MapView = () => {
     useEffect(() => {
         if (map) {
             updateMapLayers(map, layers);
-
-            // TEMPORARY
-            // const testLayers = getLayers(map);
-            // console.log('%cupdateMapLayers', 'color: orange');
-            // console.log(testLayers);
-            // helper(testLayers);
         }
     }, [layers]);
 
     useEffect(() => {
         if (map) {
             updateMapBaseLayers(map, baseLayers);
-
-            // TEMPORARY
-            // const testLayers = getLayers(map);
-            // console.log('%cupdateMapBaseLayers', 'color: pink');
-            // console.log(testLayers);
-            // helper(testLayers);
         }
     }, [baseLayers]);
 

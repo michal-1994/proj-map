@@ -128,6 +128,7 @@ export const updateMapLayers = (map: Map, layers: LayerProps[]): void => {
         );
 
         if (existingLayer) {
+            existingLayer.setZIndex(1000 - index);
             existingLayer.set('opacity', layer.opacity);
             existingLayer.set('visible', layer.enable);
         }
@@ -261,13 +262,5 @@ export const createMap = (): Map => {
             center: fromLonLat([21.0122, 52.2297]), // Default Warszawa
             zoom: 15
         })
-    });
-};
-
-// TEMPORARY
-export const helper = (layers: any): any => {
-    layers.forEach((layer: any) => {
-        console.log(layer.get('id'));
-        console.log(layer.getZIndex());
     });
 };

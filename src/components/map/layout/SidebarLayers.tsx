@@ -18,6 +18,7 @@ const SidebarLayers = () => {
         layers,
         switchLayer,
         removeLayer,
+        moveLayer,
         changeOpacityLayer,
         selectAll,
         updateAllLayers
@@ -30,14 +31,6 @@ const SidebarLayers = () => {
 
         document.body.style.cursor = 'auto';
         openMoreDetailsWindow(name, features);
-    };
-
-    const moveLayerUp = (layerId: string) => {
-        console.log(layerId);
-    };
-
-    const moveLayerDown = (layerId: string) => {
-        console.log(layerId);
     };
 
     return (
@@ -62,12 +55,12 @@ const SidebarLayers = () => {
                         <div className="sidebar-layer-actions-arrows">
                             <Button
                                 className="card"
-                                onClick={() => moveLayerUp(layer.id)}>
+                                onClick={() => moveLayer(layer.id, -1)}>
                                 <MdKeyboardArrowUp />
                             </Button>
                             <Button
                                 className="card"
-                                onClick={() => moveLayerDown(layer.id)}>
+                                onClick={() => moveLayer(layer.id, 1)}>
                                 <MdKeyboardArrowDown />
                             </Button>
                         </div>
