@@ -5,6 +5,7 @@ import {
     MdOutlineOpacity,
     MdOutlineTableView
 } from 'react-icons/md';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 
 import { getFeatures } from '../../../utils/map-utils';
 import { useMapContext } from '../../../context/map-context';
@@ -31,6 +32,14 @@ const SidebarLayers = () => {
         openMoreDetailsWindow(name, features);
     };
 
+    const moveLayerUp = (layerId: string) => {
+        console.log(layerId);
+    };
+
+    const moveLayerDown = (layerId: string) => {
+        console.log(layerId);
+    };
+
     return (
         <Form className="sidebar-layers">
             <Form.Check
@@ -49,53 +58,67 @@ const SidebarLayers = () => {
                         checked={layer.enable}
                         onChange={() => switchLayer(layer.id)}
                     />
-                    <Dropdown className="sidebar-layer-dropdown">
-                        <Dropdown.Toggle className="card">
-                            <MdMenu />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item
-                                as={Button}
-                                onClick={event => event.stopPropagation()}>
-                                <div>
-                                    <MdOutlineOpacity />
-                                    Opacity: {' ' + layer.opacity}
-                                </div>
-                                <Form.Range
-                                    value={layer.opacity}
-                                    min={0}
-                                    max={1}
-                                    step={0.1}
-                                    onTouchMove={event =>
-                                        event.stopPropagation()
-                                    }
-                                    onChange={e =>
-                                        changeOpacityLayer(
-                                            layer.id,
-                                            parseFloat(e.target.value)
-                                        )
-                                    }
-                                />
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                as={Button}
-                                onClick={() => {
-                                    if (layer.url) {
-                                        handleMoreDetailsClick(
-                                            layer.name,
-                                            layer.url
-                                        );
-                                    }
-                                }}>
-                                <MdOutlineTableView /> Details
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                as={Button}
-                                onClick={() => removeLayer(layer.id)}>
-                                <MdDeleteOutline /> Remove
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <div className="sidebar-layer-actions">
+                        <div className="sidebar-layer-actions-arrows">
+                            <Button
+                                className="card"
+                                onClick={() => moveLayerUp(layer.id)}>
+                                <MdKeyboardArrowUp />
+                            </Button>
+                            <Button
+                                className="card"
+                                onClick={() => moveLayerDown(layer.id)}>
+                                <MdKeyboardArrowDown />
+                            </Button>
+                        </div>
+                        <Dropdown className="sidebar-layer-actions-dropdown">
+                            <Dropdown.Toggle className="card">
+                                <MdMenu />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item
+                                    as={Button}
+                                    onClick={event => event.stopPropagation()}>
+                                    <div>
+                                        <MdOutlineOpacity />
+                                        Opacity: {' ' + layer.opacity}
+                                    </div>
+                                    <Form.Range
+                                        value={layer.opacity}
+                                        min={0}
+                                        max={1}
+                                        step={0.1}
+                                        onTouchMove={event =>
+                                            event.stopPropagation()
+                                        }
+                                        onChange={e =>
+                                            changeOpacityLayer(
+                                                layer.id,
+                                                parseFloat(e.target.value)
+                                            )
+                                        }
+                                    />
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                    as={Button}
+                                    onClick={() => {
+                                        if (layer.url) {
+                                            handleMoreDetailsClick(
+                                                layer.name,
+                                                layer.url
+                                            );
+                                        }
+                                    }}>
+                                    <MdOutlineTableView /> Details
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                    as={Button}
+                                    onClick={() => removeLayer(layer.id)}>
+                                    <MdDeleteOutline /> Remove
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 </div>
             ))}
         </Form>

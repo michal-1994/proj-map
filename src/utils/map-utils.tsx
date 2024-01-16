@@ -270,4 +270,4 @@ export const helper = (layers: any): any => {
         console.log(layer.get('id'));
         console.log(layer.getZIndex());
     });
-}
+};
