@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Form, Row, Button } from 'react-bootstrap';
 
-import Layer from 'ol/layer/Layer';
-
-import { getLayers } from '../../../utils/map-utils';
 import { useToolContext } from '../../../context/tool-context';
 import { useMapContext } from '../../../context/map-context';
+import { isLayerExist } from '../../../utils/map-utils';
 
 const AddLayer: React.FC = () => {
     const [layerName, setLayerName] = useState<string>('');
@@ -16,11 +14,17 @@ const AddLayer: React.FC = () => {
     const { showAddLayerWindow, openAddLayerWindow } = useToolContext();
     const { map, addLayer } = useMapContext();
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
-
         setLayerNameError('');
         setGeoJSONUrlError('');
+
+        const newLayerId = layerName.toLowerCase();
+        let layerExist: boolean = false;
+
+        if (map) {
+            layerExist = await isLayerExist(newLayerId, map);
+        }
 
         if (!layerName.trim()) {
             setLayerNameError('Layer name is required');
@@ -32,18 +36,14 @@ const AddLayer: React.FC = () => {
             return;
         }
 
-        if (map) {
-            getLayers(map).forEach((layer: Layer) => {
-                if (layerName.toLowerCase() === layer.get('id').toLowerCase()) {
-                    setLayerNameError('Layer name exist');
-                    return;
-                }
-            });
+        if (layerExist) {
+            setLayerNameError('Layer name exist');
+            return;
         }
 
-        if (!layerNameError && !geoJSONUrlError) {
+        if (layerName.trim() && geoJSONUrl.trim() && map) {
             addLayer({
-                id: layerName.toLowerCase(),
+                id: newLayerId,
                 name: layerName,
                 type: 'geojson',
                 url: geoJSONUrl,

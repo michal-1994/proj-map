@@ -48,6 +48,27 @@ export const createVectorLayer = (
 };
 
 /**
+ * Method to check if a layer with the specified ID already exists on the map.
+ * 
+ * @param {string} layerId - Identifier of the layer to check.
+ * @param {Map} map - The OpenLayers map.
+ * @returns {Promise<boolean>} - A promise that resolves to true if the layer exists, or false if it does not.
+ */
+export const isLayerExist = (layerId: string, map: Map): Promise<boolean> => {
+    return new Promise(resolve => {
+        const existingLayer = getLayers(map).find(
+            layer => layer.get('id').toLowerCase() === layerId
+        );
+
+        if (existingLayer) {
+            resolve(true);
+        } else {
+            resolve(false);
+        }
+    });
+};
+
+/**
  * Get the layers from the map.
  *
  * @param {Map} map - The OpenLayers map.
