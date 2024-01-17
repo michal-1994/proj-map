@@ -41,7 +41,7 @@ const AddLayer: React.FC = () => {
             return;
         }
 
-        if (layerName.trim() && geoJSONUrl.trim() && map) {
+        if (layerName.trim() && geoJSONUrl.trim()) {
             addLayer({
                 id: newLayerId,
                 name: layerName,
