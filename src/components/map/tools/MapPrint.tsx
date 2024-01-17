@@ -156,7 +156,7 @@ const MapPrint = () => {
             });
 
             overviewLayer.set('id', 'overviewLayer');
-            overviewLayer.setZIndex(1001);
+            overviewLayer.setZIndex(1002);
         }
 
         if (map && !showPrintWindow) {

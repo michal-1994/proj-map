@@ -55,7 +55,7 @@ export const switchMeasurmentTool = (map: Map, type: string): void => {
             createMeasurmentResultStyle
         );
         map.addLayer(measurmentLayer);
-        measurmentLayer.setZIndex(998);
+        measurmentLayer.setZIndex(1001);
         measurmentLayer.set('id', 'measurmentLayer');
     }
 
