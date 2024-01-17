@@ -1,5 +1,11 @@
+.sidebar-layers {
+    height: calc(100vh - 152px - 2rem) !important;
+    overflow-y: auto;
+}
+
 .sidebar-layers label {
     user-select: none;
+    max-width: 100px;
 }
 
 .sidebar-layers .form-check {
