@@ -29,8 +29,8 @@ const ToolButton: React.FC<ToolProps> = ({ id }) => {
         useToolContext();
     const { map } = useMapContext();
 
-    const handleClick = (id: string, type?: string) => {
-        switch (id) {
+    const handleClick = (toolId: string, type?: string) => {
+        switch (toolId) {
             case DEFAULT_CURSOR:
                 if (map) {
                     removeInteraction(map, Draw);

@@ -12,15 +12,15 @@ interface MapContextProps {
     isMinimap: boolean;
     toggleMinimap: () => void;
     layers: LayerProps[];
-    switchLayer: (id: string) => void;
-    removeLayer: (id: string) => void;
+    switchLayer: (layerId: string) => void;
+    removeLayer: (layerId: string) => void;
     addLayer: (layer: LayerProps) => void;
-    moveLayer: (id: string, direction: number) => void;
-    changeOpacityLayer: (id: string, value: number) => void;
+    moveLayer: (layerId: string, direction: number) => void;
+    changeOpacityLayer: (layerId: string, value: number) => void;
     selectAll: boolean;
     updateAllLayers: (value: boolean) => void;
     baseLayers: BaseLayerProps[];
-    updateBaseLayers: (id: string) => void;
+    updateBaseLayers: (layerId: string) => void;
 }
 
 const MapContext = createContext<MapContextProps | undefined>(undefined);
@@ -45,9 +45,9 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         setIsMinimap(prevIsMinimap => !prevIsMinimap);
     };
 
-    const switchLayer = (id: string) => {
+    const switchLayer = (layerId: string) => {
         const updatedLayers = layers.map(layer => {
-            return layer.id === id
+            return layer.id === layerId
                 ? { ...layer, enable: !layer.enable }
                 : layer;
         });
@@ -56,12 +56,12 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         setLayers(updatedLayers);
     };
 
-    const removeLayer = (id: string) => {
-        const updatedLayers = layers.filter(layer => layer.id !== id);
+    const removeLayer = (layerId: string) => {
+        const updatedLayers = layers.filter(layer => layer.id !== layerId);
         setLayers(updatedLayers);
 
         if (map) {
-            removeLayerById(map, id);
+            removeLayerById(map, layerId);
         }
     };
 
@@ -93,9 +93,9 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         }
     };
 
-    const changeOpacityLayer = (id: string, value: number) => {
+    const changeOpacityLayer = (layerId: string, value: number) => {
         const updatedLayers = layers.map(layer => {
-            return layer.id === id ? { ...layer, opacity: value } : layer;
+            return layer.id === layerId ? { ...layer, opacity: value } : layer;
         });
 
         setLayers(updatedLayers);
@@ -111,9 +111,9 @@ export const MapProvider: React.FC<{ children: ReactNode }> = ({
         setLayers(updatedLayers);
     };
 
-    const updateBaseLayers = (id: string) => {
+    const updateBaseLayers = (layerId: string) => {
         const updatedBaseLayers = baseLayers.map(layer =>
-            layer.id === id
+            layer.id === layerId
                 ? { ...layer, enable: true }
                 : { ...layer, enable: false }
         );

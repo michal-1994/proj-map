@@ -99,15 +99,15 @@ export const getFeatures = async (url: string): Promise<any> => {
  * Removes the layer by id from the map, if layerId is equal to measurmentLayer remove tooltips.
  *
  * @param {Map} map - The OpenLayers Map.
- * @param {string} id - The layer id.
+ * @param {string} layerId - The layer id.
  */
-export const removeLayerById = (map: Map, id: string): void => {
+export const removeLayerById = (map: Map, layerId: string): void => {
     getLayers(map).forEach(layer => {
-        const layerId = layer ? layer.get('id') : null;
-        if (layerId === id) {
+        const id = layer ? layer.get('id') : null;
+        if (id === layerId) {
             map?.removeLayer(layer);
         }
-        if (id === 'measurmentLayer') {
+        if (layerId === 'measurmentLayer') {
             for (let tooltip of document.querySelectorAll('.ol-tooltip')) {
                 tooltip.remove();
             }

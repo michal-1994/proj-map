@@ -15,7 +15,7 @@ interface AppContextProps {
     minimapVisibility: boolean;
     toggleMinimapVisibility: () => void;
     tools: ToolProps[];
-    updateTool: (id: string) => void;
+    updateTool: (toolId: string) => void;
     clearLocalStorage: () => void;
 }
 
@@ -54,9 +54,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         setMinimapVisibility(prevMinimap => !prevMinimap);
     };
 
-    const updateTool = (id: string) => {
+    const updateTool = (toolId: string) => {
         const updatedTools = tools.map(tool =>
-            tool.id === id ? { ...tool, enable: !tool.enable } : tool
+            tool.id === toolId ? { ...tool, enable: !tool.enable } : tool
         );
 
         setTools(updatedTools);
