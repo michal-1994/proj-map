@@ -9,7 +9,7 @@
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "prettier": "npx prettier --write .",
-        "predeploy": "npm run build --base-href=/proj-map/",
+        "predeploy": "npm run test && npm run build --base-href=/proj-map/",
         "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d dist/",
         "postdeploy": "echo 'Deploy finished successful'",
         "test": "jest --config jest.config.cjs"
