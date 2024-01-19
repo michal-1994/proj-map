@@ -11,7 +11,8 @@
         "prettier": "npx prettier --write .",
         "predeploy": "npm run build --base-href=/proj-map/",
         "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d dist/",
-        "postdeploy": "echo 'Deploy finished successful'"
+        "postdeploy": "echo 'Deploy finished successful'",
+        "test": "jest --config jest.config.cjs"
     },
     "dependencies": {
         "html2canvas": "^1.4.1",
@@ -25,6 +26,9 @@
         "react-spinners": "^0.13.8"
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^6.2.0",
+        "@testing-library/react": "^14.1.2",
+        "@types/jest": "^29.5.11",
         "@types/react": "^18.2.37",
         "@types/react-dom": "^18.2.15",
         "@typescript-eslint/eslint-plugin": "^6.10.0",
@@ -36,8 +40,12 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.4",
         "gh-pages": "^6.1.0",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
         "prettier": "3.1.0",
         "react-bootstrap": "^2.9.1",
+        "ts-jest": "^29.1.1",
         "typescript": "^5.2.2",
         "vite": "^5.0.0"
     }
