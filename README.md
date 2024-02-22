@@ -31,7 +31,7 @@ Map application that allows easy viewing of interactive maps, access to geospati
 To get started with the Geoportal App, follow these simple steps:
 
 ```bash
-git clone [https://github.com/michal-1994/board-app.git](https://github.com/michal-1994/proj-map.git)
+git clone https://github.com/michal-1994/proj-map.git
 cd proj-map
 npm install
 npm run dev
