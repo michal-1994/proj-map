@@ -1,7 +1,7 @@
 # <div align="center">Geoportal</div>
 
 <div align="center">
-  <img src="/public/vite.svg" alt="Vite" title="Vite" style="height: 100px;">
+  <img src="/public/vite.svg" alt="Vite" title="Vite" style="height: 40px;">
 </div>
 
 1. [Introdution](#introdution)
